@@ -11,7 +11,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    line-height: 1.6;
+    line-height: 2.6;
     color: #333;
     background-color: #f4f4f4;
 }
@@ -49,7 +49,7 @@ a:hover {
 }
 
 .main-header .logo img {
-    height: 50px; /* Adjust the logo size as needed */
+    height: 10px; /* Adjust the logo size as needed */
 }
 
 .main-nav ul {
@@ -58,7 +58,7 @@ a:hover {
 }
 
 .main-nav ul li {
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
 .main-nav ul li a {
@@ -83,11 +83,11 @@ a:hover {
     background-color: #2c3e50; /* Fallback color */
     color: #fff;
     text-align: center;
-    padding: 100px 20px;
+    padding: 50px 10px;
 }
 
 .hero h1 {
-    font-size: 3em;
+    font-size: 5em;
     margin-bottom: 10px;
     color: #fff;
 }
@@ -95,7 +95,7 @@ a:hover {
 .hero p {
     font-size: 1.2em;
     max-width: 600px;
-    margin: 0 auto 20px;
+    margin: 0 auto 10px;
     color: #f0f0f0;
 }
 
@@ -245,7 +245,7 @@ a:hover {
    Responsive Design
    ========================================================================== */
 
-@media (max-width: 768px) {
+@media (max-width: 100px) {
     .main-header {
         flex-direction: column;
     }
@@ -285,8 +285,8 @@ a:hover {
 }
 
 .about-hero p {
-    font-size: 1.1em;
-    max-width: 700px;
+    font-size: 1.5em;
+    max-width: 500px;
     margin: 10px auto 0;
 }
 
@@ -303,7 +303,7 @@ a:hover {
 
 .mission p, .story p {
     text-align: center;
-    max-width: 800px;
+    max-width: 500px;
     margin: 0 auto 15px;
 }
 
@@ -315,14 +315,14 @@ a:hover {
 }
 
 .story-image {
-    width: 300px;
+    width: 100px;
     height: auto;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Responsive styles for the About page */
-@media (max-width: 768px) {
+@media (max-width: 100px) {
     .story-content {
         flex-direction: column;
         text-align: center;
@@ -531,7 +531,7 @@ a:hover {
 }
 
 /* Responsive styles for the Blog page */
-@media (max-width: 992px) {
+@media (max-width: 150px) {
     .blog-grid {
         grid-template-columns: 1fr;
     }
@@ -539,8 +539,8 @@ a:hover {
         flex-direction: column;
     }
     .blog-post img {
-        width: 100%;
-        height: 250px;
+        width: 90%;
+        height: 200px;
     }
 }
 /* Add these styles to your style.css file */
@@ -636,7 +636,7 @@ a:hover {
     color: #2c3e50;
 }
 /* Responsive styles for the Contact page */
-@media (max-width: 768px) {
+@media (max-width: 100px) {
     .contact-grid {
         grid-template-columns: 1fr;
     }
