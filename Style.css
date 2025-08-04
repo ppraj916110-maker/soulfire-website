@@ -4,7 +4,7 @@
 
 /* Basic reset and box-sizing for consistent layout */
 * {
-    margin: 3px auto;
+    margin: 2px auto;
     padding: 2px auto;
     box-sizing: border-box;
 }
@@ -27,7 +27,7 @@ h1, h2, h3 {
 }
 
 a {
-    text-decoration: none;
+    text-decoration: bold;
     color: #3498db; /* A blue that complements the logo */
 }
 
@@ -54,11 +54,11 @@ a:hover {
 
 .main-nav ul {
     display: flex;
-    list-style: none;
+    list-style: decimal;
 }
 
 .main-nav ul li {
-    margin-left: 20px;
+    margin-left: 2px auto;
 }
 
 .main-nav ul li a {
@@ -88,7 +88,7 @@ a:hover {
 
 .hero h1 {
     font-size: 3em;
-    margin-bottom: 10px;
+    margin-bottom: 2px auto;
     color: #fff;
 }
 
@@ -275,7 +275,7 @@ a:hover {
 
 /* Basic styling for all unordered lists */
 ul {
-    list-style: none; /* Removes default bullet points */
+    list-style: decimal; /* Removes default bullet points */
     margin: 0;
     padding: 0;
 }
@@ -294,7 +294,7 @@ li {
 
 /* A specific style for a list with custom icons or checkmarks */
 .custom-list {
-    list-style: none;
+    list-style: decimal;
     margin: 20px 0;
     padding: 0;
 }
