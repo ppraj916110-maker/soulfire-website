@@ -7,7 +7,7 @@
 
   <meta name="description" content="Learn stock trading with expert-led courses, structured learning modules, and community support. Join Trading Ek Mission today.">
 
-  <link rel="stylesheet" href="Style.css" />
+  <link rel="stylesheet" href="style.css" />
 
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -15,10 +15,10 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8870960298045491" crossorigin="anonymous"></script>
 </head>
 <body>
-
   <header class="header">
     <div class="title-bar">
-      <span class="close" title="Close">&#10005;</span>
+      <span class="menu-toggle" title="Open">&#9776;</span>
+      <span class="close" title="Close" style="display: none">&#10005;</span>
       <span class="page-title">Menu</span>
     </div>
     <nav class="menu">
@@ -36,40 +36,41 @@
       </div>
     </nav>
   </header>
+
   <main>
-              <div class="hero-content">
-                <h1>Our Mission: Empowering Traders</h1>
-                <p>Learn about our journey, our values, and our commitment to your financial education.</p>
-            </div>
-        </section>
+    <div class="hero-content">
+      <h1>Our Mission: Empowering Traders</h1>
+      <p>Learn about our journey, our values, and our commitment to your financial education.</p>
+    </div>
 
-        <section class="mission">
-            <div class="container">
-                <h2>Our Mission & Vision</h2>
-                <p>At tradingekmission, our mission is to demystify the stock market and provide accessible, high-quality education to aspiring traders. We believe that with the right knowledge and tools, anyone can navigate the complexities of financial markets with confidence. Our vision is to build a global community of skilled and responsible traders who are empowered to achieve their financial goals.</p>
-                <p>We are dedicated to providing a comprehensive curriculum, practical insights, and ongoing support to ensure our students not only learn but also succeed in the real world of trading.</p>
-            </div>
-        </section>
+    <section class="mission">
+      <div class="container">
+        <h2>Our Mission & Vision</h2>
+        <p>At tradingekmission, our mission is to demystify the stock market and provide accessible, high-quality education to aspiring traders. We believe that with the right knowledge and tools, anyone can navigate the complexities of financial markets with confidence. Our vision is to build a global community of skilled and responsible traders who are empowered to achieve their financial goals.</p>
+        <p>We are dedicated to providing a comprehensive curriculum, practical insights, and ongoing support to ensure our students not only learn but also succeed in the real world of trading.</p>
+      </div>
+    </section>
 
-        <section class="story">
-            <div class="container">
-                <h2>Our Story</h2>
-                <div class="story-content">
-                    <img src="Expert.png" alt="Our Story" class="story-image">
-                    <p>Founded by a group of passionate market analysts and educators, tradingekmission was born out of the need for a reliable and unbiased platform for stock market learning. We noticed that many people were intimidated by the market jargon and risk, so we set out to create a learning environment that is both engaging and easy to understand.</p>
-                    <p>Our journey began with a single course and a small community, which has since grown into a comprehensive platform offering a wide range of courses, from beginner basics to advanced strategies. We are constantly evolving to stay ahead of market trends and provide the most relevant education to our students.</p>
-                </div>
-            </div>
-        </section>
+    <section class="story">
+      <div class="container">
+        <h2>Our Story</h2>
+        <div class="story-content">
+          <img src="Expert.png" alt="Our Story" class="story-image">
+          <p>Founded by a group of passionate market analysts and educators, tradingekmission was born out of the need for a reliable and unbiased platform for stock market learning. We noticed that many people were intimidated by the market jargon and risk, so we set out to create a learning environment that is both engaging and easy to understand.</p>
+          <p>Our journey began with a single course and a small community, which has since grown into a comprehensive platform offering a wide range of courses, from beginner basics to advanced strategies. We are constantly evolving to stay ahead of market trends and provide the most relevant education to our students.</p>
+        </div>
+      </div>
+    </section>
 
-        <section class="call-to-action">
-            <div class="cta-content">
-                <h2>Ready to Start Your Trading Journey?</h2>
-                <p>Sign up today and get access to our exclusive free starter course!</p>
-                <a href="signup.html" class="cta-button secondary">Join Now</a>
-            </div>
-        </section>
+    <section class="call-to-action">
+      <div class="cta-content">
+        <h2>Ready to Start Your Trading Journey?</h2>
+        <p>Sign up today and get access to our exclusive free starter course!</p>
+        <a href="signup.html" class="cta-button secondary">Join Now</a>
+      </div>
+    </section>
   </main>
+
   <footer class="main-footer">
     <div class="container">
       <div class="footer-content">
@@ -89,10 +90,21 @@
   </footer>
 
   <script>
-    document.querySelector('.close').addEventListener('click', function () {
-      document.querySelector('.title-bar').style.display = 'none';
+    const toggle = document.querySelector('.menu-toggle');
+    const closeBtn = document.querySelector('.close');
+    const menu = document.querySelector('.menu');
+
+    toggle.addEventListener('click', () => {
+      menu.classList.add('show');
+      toggle.style.display = 'none';
+      closeBtn.style.display = 'inline';
+    });
+
+    closeBtn.addEventListener('click', () => {
+      menu.classList.remove('show');
+      toggle.style.display = 'inline';
+      closeBtn.style.display = 'none';
     });
   </script>
-
 </body>
 </html>
