@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // If the form is valid, you can proceed to submit it
         if (isFormValid) {
-            alert('Form submitted successfully! (This would be sent to the server)');
+            alert('Form submitted successfully!');
             // In a real application, you would use form.submit() or an AJAX request here
             // form.submit();
         }
