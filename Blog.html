@@ -1,115 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - tradingekmission</title>
-    <link rel="stylesheet" href="Style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="description" content="TradingEkMission Blog - Latest market insights, tips, and educational content from experts." />
+  <title>Blog - TradingEkMission</title>
+  <link rel="stylesheet" href="Style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script defer src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', () => {
+      AOS.init();
+    });
+  </script>
 </head>
 <body>
+  <header class="main-header">
+    <div class="logo">
+      <img src="logo.png" alt="TradingEkMission Logo" />
+    </div>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="About.html">About Us</a></li>
+        <li><a href="Courses.html">Courses</a></li>
+        <li><a href="Blog.html" class="active">Blog</a></li>
+        <li><a href="Contacts.html">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <header class="main-header">
-        <div class="logo">
-            <img src="logo.png" alt="tradingekmission Logo">
+  <main>
+    <section class="blog-hero" data-aos="fade-up">
+      <div class="hero-content">
+        <h1>Insights from Our Experts</h1>
+        <p>Stay up-to-date with the latest market trends, trading tips, and educational articles.</p>
+      </div>
+    </section>
+
+    <section class="blog-content">
+      <div class="container blog-grid">
+        <div class="posts-list">
+          <article class="blog-post" data-aos="fade-up">
+            <img src="Expert.png" alt="Blog Post Image" />
+            <div class="post-info">
+              <h2>The Importance of a Trading Plan</h2>
+              <p class="post-meta">By <strong>Rajkumar Prajapati</strong> | August 1, 2025</p>
+              <p>Learn why having a structured trading plan is crucial for success and how to create one that fits your goals and risk tolerance.</p>
+              <a href="https://www.youtube.com/@TradingEkMission.online" class="read-more" target="_blank">Read More &rarr;</a>
+            </div>
+          </article>
+
+          <article class="blog-post" data-aos="fade-up" data-aos-delay="100">
+            <img src="Expert.png" alt="Blog Post Image" />
+            <div class="post-info">
+              <h2>5 Common Mistakes New Traders Make</h2>
+              <p class="post-meta">By <strong>Rajkumar Prajapati</strong> | July 25, 2025</p>
+              <p>Avoid these costly pitfalls by learning from the mistakes of others. We cover everything from emotional trading to overleveraging.</p>
+              <a href="https://www.youtube.com/@TradingEkMission.online" class="read-more" target="_blank">Read More &rarr;</a>
+            </div>
+          </article>
+
+          <article class="blog-post" data-aos="fade-up" data-aos-delay="200">
+            <img src="Expert.png" alt="Blog Post Image" />
+            <div class="post-info">
+              <h2>Understanding Market Cycles: A Beginner's Guide</h2>
+              <p class="post-meta">By <strong>Rajkumar Prajapati</strong> | July 18, 2025</p>
+              <p>The market doesn't just go up and down. We explain the four main phases of a market cycle and how to identify them.</p>
+              <a href="https://www.youtube.com/@TradingEkMission.online" class="read-more" target="_blank">Read More &rarr;</a>
+            </div>
+          </article>
         </div>
-        <nav class="main-nav">
+
+        <aside class="blog-sidebar" data-aos="fade-left">
+          <div class="sidebar-widget">
+            <h3>Categories</h3>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="About.html">About Us</a></li>
-                <li><a href="Courses.html">Courses</a></li>
-                <li><a href="Blog.html" class="active">Blog</a></li>
-                <li><a href="Contacts.html">Contact Us</a></li>
+              <li><a href="#">Trading Psychology</a></li>
+              <li><a href="#">Technical Analysis</a></li>
+              <li><a href="#">Fundamental Analysis</a></li>
+              <li><a href="#">Market News</a></li>
             </ul>
-        </nav>
-    </header>
+          </div>
 
-    <main>
-        <section class="blog-hero">
-            <div class="hero-content">
-                <h1>Insights from Our Experts</h1>
-                <p>Stay up-to-date with the latest market trends, trading tips, and educational articles.</p>
-            </div>
-        </section>
+          <div class="sidebar-widget">
+            <h3>Recent Posts</h3>
+            <ul>
+              <li><a href="#">The Power of Compounding</a></li>
+              <li><a href="#">Options Trading 101</a></li>
+              <li><a href="#">Best Apps for Charting</a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
 
-        <section class="blog-content">
-            <div class="container">
-                <div class="blog-grid">
-                    <div class="posts-list">
-                        <article class="blog-post">
-                            <img src="Expert.png" alt="Blog Post Image">
-                            <div class="post-info">
-                                <h2>The Importance of a Trading Plan</h2>
-                                <p class="post-meta">By **Rajkumar Prajapati** | August 1, 2025</p>
-                                <p>Learn why having a structured trading plan is crucial for success and how to create one that fits your goals and risk tolerance.</p>
-                                <a href="https://www.youtube.com/@TradingEkMission.online?si=dMmNydzeJxceRm07" class="read-more">Read More &rarr;</a>
-                            </div>
-                        </article>
-
-                        <article class="blog-post">
-                            <img src="Expert.png" alt="Blog Post Image">
-                            <div class="post-info">
-                                <h2>5 Common Mistakes New Traders Make</h2>
-                                <p class="post-meta">By **Rajkumar Prajapati** | July 25, 2025</p>
-                                <p>Avoid these costly pitfalls by learning from the mistakes of others. We cover everything from emotional trading to overleveraging.</p>
-                                <a href="https://www.youtube.com/@TradingEkMission.online?si=dMmNydzeJxceRm07" class="read-more">Read More &rarr;</a>
-                            </div>
-                        </article>
-                        
-                        <article class="blog-post">
-                            <img src="Expert.png" alt="Blog Post Image">
-                            <div class="post-info">
-                                <h2>Understanding Market Cycles: A Beginner's Guide</h2>
-                                <p class="post-meta">By **Rajkumar Prajapati** | July 18, 2025</p>
-                                <p>The market doesn't just go up and down. We explain the four main phases of a market cycle and how to identify them.</p>
-                                <a href="https://www.youtube.com/@TradingEkMission.online?si=dMmNydzeJxceRm07" class="read-more">Read More &rarr;</a>
-                            </div>
-                        </article>
-                    </div>
-                    
-                    <aside class="blog-sidebar">
-                        <div class="sidebar-widget">
-                            <h3>Categories</h3>
-                            <ul>
-                                <li><a href="https://www.youtube.com/@TradingEkMission.online?si=dMmNydzeJxceRm07">Trading Psychology (3)</a></li>
-                                <li><a href="https://www.youtube.com/@TradingEkMission.online?si=dMmNydzeJxceRm07">Technical Analysis (5)</a></li>
-                                <li><a href="https://www.youtube.com/@TradingEkMission.online?si=dMmNydzeJxceRm07">Fundamental Analysis (2)</a></li>
-                                <li><a href="https://www.youtube.com/@TradingEkMission.online?si=dMmNydzeJxceRm07">Market News (7)</a></li>
-                            </ul>
-                        </div>
-                        <div class="sidebar-widget">
-                            <h3>Recent Posts</h3>
-                            <ul>
-                                <li><a href="https://www.youtube.com/@TradingEkMission.online?si=dMmNydzeJxceRm07">The Power of Compounding</a></li>
-                                <li><a href="https://www.youtube.com/@TradingEkMission.online?si=dMmNydzeJxceRm07">Options Trading 101</a></li>
-                                <li><a href="https://www.youtube.com/@TradingEkMission.online?si=dMmNydzeJxceRm07">Best Apps for Charting</a></li>
-                            </ul>
-                        </div>
-                    </aside>
-                </div>
-            </div>
-        </section>
-    </main>
-    <footer class="main-footer">
-        <div class="footer-content">
-            <div class="footer-links">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="About.html">About Us</a></li>
-                    <li><a href="Courses.html">Courses</a></li>
-                    <li><a href="Blog.html">Blog</a></li>
-                    <li><a href="Contacts.html">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="social-media">
-                <h1>Follow Us</h1>
-                <a href="https://www.instagram.com/cre_ative_art00?utm_source=qr&igsh=N2F2aWd3aHd5M2di" class="social-icon">Instagram</a>
-                <a href="https://www.youtube.com/@TradingEkMission.online?si=dMmNydzeJxceRm07" class="social-icon">YouTube</a>
-                <a href="https://whatsapp.com/channel/0029Va9GrLEEwEjuAt29a83b" class="social-icon">WhatsApp</a>
-            </div>
-        </div>
-        <div class="copyright">
-            <p>&copy; 2025 tradingekmission. All Rights Reserved.</p>
-        </div>
-    </footer>
+  <footer class="main-footer" data-aos="fade-up">
+    <div class="footer-content">
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="About.html">About Us</a></li>
+          <li><a href="Courses.html">Courses</a></li>
+          <li><a href="Blog.html">Blog</a></li>
+          <li><a href="Contacts.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="social-media">
+        <h3>Follow Us</h3>
+        <a href="https://www.instagram.com/cre_ative_art00" class="social-icon" target="_blank">Instagram</a>
+        <a href="https://www.youtube.com/@TradingEkMission.online" class="social-icon" target="_blank">YouTube</a>
+        <a href="https://whatsapp.com/channel/0029Va9GrLEEwEjuAt29a83b" class="social-icon" target="_blank">WhatsApp</a>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2025 TradingEkMission. All Rights Reserved.</p>
+    </div>
+  </footer>
 </body>
 </html>
