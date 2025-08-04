@@ -4,8 +4,8 @@
 
 /* Basic reset and box-sizing for consistent layout */
 * {
-    margin: 2px auto;
-    padding: 2px auto;
+    margin: 0 auto;
+    padding: 0 auto;
     box-sizing: border-box;
 }
 
@@ -18,8 +18,8 @@ body {
 
 .container {
     max-width: 1100px;
-    margin: 2px auto;
-    padding: 1px 20px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 h1, h2, h3 {
@@ -27,12 +27,12 @@ h1, h2, h3 {
 }
 
 a {
-    text-decoration: bold;
+    text-decoration: none;
     color: #3498db; /* A blue that complements the logo */
 }
 
 a:hover {
-    text-decoration: bold;
+    text-decoration: underline;
 }
 
 /* ==========================================================================
@@ -45,11 +45,11 @@ a:hover {
     align-items: center;
     padding: 10px 20px;
     background-color: #fff;
-    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .main-header .logo img {
-    height: 40px; /* Adjust the logo size as needed */
+    height: 50px; /* Adjust the logo size as needed */
 }
 
 .main-nav ul {
@@ -58,14 +58,14 @@ a:hover {
 }
 
 .main-nav ul li {
-    margin-left: 5px;
+    margin-left: 20px;
 }
 
 .main-nav ul li a {
     color: #555;
     font-weight: bold;
     padding: 5px 10px;
-    transition: color 0.5s ease;
+    transition: color 0.3s ease;
 }
 
 .main-nav ul li a:hover,
@@ -77,136 +77,6 @@ a:hover {
 /* ==========================================================================
    Hero Section
    ========================================================================== */
-   /* Add these styles to your style.css file */
-
-/* Blog Page Hero Section */
-.blog-hero {
-    background-color: #34495e;
-    color: #fff;
-    text-align: center;
-    padding: 60px 20px;
-}
-
-.blog-hero h1 {
-    font-size: 2.0em;
-    color: #fff;
-}
-
-.blog-hero p {
-    font-size: 1.5em;
-    max-width: 700px;
-    margin: 10px auto 0;
-}
-
-/* Blog Content Section */
-.blog-content {
-    padding: 50px 0;
-}
-
-.blog-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 20px;
-}
-
-/* Posts List */
-.posts-list {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-.blog-post {
-    display: flex;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.5s ease;
-}
-
-.blog-post:hover {
-    transform: translateY(-5px);
-}
-
-.blog-post img {
-    width: 500px;
-    height: 100%;
-    object-fit: cover;
-}
-
-.post-info {
-    padding: 20px;
-}
-
-.post-info h2 {
-    font-size: 2.0em;
-    margin-bottom: 5px;
-    color: #3498db;
-}
-
-.post-meta {
-    font-size: 1.0em;
-    color: #888;
-    margin-bottom: 15px;
-}
-
-.read-more {
-    display: inline-block;
-    color: #e74c3c;
-    font-weight: bold;
-    margin-top: 15px;
-}
-
-/* Sidebar */
-.blog-sidebar {
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.sidebar-widget {
-    margin-bottom: 20px;
-}
-
-.sidebar-widget h3 {
-    font-size: 1.5em;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #f0f0f0;
-    padding-bottom: 5px;
-}
-
-.sidebar-widget ul {
-    list-style: none;
-}
-
-.sidebar-widget ul li {
-    margin-bottom: 10px;
-}
-
-.sidebar-widget a {
-    color: #555;
-    transition: color 0.3s ease;
-}
-
-.sidebar-widget a:hover {
-    color: #3498db;
-}
-
-/* Responsive styles for the Blog page */
-@media (max-width: 992px) {
-    .blog-grid {
-        grid-template-columns: 1fr;
-    }
-    .blog-post {
-        flex-direction: column;
-    }
-    .blog-post img {
-        width: 100%;
-        height: 200px;
-    }
-}
 
 .hero {
     background: url('hero-bg.jpg') no-repeat center center/cover; /* Replace with a suitable background image */
@@ -243,7 +113,7 @@ a:hover {
 
 .cta-button:hover {
     background-color: #27ae60;
-    text-decoration: bold;
+    text-decoration: none;
 }
 
 /* ==========================================================================
@@ -358,17 +228,17 @@ a:hover {
 
 .footer-links a:hover, .social-media a:hover {
     color: #3498db;
-    text-decoration: bold;
+    text-decoration: none;
 }
 
 .social-media a {
     margin: 0 10px;
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
 
 .copyright {
     border-top: 1px solid #444;
-    padding-top: 10px;
+    padding-top: 20px;
 }
 
 /* ==========================================================================
@@ -399,6 +269,68 @@ a:hover {
         align-items: center;
     }
 }
+/* ==========================================================================
+   List Styles
+   ========================================================================== */
+
+/* Basic styling for all unordered lists */
+ul {
+    list-style: none; /* Removes default bullet points */
+    margin: 0;
+    padding: 0;
+}
+
+/* Basic styling for all ordered lists */
+ol {
+    margin: 0;
+    padding-left: 20px;
+}
+
+/* Styling for list items */
+li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+/* A specific style for a list with custom icons or checkmarks */
+.custom-list {
+    list-style: none;
+    margin: 20px 0;
+    padding: 0;
+}
+
+.custom-list li {
+    position: relative; /* Needed to position the pseudo-element */
+    padding-left: 30px; /* Space for the custom bullet */
+    margin-bottom: 15px;
+}
+
+/* Creates a custom bullet point using a pseudo-element */
+.custom-list li::before {
+    content: '✓'; /* You can use any character or icon here */
+    color: #2ecc71; /* A green color that matches your CTA button */
+    font-weight: bold;
+    font-size: 1.2em;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+/* You can also use an image for the bullet point */
+/*
+.custom-list li::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url('check-icon.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+*/
 /* Add these styles to your style.css file */
 
 /* About Page Hero Section */
@@ -455,7 +387,222 @@ a:hover {
 @media (max-width: 768px) {
     .story-content {
         flex-direction: column;
-        text-align: left;
+        text-align: center;
+    }
+}
+/* Add these styles to your style.css file */
+
+/* Courses Page Hero Section */
+.courses-hero {
+    background-color: #34495e;
+    color: #fff;
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.courses-hero h1 {
+    font-size: 2.5em;
+    color: #fff;
+}
+
+.courses-hero p {
+    font-size: 1.1em;
+    max-width: 700px;
+    margin: 10px auto 0;
+}
+
+/* Course Catalog Section */
+.course-catalog {
+    padding: 50px 0;
+    text-align: center;
+}
+
+.course-catalog h2 {
+    font-size: 2.5em;
+    margin-bottom: 40px;
+}
+
+.course-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.course-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: left;
+    transition: transform 0.3s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+}
+
+.course-card img {
+    width: 100%;
+    height: 200px; /* Fixed height for image consistency */
+    object-fit: cover;
+}
+
+.course-card .card-content {
+    padding: 20px;
+}
+
+.course-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #3498db;
+}
+
+.course-card p {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.course-level {
+    display: block;
+    background-color: #f0f0f0;
+    color: #555;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    margin-bottom: 20px;
+    width: fit-content;
+}
+/* Add these styles to your style.css file */
+
+/* Blog Page Hero Section */
+.blog-hero {
+    background-color: #34495e;
+    color: #fff;
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.blog-hero h1 {
+    font-size: 2.5em;
+    color: #fff;
+}
+
+.blog-hero p {
+    font-size: 1.1em;
+    max-width: 700px;
+    margin: 10px auto 0;
+}
+
+/* Blog Content Section */
+.blog-content {
+    padding: 50px 0;
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+}
+
+/* Posts List */
+.posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.blog-post {
+    display: flex;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.blog-post:hover {
+    transform: translateY(-5px);
+}
+
+.blog-post img {
+    width: 250px;
+    height: 100%;
+    object-fit: cover;
+}
+
+.post-info {
+    padding: 20px;
+}
+
+.post-info h2 {
+    font-size: 1.8em;
+    margin-bottom: 5px;
+    color: #3498db;
+}
+
+.post-meta {
+    font-size: 0.9em;
+    color: #888;
+    margin-bottom: 15px;
+}
+
+.read-more {
+    display: inline-block;
+    color: #e74c3c;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+/* Sidebar */
+.blog-sidebar {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-widget {
+    margin-bottom: 100px;
+}
+
+.sidebar-widget h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 5px;
+}
+
+.sidebar-widget ul {
+    list-style: none;
+}
+
+.sidebar-widget ul li {
+    margin-bottom: 50px;
+}
+
+.sidebar-widget a {
+    color: #555;
+    transition: color 0.3s ease;
+}
+
+.sidebar-widget a:hover {
+    color: #3498db;
+}
+
+/* Responsive styles for the Blog page */
+@media (max-width: 992px) {
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+    .blog-post {
+        flex-direction: column;
+    }
+    .blog-post img {
+        width: 100%;
+        height: 250px;
     }
 }
 /* Add these styles to your style.css file */
@@ -560,18 +707,6 @@ a:hover {
     .contact-grid {
         grid-template-columns: 1fr;
     }
-}
-
-@media (max-width: 768px) {
-  #menu-toggle {
-    display: block;
-    background: #3498db;
-    color: #fff;
-    border: none;
-    font-size: 1.5em;
-    padding: 10px;
-    margin-top: 10px;
-  }
 }
 /* Basic reset and font styles */
 body {
