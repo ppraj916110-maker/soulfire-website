@@ -4,8 +4,8 @@
 
 /* Basic reset and box-sizing for consistent layout */
 * {
-    margin: 0;
-    padding: 0;
+    margin: auto;
+    padding: auto;
     box-sizing: border-box;
 }
 
@@ -40,25 +40,29 @@ a:hover {
    ========================================================================== */
 
 .main-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   margin-top:0 auto;
+   padding: 10px 20px;
+   background-color: #fff;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .main-header .logo img {
-    height: 50px; /* Adjust the logo size as needed */
+    height: 20px; /* Adjust the logo size as needed */
 }
 
 .main-nav ul {
-    display: flex;
-    list-style: none;
+   display: flex;
+   flex-direction: row;
+   margin: auto;
+   list-style: none;
 }
 
 .main-nav ul li {
-    margin-left: 20px;
+    margin-left: 50px;
 }
 
 .main-nav ul li a {
@@ -79,16 +83,16 @@ a:hover {
    ========================================================================== */
 
 .hero {
-    background: url('logo.png') no-repeat center center/cover; /* Replace with a suitable background image */
+    background: url('hero-bg.jpg') no-repeat center center/cover; /* Replace with a suitable background image */
     background-color: #2c3e50; /* Fallback color */
     color: #fff;
     text-align: center;
-    padding: 100px 20px;
+    padding: 50px 20px;
 }
 
 .hero h1 {
     font-size: 3em;
-    margin-bottom: 10px;
+    margin-top: 50px;
     color: #fff;
 }
 
@@ -132,11 +136,11 @@ a:hover {
 
 .feature-container {
     display: flex;
-    justify-content: center;
+   flex-direction: column;
+   justify-content: center;
     gap: 30px;
     flex-wrap: wrap;
 }
-
 .feature-item {
     background-color: #fff;
     padding: 30px;
@@ -148,7 +152,7 @@ a:hover {
 
 .feature-item img {
     width: 60px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .feature-item h3 {
@@ -199,9 +203,10 @@ a:hover {
 
 .footer-content {
     display: flex;
-    justify-content: space-around;
+   flex-direction: row;
+   justify-content: space-around;
     flex-wrap: wrap;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .footer-links, .social-media {
@@ -251,8 +256,8 @@ a:hover {
     }
     
     .main-nav ul {
-        flex-direction: column;
-        align-items: left;
+        flex-direction: row;
+        align-items: center;
         margin-top: 50px;
     }
     
