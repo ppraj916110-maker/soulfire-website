@@ -1,118 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta name="google-adsense-account" content="ca-pub-8870960298045491">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Courses - Trading Ek Mission</title>
-  <link rel="stylesheet" href="Style.css" />
-  <script>
-    function toggleMenu() {
-      const nav = document.querySelector(".main-nav ul");
-      nav.classList.toggle("show");
-    }
-  </script>
+  <link rel="stylesheet" href="Style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+  <script defer src="script.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 </head>
-
 <body>
-<header class="header">
-    <div class="title-bar">
-      <span class="close" title="Close">&#10005;</span>
-      <span class="page-title">Menu</span>
-    </div>
-    <nav class="menu">
-      <ul class="parent">
-        <li><a href="index.html" class="active">Home</a><span>&rarr;</span></li>
-        <li><a href="Courses.html">Courses</a><span>&rarr;</span></li>
-        <li><a href="Blog.html">Blog</a><span>&rarr;</span></li>
-        <li><a href="Contacts.html">Contact Us</a><span>&rarr;</span></li>
-        <li><a href="About.html">About Us</a><span>&rarr;</span></li>
+  <header class="header">
+    <div class="title-bar">
+      <span class="close">&times;</span>
+      <span class="page-title">Courses</span>
+      <button class="dark-toggle">🌙</button>
+    </div>
+    <nav class="menu">
+      <ul class="parent">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Courses.html">Courses</a></li>
+        <li><a href="Blog.html">Blog</a></li>
+        <li><a href="Contacts.html">Contact Us</a></li>
+        <li><a href="About.html">About Us</a></li>
       </ul>
-    </nav>
-</header>
+    </nav>
+  </header>
+
   <main>
-    <section class="courses-hero">
-      <div class="hero-content">
-        <h1>Our Comprehensive Course Catalog</h1>
-        <p>Choose from a variety of courses designed to elevate your trading skills, from beginner to advanced.</p>
-      </div>
+    <section data-aos="fade-up">
+      <h2>Explore Our Courses</h2>
+      <p>Choose from beginner to advanced trading programs designed to help you grow.</p>
     </section>
 
-    <section class="course-catalog">
-      <div class="container">
-        <h2>Explore Our Learning Paths</h2>
-        <div class="course-list">
-          <div class="course-card">
-            <div class="card-content">
-              <h3>Beginner's Guide to Stock Trading</h3>
-              <p>An introduction to the stock market, covering fundamental concepts, terminology, and how to place your first trade.</p>
-              <span class="course-level">Level: Beginner</span>
-              <a href="https://www.youtube.com/@TradingEkMission.online" class="cta-button">View Course</a>
-            </div>
-          </div>
-
-          <div class="course-card">
-            <div class="card-content">
-              <h3>Mastering Technical Analysis</h3>
-              <p>Learn to read charts, identify patterns, and use indicators to make informed trading decisions.</p>
-              <span class="course-level">Level: Intermediate</span>
-              <a href="https://www.youtube.com/@TradingEkMission.online" class="cta-button">View Course</a>
-            </div>
-          </div>
-
-          <div class="course-card">
-            <div class="card-content">
-              <h3>Fundamental Analysis for Long-Term Investing</h3>
-              <p>Discover how to evaluate a company's financial health to find undervalued stocks for long-term growth.</p>
-              <span class="course-level">Level: Intermediate</span>
-              <a href="https://www.youtube.com/@TradingEkMission.online" class="cta-button">View Course</a>
-            </div>
-          </div>
-
-          <div class="course-card">
-            <div class="card-content">
-              <h3>Advanced Risk Management Strategies</h3>
-              <p>Protect your capital and maximize profits with proven risk management techniques and portfolio diversification.</p>
-              <span class="course-level">Level: Advanced</span>
-              <a href="https://www.youtube.com/@TradingEkMission.online" class="cta-button">View Course</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="call-to-action">
-      <div class="cta-content">
-        <h2>Can't Find What You're Looking For?</h2>
-        <p>Contact us to discuss personalized learning plans or corporate training.</p>
-        <a href="Contacts.html" class="cta-button secondary">Contact Us</a>
-      </div>
+    <section class="call-to-action" data-aos="zoom-in">
+      <h3>Don't Miss Out!</h3>
+      <p>Enroll now and start learning with our free demo course.</p>
+      <a class="cta-button" href="signup.html">Join Now</a>
     </section>
   </main>
 
   <footer class="main-footer">
     <div class="footer-content">
-      <div class="footer-links">
-        <h3>Quick Links</h3>
-        <ul>
-          <li><a href="About.html">About Us</a></li>
-          <li><a href="Courses.html">Courses</a></li>
-          <li><a href="Blog.html">Blog</a></li>
-          <li><a href="Contacts.html">Contact Us</a></li>
-        </ul>
+      <h3>Follow Us</h3>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/cre_ative_art00" target="_blank">Instagram</a> |
+        <a href="https://youtube.com/@tradingekmission.online" target="_blank">YouTube</a> |
+        <a href="https://whatsapp.com/channel/0029Va9GrLEEwEjuAt29a83b" target="_blank">WhatsApp</a>
       </div>
-      <div class="social-media">
-        <h3>Follow Us</h3>
-        <a href="https://www.instagram.com/cre_ative_art00" class="social-icon">Instagram</a>
-        <a href="https://www.youtube.com/@TradingEkMission.online" class="social-icon">YouTube</a>
-        <a href="https://whatsapp.com/channel/0029Va9GrLEEwEjuAt29a83b" class="social-icon">WhatsApp</a>
-      </div>
-    </div>
-    <div class="copyright">
-      <p>&copy; 2025 Trading Ek Mission. All Rights Reserved.</p>
+      <p style="margin-top:1rem;">&copy; 2025 Trading Ek Mission. All Rights Reserved.</p>
     </div>
   </footer>
 </body>
-
 </html>
