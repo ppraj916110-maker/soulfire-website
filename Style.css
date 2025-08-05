@@ -123,7 +123,7 @@ header.header {
 }
 
 .title-bar {
-  display: flex;
+  display: inline-block;
   justify-content: space-between;
   align-items: center;
   background: #212529;
@@ -178,7 +178,7 @@ nav.menu ul li a {
 }
 
 .feature-grid {
-  display: flex;
+  display: flex-start ;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
@@ -236,7 +236,7 @@ nav.menu ul li a {
 }
 
 .footer-content {
-  display: flex;
+  display: inline-block;
   justify-content: center;
   gap: 40px;
   flex-wrap: wrap;
@@ -277,7 +277,7 @@ nav.menu ul li a {
 /* Responsive */
 @media (max-width: 768px) {
   .feature-grid {
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
   }
 
@@ -287,7 +287,7 @@ nav.menu ul li a {
   }
 
   .footer-content {
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
   }
 }
@@ -430,7 +430,8 @@ body {
 }
 
 .title-bar {
-  display: flex;
+  display: flex-start;
+  flex-direction: row ;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
@@ -466,7 +467,7 @@ body {
 
 .menu ul li {
   margin: 10px 0;
-  display: flex;
+  display: flex-start;
   justify-content: space-between;
 }
 
@@ -513,7 +514,7 @@ section .container {
 }
 
 .story-content {
-  display: flex;
+  display: flex-start;
   flex-wrap: wrap;
   gap: 20px;
   align-items: center;
@@ -624,7 +625,7 @@ a:hover {
   background-color: #111;
   color: #fff;
   padding: 1rem 2rem;
-  display: flex;
+  display: inline-block;
   justify-content: space-between;
   align-items: center;
 }
@@ -635,7 +636,7 @@ a:hover {
 
 .main-nav ul {
   list-style: none;
-  display: flex;
+  display: flex-start;
   gap: 1.5rem;
   padding: 0;
   margin: 0;
@@ -690,8 +691,8 @@ a:hover {
   border-radius: 10px;
   box-shadow: 0 0 10px #ddd;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  display: flex-start;
+  flex-direction: row;
 }
 
 .blog-post img {
@@ -759,7 +760,7 @@ a:hover {
 }
 
 .footer-content {
-  display: flex;
+  display: flex-start;
   flex-wrap: wrap;
   justify-content: space-between;
 }
@@ -791,7 +792,7 @@ a:hover {
 
 @media screen and (max-width: 768px) {
   .blog-grid {
-    flex-direction: column;
+    flex-direction: row;
   }
 }
 /* Base styles */
@@ -813,7 +814,7 @@ body {
   background: #111;
   color: #fff;
   padding: 1rem 2rem;
-  display: flex;
+  display: inline-block;
   justify-content: space-between;
   align-items: center;
   position: relative;
@@ -824,7 +825,7 @@ body {
 }
 
 .menu-toggle {
-  display: none;
+  display: inline-block;
   font-size: 1.8rem;
   background: none;
   color: #fff;
