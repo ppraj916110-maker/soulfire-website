@@ -37,11 +37,11 @@ body {
 }
 /* === Navigation Menu === */
   .menu {
-    display: inline-flex;
+    display: block;
     align-items: baseline;
     flex-direction: row;
     flex-wrap: wrap;
-    align-content: flex-end;
+    align-content: flex-inline;
     justify-content: space-around;
 }
 
