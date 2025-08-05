@@ -37,8 +37,8 @@ body {
 }
 /* === Navigation Menu === */
   .menu {
-    display: block;
-    align-items: baseline;
+    display: flex-inline;
+    align-items: center;
     flex-direction: row;
     flex-wrap: wrap;
     align-content: flex-inline;
