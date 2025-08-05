@@ -1,80 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="google-adsense-account" content="ca-pub-8870960298045491">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trading Ek Mission - Learn the Stock Market</title>
+  <meta name="description" content="Learn stock trading with expert-led courses, structured learning modules, and community support. Join Trading Ek Mission today.">
+  <title>Trading Ek Mission - Learn the Stock Market</title>
 
-  <meta name="description" content="Learn stock trading with expert-led courses, structured learning modules, and community support. Join Trading Ek Mission today.">
+  <link rel="stylesheet" href="Style.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="Style.css" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8870960298045491" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script defer src="script.js"></script>
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8870960298045491" crossorigin="anonymous"></script>
-  <script async custom-element="amp-auto-ads"        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
-  </script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      transition: background 0.5s, color 0.5s;
+    }
+    .dark-mode {
+      background: #121212;
+      color: #eee;
+    }
+    .header, .main-footer {
+      background: linear-gradient(to right, #1e3c72, #2a5298);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    .dark-mode .header, .dark-mode .main-footer {
+      background: #222;
+    }
+    .menu ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .menu a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+    .menu a:hover {
+      color: #ffd700;
+    }
+    .title-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #444;
+      padding: 0.5rem 1rem;
+      color: white;
+      transition: transform 0.3s ease-in-out;
+    }
+    .slide-out {
+      transform: translateY(-100%);
+    }
+    .close {
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+    .call-to-action, .cta-content {
+      text-align: center;
+      background: #ffffff;
+      padding: 2rem;
+      animation: fadeInUp 1s ease-in-out;
+    }
+    .dark-mode .call-to-action {
+      background: #1e1e1e;
+    }
+    .cta-button {
+      background: #1e3c72;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    .cta-button:hover {
+      transform: scale(1.05);
+      background: #16335f;
+    }
+    .custom-list li {
+      padding: 0.5rem 0;
+      font-size: 1.1rem;
+    }
+    @keyframes fadeInUp {
+      0% { transform: translateY(20px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    .dark-toggle {
+      cursor: pointer;
+      font-size: 1.1rem;
+      background: #fff;
+      color: #222;
+      padding: 0.4rem 0.75rem;
+      border: none;
+      border-radius: 20px;
+      float: right;
+      margin: 0.5rem;
+      transition: background 0.3s, color 0.3s;
+    }
+    .dark-mode .dark-toggle {
+      background: #444;
+      color: #fff;
+    }
+  </style>
 </head>
-<body>
-<amp-auto-ads type="adsense"
-        data-ad-client="ca-pub-8870960298045491">
-</amp-auto-ads>
-<header class="header">
-    <div class="title-bar">
-      <span class="close" title="Close">&#10005;</span>
-      <span class="page-title">Menu</span>
-    </div>
-    <nav class="menu">
-      <ul class="parent">
-        <li><a href="index.html" class="active">Home</a><span>&rarr;</span></li>
-        <li><a href="Courses.html">Courses</a><span>&rarr;</span></li>
-        <li><a href="Blog.html">Blog</a><span>&rarr;</span></li>
-        <li><a href="Contacts.html">Contact Us</a><span>&rarr;</span></li>
-        <li><a href="About.html">About Us</a><span>&rarr;</span></li>
-      </ul>
-    </nav>
-</header>
-  <main>
-        <ul class="custom-list">
-          <li>Expert-led courses for all skill levels.</li>
-          <li>Practical, hands-on learning with real-world examples.</li>
-          <li>A supportive community of traders.</li>
-          <li>Lifetime access to course materials.</li>
-        </ul>
-      </div>
-    </section>
-    <section class="call-to-action">
-      <div class="cta-content">
-        <h2>Ready to Start Your Trading Journey?</h2>
-        <p>Sign up today and get access to our exclusive free starter course!</p>
-        <a href="signup.html" class="cta-button secondary">Join Now</a>
-      </div>
-    </section>
-  </main>
-  <footer class="main-footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="social-media">
-          <h3>Follow Us</h3>
-          <div class="social-icons">
-            <a href="https://www.instagram.com/cre_ative_art00?utm_source=qr&igsh=N2F2aWd3aHd5M2di">Instagram</a>
-            <a href="https://youtube.com/@tradingekmission.online?si=dMmNydzeJxceRm07">YouTube</a>
-            <a href="https://whatsapp.com/channel/0029Va9GrLEEwEjuAt29a83b">WhatsApp</a>
-          </div>
-        </div>
-      </div>
-      <div class="copyright">
-        <p>© 2025 Trading Ek Mission. All Rights Reserved.</p>
-      </div>
-    </div>
-  </footer>
 
-  <script>
-    document.querySelector('.close').addEventListener('click', function () {
-      document.querySelector('.title-bar').style.display = 'none';
-    });
-  </script>
+<body>
+  <header class="header">
+    <div class="title-bar">
+      <span class="close" title="Close">&times;</span>
+      <span class="page-title">Menu</span>
+      <button class="dark-toggle" title="Toggle Dark Mode">🌙</button>
+    </div>
+    <nav class="menu">
+      <ul class="parent">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Courses.html">Courses</a></li>
+        <li><a href="Blog.html">Blog</a></li>
+        <li><a href="Contacts.html">Contact Us</a></li>
+        <li><a href="About.html">About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section data-aos="fade-up">
+      <ul class="custom-list">
+        <li>Expert-led courses for all skill levels.</li>
+        <li>Practical, hands-on learning with real-world examples.</li>
+        <li>A supportive community of traders.</li>
+        <li>Lifetime access to course materials.</li>
+      </ul>
+    </section>
+
+    <section class="call-to-action" data-aos="zoom-in">
+      <div class="cta-content">
+        <h2>Ready to Start Your Trading Journey?</h2>
+        <p>Sign up today and get access to our exclusive free starter course!</p>
+        <a href="signup.html" class="cta-button">Join Now</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="main-footer">
+    <div class="footer-content">
+      <h3>Follow Us</h3>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/cre_ative_art00" target="_blank">Instagram</a> |
+        <a href="https://youtube.com/@tradingekmission.online" target="_blank">YouTube</a> |
+        <a href="https://whatsapp.com/channel/0029Va9GrLEEwEjuAt29a83b" target="_blank">WhatsApp</a>
+      </div>
+      <p style="margin-top:1rem;">&copy; 2025 Trading Ek Mission. All Rights Reserved.</p>
+    </div>
+  </footer>
 </body>
 </html>
