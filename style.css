@@ -1,0 +1,184 @@
+/* === Reset === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f9fafc;
+  color: #333;
+  overflow-x: hidden;
+}
+
+/* === Header === */
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo img {
+  height: 48px;
+}
+
+/* === Menu Toggle Button === */
+.menu-toggle {
+  font-size: 2.2rem;
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  display: none;
+  transition: transform 0.3s ease;
+}
+
+.menu-toggle:hover {
+  transform: rotate(90deg);
+}
+
+/* === Slide-In Navigation Menu === */
+.menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 270px;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffffff, #f1f5f9);
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+  padding: 4rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  transition: right 0.4s ease-in-out;
+  z-index: 999;
+}
+
+.menu.active {
+  right: 0;
+}
+
+/* === Menu Links === */
+.menu ul {
+  list-style: none;
+  width: 100%;
+}
+
+.menu ul li {
+  margin-bottom: 1.5rem;
+}
+
+.menu ul li a {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #333;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.3s ease;
+}
+
+.menu ul li a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #0077cc;
+  transition: width 0.3s;
+}
+
+.menu ul li a:hover::after {
+  width: 100%;
+}
+
+.menu ul li a:hover {
+  color: #0077cc;
+}
+
+/* === Social Icons in Slide Menu === */
+.slide-menu-icons {
+  margin-top: auto;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  padding-top: 1.5rem;
+}
+
+.slide-menu-icons a {
+  display: block;
+  margin-bottom: 1rem;
+  color: #666;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.slide-menu-icons a:hover {
+  color: #0077cc;
+}
+
+/* === Main Content Area === */
+.content-area {
+  padding: 2rem;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === Call to Action === */
+.call-to-action {
+  margin-top: 3rem;
+  background: linear-gradient(to right, #e0f7fa, #e3f2fd);
+  padding: 2rem;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+}
+
+.cta-button {
+  margin-top: 1.2rem;
+  background-color: #0077cc;
+  color: #fff;
+  padding: 0.8rem 1.8rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #005fa3;
+}
+
+/* === Footer === */
+.main-footer {
+  background-color: #111;
+  color: #fff;
+  padding: 2rem 1rem;
+  text-align: center;
+  margin-top: 4rem;
+  font-size: 0.95rem;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .menu {
+    width: 80%;
+  }
+}
