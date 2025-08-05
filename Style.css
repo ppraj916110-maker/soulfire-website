@@ -40,20 +40,14 @@ body {
 }
 
 /* === Menu Toggle for Mobile === */
-.menu-toggle {
-  font-size: 1rem;
-  background: none;
-  border: thick;
-  color: #5c0eef;
-  cursor: move;
-}
 /* === Navigation Menu === */
-.menu-toggle {
-    font-size: 1rem;
-    background: none;
-    border: thick;
-    color: #5c0eef;
-    cursor: move;
+.menu {
+    display: inline-flex;
+    align-items: baseline;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    justify-content: space-around;
 }
 .nav-list {
   list-style: none;
