@@ -40,7 +40,7 @@ body {
 }
 
 /* === Menu Toggle for Mobile === */
-.menu {
+.menu-toggle {
     display: inline-flex;
     align-items: baseline;
     flex-direction: row;
