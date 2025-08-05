@@ -1,3 +1,37 @@
+// JavaScript Enhancements for Trading Ek Mission Website
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Smooth scroll behavior for all anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute("href"));
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+      }
+    });
+  });
+
+  // Title bar close functionality
+  const closeBtn = document.querySelector(".close");
+  const titleBar = document.querySelector(".title-bar");
+  closeBtn?.addEventListener("click", () => {
+    titleBar.classList.add("slide-out");
+  });
+
+  // Dark Mode Toggle
+  const darkToggle = document.querySelector(".dark-toggle");
+  darkToggle?.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+  });
+
+  // Initialize AOS animations
+  AOS.init({
+    duration: 1000,
+    once: true,
+  });
+});
+
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('signupForm');
     const usernameInput = document.getElementById('username');
