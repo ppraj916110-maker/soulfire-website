@@ -35,11 +35,19 @@ body {
 }
 
 .logo {
-  font-size: 1rem;
+  font-size: 2rem;
   font-weight: bold;
 }
 
 /* === Menu Toggle for Mobile === */
+.menu {
+    display: inline-flex;
+    align-items: baseline;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    justify-content: space-around;
+}
 /* === Navigation Menu === */
 .menu {
     display: inline-flex;
