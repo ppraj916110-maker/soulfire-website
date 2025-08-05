@@ -21,7 +21,7 @@ body {
 .header {
  background: linear-gradient(to right, #1e3c72, #2a5298);
     color: #2eeb3e;
-    padding: 1.0rem 2rem;
+    padding: 2rem 2rem;
     position: relative;
     top: 0;
     z-index: 1000;
