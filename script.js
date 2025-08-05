@@ -29,19 +29,3 @@ document.addEventListener("DOMContentLoaded", () => {
   menuToggle.addEventListener("click", () => {
     menu.classList.toggle("active");
   });
-
-  darkToggle.addEventListener("click", () => {
-    document.body.classList.toggle("dark");
-    // Optionally save preference in localStorage
-    if (document.body.classList.contains("dark")) {
-      localStorage.setItem("theme", "dark");
-    } else {
-      localStorage.setItem("theme", "light");
-    }
-  });
-
-  // Load dark mode from preference
-  if (localStorage.getItem("theme") === "dark") {
-    document.body.classList.add("dark");
-  }
-});
