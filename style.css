@@ -241,3 +241,103 @@ body.dark .dark-toggle {
     width: 80%;
   }
 }
+/* === Signup Form Styling === */
+.signup-form-container {
+  max-width: 500px;
+  margin: 3rem auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
+  animation: fadeInUp 1s ease;
+}
+
+.signup-form-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+/* Floating Label Container */
+.input-group {
+  position: relative;
+  margin-bottom: 1.8rem;
+}
+
+.input-group input,
+.input-group textarea {
+  width: 100%;
+  padding: 1.2rem 1rem 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  background: transparent;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.input-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.input-group label {
+  position: absolute;
+  top: 1.1rem;
+  left: 1rem;
+  color: #888;
+  background: #fff;
+  padding: 0 0.25rem;
+  transition: all 0.2s ease-in-out;
+  pointer-events: none;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label,
+.input-group textarea:focus + label,
+.input-group textarea:not(:placeholder-shown) + label {
+  top: -0.5rem;
+  left: 0.8rem;
+  font-size: 0.75rem;
+  color: #007BFF;
+}
+
+/* Button */
+.signup-form-container button {
+  width: 100%;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: #007BFF;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.signup-form-container button:hover {
+  background: #0056b3;
+}
+
+/* Animation Keyframes */
+@keyframes fadeInUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .signup-form-container {
+    padding: 1.5rem;
+    margin: 2rem 1rem;
+  }
+}
