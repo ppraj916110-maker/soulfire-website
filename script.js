@@ -71,9 +71,16 @@ document.addEventListener("DOMContentLoaded", () => {
       message.style.color = "red";
       return;
     }
+    // Terms and conditions validation
+        if (!termsCheckbox.checked) {
+            alert('You must agree to the Terms and Conditions.');
+            isValid = false;
+        }
+
+        return isValid;
 
     // If all good
-    message.textContent = "Signup successful (demo only).";
+    message.textContent = "Signup Successful.";
     message.style.color = "green";
 
     // Here you can send data to backend (see Part 2)
