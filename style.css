@@ -1,437 +1,234 @@
-/* === Reset === */
+/* === Reset & Base === */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #f9fafc;
-  color: #333;
-  overflow-x: hidden;
+  font-family: Arial, sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 /* === Header === */
 .main-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  background-color: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
 
-.logo img {
-  height: 50px;
-}
-
-/* === Menu Toggle Button === */
+/* === Toggle Button === */
 .menu-toggle {
-  font-size: 1.2rem;
-  background-color: navy-blue;
-  border:solid;
-  color: #333;
-  cursor: pointer;
-  display: none;
-  transition: transform 0.3s ease;
+  font-size: 24px;
+  background-color: navy; /* fixed */
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 8px;
 }
 
-.menu-toggle:hover {
-  transform: rotate(90deg);
-}
-
-/* Slide Menu */
+/* === Slide Menu === */
 .menu {
-  transform: translateX(-100%);
-  transition: transform 0.3s ease-in-out;
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 260px;
-  height: 100vh;
-  background: #fff;
-  z-index: 999;
-  padding: 2rem;
-}
-.menu.active {
-  transform: translateX(0);
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: 100vh;
+  background-color: #fff;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  z-index: 998;
 }
 
-/* Dark Mode */
-body.dark-mode {
-  background-color: #121212;
-  color: #e0e0e0;
+.menu.open {
+  transform: translateX(0);
 }
-body.dark-mode .menu {
-  background: #1e1e1e;
-}
-body.dark-mode a {
-  color: #f0f0f0;
-}
+
 /* === Menu Links === */
-.menu ul {
-  list-style: none;
-  width: 100%;
-}
-
-.menu ul li {
-  margin-bottom: 1.5rem;
-}
-
-.menu ul li a {
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: #333;
-  text-decoration: none;
-  position: relative;
-  padding-bottom: 4px;
-  transition: color 0.3s ease;
-}
-
-.menu ul li a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0%;
-  height: 2px;
-  background-color: #0077cc;
-  transition: width 0.3s;
-}
-
-.menu ul li a:hover::after {
-  width: 100%;
-}
-
-.menu ul li a:hover {
-  color: #0077cc;
-}
-
-/* === Social Icons in Slide Menu === */
-.slide-menu-icons {
-  margin-top: auto;
-  width: 100%;
-  border-top: 1px solid #ccc;
-  padding-top: 1.5rem;
-}
-
-.slide-menu-icons a {
-  display: block;
-  margin-bottom: 1rem;
-  color: #666;
-  text-decoration: none;
-  font-size: 1.1rem;
-  transition: color 0.3s ease;
-}
-
-.slide-menu-icons a:hover {
-  color: #0077cc;
-}
-
-/* === Main Content Area === */
-.content-area {
-  padding: 2rem;
-  animation: fadeIn 0.6s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* === Call to Action === */
-.call-to-action {
-  margin-top: 3rem;
-  background: linear-gradient(to right, #e0f7fa, #e3f2fd);
-  padding: 2rem;
-  text-align: center;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
-}
-
-.cta-button {
-  margin-top: 1.2rem;
-  background-color: #0077cc;
-  color: #fff;
-  padding: 0.8rem 1.8rem;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: background 0.3s ease;
-}
-
-.cta-button:hover {
-  background-color: #005fa3;
-}
-
-/* === Footer === */
-.main-footer {
-  background-color: #111;
-  color: #fff;
-  padding: 2rem 1rem;
-  text-align: center;
-  margin-top: 4rem;
-  font-size: 0.95rem;
-}
-
-/* === Responsive === */
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-  }
-  /* === Dark Mode === */
-body.dark {
-  background-color: #121212;
-  color: #f0f0f0;
-}
-
-body.dark .main-header {
-  background-color: #1f1f1f;
-  color: #fff;
-}
-
-body.dark .menu {
-  background: linear-gradient(135deg, #1c1c1c, #2a2a2a);
-}
-
-body.dark .menu ul li a {
-  color: #f0f0f0;
-}
-
-body.dark .menu ul li a:hover {
-  color: #90cdf4;
-}
-
-body.dark .main-footer {
-  background-color: #1a1a1a;
-  color: #ccc;
-}
-
-body.dark .cta-button {
-  background-color: #3182ce;
-}
-
-body.dark .cta-button:hover {
-  background-color: #2b6cb0;
-}
-
-.dark-toggle {
-  font-size: 1.5rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-left: 1rem;
-  color: #555;
-  transition: transform 0.2s ease;
-}
-
-.dark-toggle:hover {
-  transform: scale(1.2);
-}
-
-body.dark .dark-toggle {
-  color: #f0f0f0;
-}
-
-  .menu {
-    width: 80%;
-  }
-}
-/* === Signup Form Styling === */
-#signup-form {
-  max-width: 400px;
-  margin: 4rem auto;
-  background: var(--form-bg, #ffffff);
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  transition: all 0.4s ease;
-}
-
-#signup-form label {
-  display: block;
-  margin-top: 1rem;
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-
-#signup-form input[type="text"],
-#signup-form input[type="email"],
-#signup-form input[type="password"] {
-  width: 100%;
-  padding: 0.75rem;
-  margin-top: 0.25rem;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  transition: border 0.3s ease;
-}
-
-#signup-form input:focus {
-  border-color: #0077ff;
-  outline: none;
-}
-
-#signup-form .checkbox-group {
-  margin-top: 1.25rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-#signup-form button {
-  margin-top: 1.5rem;
-  width: 100%;
-  padding: 0.75rem;
-  background: #0077ff;
-  color: white;
-  font-size: 1rem;
-  font-weight: 600;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-#signup-form button:hover {
-  background: #005ccc;
-}
-
-.form-message {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  color: red;
-}
-
-/* Success Message */
-.success-screen {
-  text-align: center;
-  padding: 3rem 2rem;
-  background-color: #e0f7e9;
-  color: #256029;
-  border-radius: 1rem;
-  max-width: 450px;
-  margin: 4rem auto;
-  animation: fadeIn 0.7s ease forwards;
-}
-
-.success-screen h2 {
-  margin-bottom: 1rem;
-}
-
-.success-screen p {
-  font-size: 1rem;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-/* Dark Mode Support */
-body.dark {
-  background-color: #121212;
-  color: #e0e0e0;
-}
-
-body.dark #signup-form {
-  background-color: #1e1e1e;
-  border: 1px solid #333;
-}
-
-body.dark input, body.dark label {
-  color: #e0e0e0;
-  background-color: #2c2c2c;
-  border-color: #444;
-}
-
-body.dark .success-screen {
-  background-color: #1d3f2b;
-  color: #a8ffce;
-}
-/* === Main Content Styling === */
-main {
-  padding: 2rem 1.5rem;
-  max-width: 960px;
-  margin: auto;
-  font-family: 'Poppins', sans-serif;
-  color: #333;
-  line-height: 1.7;
-}
-
-section {
-  margin-bottom: 3rem;
-  background-color: #ffffff;
-  padding: 1.5rem 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease;
-}
-
-/* AOS Animation (optional improvement) */
-[data-aos] {
-  transition-property: transform, opacity;
-}
-
-/* Headings */
-section h1,
-section h2,
-section h3 {
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: #111;
-}
-
-/* Paragraphs */
-section p {
-  margin-bottom: 1rem;
-  font-size: 1rem;
-}
-
-/* Lists */
-ul,
-ol {
-  margin-left: 1.2rem;
-  padding-left: 1rem;
-}
-
-ul li,
-ol li {
-  margin-bottom: 0.75rem;
-}
-
-ul li span,
-ol li span {
-  font-size: 0.95rem;
-}
-
-/* Bold terms inside rules */
-strong {
-  font-weight: 600;
-  color: #222;
+.menu a {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: #333;
 }
 
 /* === Dark Mode === */
 body.dark-mode {
-  background-color: #121212;
-  color: #e0e0e0;
+  background-color: #121212;
+  color: #f0f0f0;
+}
+
+body.dark-mode .main-header {
+  background-color: #1e1e1e;
+}
+
+body.dark-mode .menu {
+  background-color: #1e1e1e;
+}
+
+body.dark-mode .menu a {
+  color: #f0f0f0;
+}
+
+body.dark-mode .menu-toggle {
+  background-color: #333;
+  color: #fff;
+}
+
+/* === Signup Form === */
+.signup-form {
+  max-width: 500px;
+  margin: 2rem auto;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.signup-form input,
+.signup-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.signup-form .submit-btn {
+  background-color: navy;
+  color: white;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: bold;
+}
+
+body.dark-mode .signup-form {
+  background-color: #1e1e1e;
+}
+
+body.dark-mode .signup-form input,
+body.dark-mode .signup-form textarea {
+  background-color: #333;
+  color: #f0f0f0;
+  border-color: #444;
+}
+
+/* === Success Screen === */
+.success-screen {
+  display: none;
+  text-align: center;
+  padding: 2rem;
+  background-color: #dff0d8;
+  color: #3c763d;
+  border-radius: 10px;
+  margin-top: 2rem;
+}
+
+body.dark-mode .success-screen {
+  background-color: #2e7d32;
+  color: #ffffff;
+}
+
+/* === Main Content (Blog, About, etc.) === */
+main {
+  padding: 2rem 1.5rem;
+  max-width: 960px;
+  margin: auto;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.7;
+}
+
+section {
+  margin-bottom: 3rem;
+  background-color: #ffffff;
+  padding: 1.5rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+[data-aos] {
+  transition-property: transform, opacity;
+}
+
+section h1,
+section h2,
+section h3 {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #111;
+}
+
+section p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+ul,
+ol {
+  margin-left: 1.2rem;
+  padding-left: 1rem;
+}
+
+ul li,
+ol li {
+  margin-bottom: 0.75rem;
+}
+
+ul li span,
+ol li span {
+  font-size: 0.95rem;
+}
+
+strong {
+  font-weight: 600;
+  color: #222;
 }
 
 body.dark-mode section {
-  background-color: #1e1e1e;
-  color: #e0e0e0;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
 }
 
 body.dark-mode section h1,
 body.dark-mode section h2,
 body.dark-mode section h3 {
-  color: #ffffff;
+  color: #ffffff;
 }
 
 body.dark-mode strong {
-  color: #ffffff;
+  color: #ffffff;
 }
+
+/* === Animation Keyframes === */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+  
