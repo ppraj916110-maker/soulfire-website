@@ -34,55 +34,55 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("signup-form");
-  const name = document.getElementById("name");
-  const email = document.getElementById("email");
-  const password = document.getElementById("password");
-  const confirmPassword = document.getElementById("confirm-password");
   const message = document.getElementById("form-message");
+  const darkToggle = document.getElementById("dark-toggle");
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault(); // Prevent actual form submission
-
-    // Basic validation
-    if (!name.value || !email.value || !password.value || !confirmPassword.value) {
-      message.textContent = "Please fill in all fields.";
-      message.style.color = "red";
-      return;
-    }
-
-    // Email format validation
-    const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-    if (!email.value.match(emailPattern)) {
-      message.textContent = "Invalid email format.";
-      message.style.color = "red";
-      return;
-    }
-
-    // Password match
-    if (password.value !== confirmPassword.value) {
-      message.textContent = "Passwords do not match.";
-      message.style.color = "red";
-      return;
-    }
-
-    // Password length
-    if (password.value.length < 6) {
-      message.textContent = "Password must be at least 6 characters.";
-      message.style.color = "red";
-      return;
-    }
-    // Terms and conditions validation
-        if (!termsCheckbox.checked) {
-            alert('You must agree to the Terms and Conditions.');
-            isValid = false;
-        }
-
-        return isValid;
-
-    // If all good
-    message.textContent = "Signup Successful.";
-    message.style.color = "green";
-
-    // Here you can send data to backend (see Part 2)
+  // Dark Mode Toggle
+  darkToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
   });
+
+  // Form Validation and Submit
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirm = document.getElementById("confirm-password").value;
+    const terms = document.getElementById("terms").checked;
+
+    if (!name || !email || !password || !confirm) {
+      message.textContent = "Please fill in all fields.";
+      return;
+    }
+
+    if (password.length < 6) {
+      message.textContent = "Password must be at least 6 characters.";
+      return;
+    }
+
+    if (password !== confirm) {
+      message.textContent = "Passwords do not match.";
+      return;
+    }
+
+    if (!terms) {
+      message.textContent = "You must agree to the terms.";
+      return;
+    }
+
+    // Simulate success
+    showSuccessScreen();
+  });
+
+  function showSuccessScreen() {
+    document.querySelector("main").innerHTML = `
+      <div class="success-screen" data-aos="zoom-in">
+        <h2>✅ Signup Successful!</h2>
+        <p>Thank you for joining Trading Ek Mission.</p>
+        <p>Check your email to verify your account.</p>
+      </div>
+    `;
+  }
 });
