@@ -240,95 +240,71 @@ body.dark .dark-toggle {
     width: 80%;
   }
 }
-/* === Signup Form Styling === */
-#signup-form {
-  max-width: 400px;
-  margin: 4rem auto;
-  background: var(--form-bg, #ffffff);
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  transition: all 0.4s ease;
-}
-
-#signup-form label {
-  display: block;
-  margin-top: 1rem;
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-
-#signup-form input[type="text"],
-#signup-form input[type="email"],
-#signup-form input[type="password"] {
-  width: 100%;
-  padding: 0.75rem;
-  margin-top: 0.25rem;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  transition: border 0.3s ease;
-}
-
-#signup-form input:focus {
-  border-color: #0077ff;
-  outline: none;
-}
-
-#signup-form .checkbox-group {
-  margin-top: 1.25rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-#signup-form button {
-  margin-top: 1.5rem;
-  width: 100%;
-  padding: 0.75rem;
-  background: #0077ff;
-  color: white;
-  font-size: 1rem;
-  font-weight: 600;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-#signup-form button:hover {
-  background: #005ccc;
-}
-
-.form-message {
-  margin-top: 1rem;
+;
   font-size: 0.9rem;
   color: red;
 }
+/* === Login/Signup Form === */
+form {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+}
 
-/* Success Message */
+form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 18px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}
+
+.form-message {
+  margin-top: 10px;
+  text-align: center;
+  color: red;
+  font-weight: 500;
+}
+
+/* === Success Screen (for signup success) === */
 .success-screen {
   text-align: center;
-  padding: 3rem 2rem;
-  background-color: #e0f7e9;
-  color: #256029;
-  border-radius: 1rem;
-  max-width: 450px;
-  margin: 4rem auto;
-  animation: fadeIn 0.7s ease forwards;
+  animation: fadeIn 1s ease-in-out;
 }
 
 .success-screen h2 {
-  margin-bottom: 1rem;
-}
-
-.success-screen p {
-  font-size: 1rem;
+  color: green;
+  margin-bottom: 10px;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Dark Mode Support */
