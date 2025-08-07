@@ -89,17 +89,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
-   function validateLogin() {
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value;
-      const errorDiv = document.getElementById('error');
-      const content = document.getElementById('courseContent');
-<
-      if (username === 'ppraj606@gmail.com' && password === 'PPraj505@') {
-        errorDiv.style.display = 'none';
-        content.style.display = 'block';
-      } else {
-        errorDiv.style.display = 'block';
-        content.style.display = 'none';
-      }
-   }
