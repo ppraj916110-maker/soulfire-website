@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Restricted Access - Course Login"
+AuthUserFile /home/your-username/.htpasswd
+Require valid-user
