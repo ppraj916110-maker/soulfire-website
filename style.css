@@ -301,8 +301,13 @@ form button:hover {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 10; transform: translateY(20px); }
+  to { opacity: 100; transform: translateY(0); }
+}
+element.style{ CONTAIN-INTRINSIC-HEIGHT:AUTO 100PX;}
+[data-aos^=fade][data-aos^=fade]
+{ opacity:100;
+ transition-property:opacity,transform;
 }
 
 /* Dark Mode Support */
