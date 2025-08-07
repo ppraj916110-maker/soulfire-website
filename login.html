@@ -70,7 +70,16 @@
 
   <!-- Firebase Config -->
   <script>
-    const firebaseConfig = {
+  <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
     apiKey: "AIzaSyDa5EPtNbmugtaIMiIaYmVtapYsvU7biMc",
     authDomain: "tradingekmission.firebaseapp.com",
     projectId: "tradingekmission",
@@ -79,9 +88,11 @@
     appId: "1:301971513060:web:a6027176e12af4b227d6f1",
     measurementId: "G-C0W3J8LNSE"
   };
-    firebase.initializeApp(firebaseConfig);
-  </script>
 
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
   <!-- Login Logic -->
   <script>
     const loginForm = document.getElementById('login-form');
