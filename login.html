@@ -9,7 +9,6 @@
 
   <!-- Styles & Fonts -->
   <link rel="stylesheet" href="style.css"/>
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
 
@@ -88,7 +87,7 @@
     // 🚫 Already logged-in user? Redirect
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        window.location.href = "course.html";
+        window.location.href = "beginner.html";
       }
     });
 
@@ -105,7 +104,7 @@
         await signInWithEmailAndPassword(auth, email, password);
         formMsg.textContent = "Login successful! Redirecting...";
         setTimeout(() => {
-          window.location.href = "course.html";
+          window.location.href = "beginner.html";
         }, 1500);
       } catch (error) {
         formMsg.textContent = error.message;
@@ -122,6 +121,6 @@
       document.getElementById("menu").classList.toggle("open");
     });
   </script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 </body>
 </html>
