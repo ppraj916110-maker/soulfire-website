@@ -243,6 +243,16 @@ body.dark .dark-toggle {
   color: red;
 }
 /* === Login/Signup Form === */
+[data-aos^="fade"] {
+  opacity: 0;
+  transition-property: opacity, transform;
+  transition-duration: 0.6s;
+}
+
+[data-aos^="fade"].aos-animate {
+  opacity: 1;
+}
+
 form {
   background: #fff;
   padding: 25px 30px;
@@ -287,15 +297,6 @@ form button:hover {
   text-align: center;
   color: red;
   font-weight: 500;
-}
-[data-aos^="fade"] {
-  opacity: 0;
-  transition-property: opacity, transform;
-  transition-duration: 0.6s;
-}
-
-[data-aos^="fade"].aos-animate {
-  opacity: 1;
 }
 
 /* === Success Screen (for signup success) === */
