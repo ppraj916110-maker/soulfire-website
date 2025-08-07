@@ -64,57 +64,27 @@
     </div>
   </footer>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <!-- Firebase App & Auth - Modular SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-  
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
-  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyDa5EPtNbmugtaIMiIaYmVtapYsvU7biMc",
+      authDomain: "tradingekmission.firebaseapp.com",
+      projectId: "tradingekmission",
+      storageBucket: "tradingekmission.firebasestorage.app",
+      messagingSenderId: "301971513060",
+      appId: "1:301971513060:web:a6027176e12af4b227d6f1",
+      measurementId: "G-C0W3J8LNSE"
+    };
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyDa5EPtNbmugtaIMiIaYmVtapYsvU7biMc",
-    authDomain: "tradingekmission.firebaseapp.com",
-    projectId: "tradingekmission",
-    storageBucket: "tradingekmission.firebasestorage.app",
-    messagingSenderId: "301971513060",
-    appId: "1:301971513060:web:a6027176e12af4b227d6f1",
-    measurementId: "G-C0W3J8LNSE"
-  };
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
 
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  const auth = getAuth();
-
-  // Auth State Check
-  onAuthStateChanged(auth, (user) => {
-    if (!user) {
-      window.location.href = "login.html";
-    }
-  });
-
-  // Logout
-  document.getElementById("logout-btn").addEventListener("click", () => {
-    signOut(auth).then(() => {
-      window.location.href = "login.html";
-    });
-  });
-
-  // Toggle Menu
-  document.getElementById("menu-toggle").addEventListener("click", () => {
-    document.getElementById("menu").classList.toggle("open");
-  });
-
-  // Dark Mode
-  document.getElementById("dark-toggle").addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-  });
-</script>
-
-  <!-- Login Logic -->
-  <script>
+    // Handle Login
     const loginForm = document.getElementById('login-form');
     const formMsg = document.getElementById('form-message');
 
@@ -125,11 +95,8 @@
       const password = document.getElementById('password').value.trim();
 
       try {
-        const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
-
-        // Optional: Display logged-in email
-        // formMsg.textContent = `Welcome, ${user.email}`;
 
         formMsg.textContent = "Login successful! Redirecting...";
         setTimeout(() => {
@@ -139,20 +106,14 @@
         formMsg.textContent = error.message;
       }
     });
-  </script>
 
-  <!-- Menu Toggle & Dark Mode -->
-  <script>
-    const menuToggle = document.getElementById('menu-toggle');
-    const menu = document.getElementById('menu');
-    const darkToggle = document.getElementById('dark-toggle');
-
-    menuToggle.addEventListener('click', () => {
-      menu.classList.toggle('open');
+    // Menu Toggle & Dark Mode
+    document.getElementById("menu-toggle").addEventListener("click", () => {
+      document.getElementById("menu").classList.toggle("open");
     });
 
-    darkToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
+    document.getElementById("dark-toggle").addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
     });
   </script>
 </body>
