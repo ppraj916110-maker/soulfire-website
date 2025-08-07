@@ -51,87 +51,94 @@
   </header>
 
   <!-- Main Content -->
-<main> 
+  <main> 
     <div class="course-content" id="courseContent">
-    <h1>Beginner Stock Market Course</h1>
-    
-    <p>A beginner's course on the stock market is designed to provide you with the fundamental knowledge and skills needed to start investing. These courses typically cover a wide range of topics, from basic definitions to practical strategies.</p>
+      <h1>Beginner Stock Market Course</h1>
 
-    <h2>Key Concepts You'll Learn</h2>
-    
-    <p>A comprehensive beginner's course will typically include the following modules:</p>
-    <ul>
-        <li><strong>Introduction to Investing:</strong> This covers the "why" and "how" of investing, including the difference between saving and investing, and the risks and rewards associated with it.</li>
-        <li><strong>Understanding the Stock Market:</strong> You'll learn about what a stock is, what a stock exchange does (e.g., NSE, BSE ), and the difference between primary and secondary markets.</li>
-        <li><strong>Key Terminology:</strong> The course will demystify common jargon like "bull market," "bear market," "IPO" (Initial Public Offering), and "dividends."</li>
-        <li><strong>Types of Investments:</strong> You'll be introduced to different investment instruments, such as individual stocks, mutual funds, and ETFs (Exchange-Traded Funds).</li>
-        <li><strong>Analysis Methods:</strong> Courses often provide an overview of both fundamental analysis (evaluating a company's financial health) and technical analysis (studying price charts and trends).</li>
-        <li><strong>Setting Up Your Account:</strong> You'll learn the practical steps of opening a Demat and trading account with a broker.</li>
-        <li><strong>Building a Strategy:</strong> Courses will help you understand how to define your investment goals, determine your risk tolerance, and create a diversified portfolio.</li>
-        <li><strong>Risk Management:</strong> You'll learn how to manage risk, including the importance of diversification and avoiding common mistakes.</li>
-    </ul>
+      <p>A beginner's course on the stock market is designed to provide you with the fundamental knowledge and skills needed to start investing.</p>
 
-    <h2>Finding a Course</h2>
-    
-    <p>There are many resources available for beginners, ranging from free online materials to paid courses and certifications.</p>
-    
-    <ul>
-        <li><strong>Free Online Resources:</strong> Platforms like Zerodha Varsity, Angel One, and Great Learning offer extensive, free, and in-depth courses that cover the fundamentals of the stock market. These often include videos, modules, and even quizzes to test your knowledge.</li>
-        <li><strong>University-Level Courses:</strong> Reputable universities and institutions offer courses through platforms like Coursera. Examples include Yale's "Financial Markets" or the University of Michigan's "Stocks and Bonds" courses, which are excellent for a more academic approach.</li>
-        <li><strong>Online Learning Platforms:</strong> Websites like Udemy offer a wide variety of courses, from basic introductions to more advanced topics like day trading and technical analysis.</li>
-        <li><strong>Brokerage Firms:</strong> Many brokerage firms provide educational content, webinars, and courses to help their clients get started.</li>
-    </ul>
+      <h2>Key Concepts You'll Learn</h2>
+      <ul>
+        <li><strong>Introduction to Investing:</strong> Saving vs investing, risk vs reward.</li>
+        <li><strong>Understanding the Stock Market:</strong> NSE, BSE, IPO, primary/secondary market.</li>
+        <li><strong>Key Terminology:</strong> Bull/bear market, dividends, IPOs.</li>
+        <li><strong>Types of Investments:</strong> Stocks, mutual funds, ETFs.</li>
+        <li><strong>Analysis Methods:</strong> Fundamental & technical analysis.</li>
+        <li><strong>Setting Up Your Account:</strong> Opening a Demat and trading account.</li>
+        <li><strong>Building a Strategy:</strong> Goals, risk tolerance, diversification.</li>
+        <li><strong>Risk Management:</strong> Avoiding common mistakes.</li>
+      </ul>
 
-    <h2>Before You Begin</h2>
-    
-    <div class="highlight">
-        <p>Before you start investing real money, it's highly recommended to:</p>
+      <h2>Finding a Course</h2>
+      <ul>
+        <li><strong>Free Platforms:</strong> Zerodha Varsity, Angel One, Great Learning.</li>
+        <li><strong>Universities:</strong> Yale, Michigan on Coursera.</li>
+        <li><strong>Online Platforms:</strong> Udemy, YouTube, etc.</li>
+        <li><strong>Broker Content:</strong> Webinars, tutorials from brokers.</li>
+      </ul>
+
+      <h2>Before You Begin</h2>
+      <div class="highlight">
         <ol>
-            <li><strong>Set Clear Goals:</strong> Know why you are investing and what you hope to achieve.</li>
-            <li><strong>Understand Your Risk Tolerance:</strong> Be honest with yourself about how much risk you're comfortable with.</li>
-            <li><strong>Practice with a Simulator:</strong> Many platforms offer virtual trading or stock market simulators where you can practice trading without using real money. This can be a great way to apply what you've learned and get a feel for the market.</li>
-            <li><strong>Start Small:</strong> Begin with a small amount of money that you can afford to lose. This allows you to gain experience and confidence without significant financial risk.</li>
+          <li><strong>Set Clear Goals:</strong> Know your why.</li>
+          <li><strong>Understand Your Risk Tolerance:</strong> Be realistic.</li>
+          <li><strong>Practice with a Simulator:</strong> Try virtual trading.</li>
+          <li><strong>Start Small:</strong> Use money you can afford to lose.</li>
         </ol>
+      </div>
     </div>
-    </div>
-</main>
+  </main>
+
   <!-- Footer -->
   <footer class="main-footer">
     <div class="footer-content">
       <p>&copy; 2025 Trading Ek Mission. All Rights Reserved.</p>
     </div>
   </footer>
-  <!-- Firebase SDK (CDN) -->
-  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
 
-  <!-- Firebase Config -->
+  <!-- Firebase Config + Auth Protection -->
   <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyDa5EPtNbmugtaIMiIaYmVtapYsvU7biMc",
-    authDomain: "tradingekmission.firebaseapp.com",
-    projectId: "tradingekmission",
-    storageBucket: "tradingekmission.firebasestorage.app",
-    messagingSenderId: "301971513060",
-    appId: "1:301971513060:web:a6027176e12af4b227d6f1",
-    measurementId: "G-C0W3J8LNSE"
-  };
+    const firebaseConfig = {
+      apiKey: "AIzaSyDa5EPtNbmugtaIMiIaYmVtapYsvU7biMc",
+      authDomain: "tradingekmission.firebaseapp.com",
+      projectId: "tradingekmission",
+      storageBucket: "tradingekmission.firebasestorage.app",
+      messagingSenderId: "301971513060",
+      appId: "1:301971513060:web:a6027176e12af4b227d6f1",
+      measurementId: "G-C0W3J8LNSE"
+    };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app);
+    const auth = getAuth();
+
+    // 🔒 Redirect if not logged in
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "login.html";
+      }
+    });
+
+    // 🔓 Logout handler
+    document.getElementById("logout-btn").addEventListener("click", () => {
+      signOut(auth).then(() => {
+        window.location.href = "login.html";
+      });
+    });
+
+    // 🌙 Dark Mode
+    document.getElementById("dark-toggle").addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+    });
+
+    // 📱 Menu toggle
+    document.getElementById("menu-toggle").addEventListener("click", () => {
+      document.getElementById("menu").classList.toggle("open");
+    });
   </script>
-    <!-- Auth & UI Script -->
-  
-
 </body>
 </html>
- 
