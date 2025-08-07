@@ -1,139 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Learn stock trading with expert-led courses. Join Trading Ek Mission.">
-  <meta name="google-adsense-account" content="ca-pub-8870960298045491">
-  <title>Trading Ek Mission - Learn the Stock Market</title>
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-  <!-- Styles & Fonts -->
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f0f2f5;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .course-container {
-      max-width: 500px;
-      width: 100%;
-      background: #fff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    .form-group {
-      margin-bottom: 20px;
-    }
-    label {
-      font-weight: 600;
-    }
-    input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    button {
-      width: 100%;
-      background-color: #2e89ff;
-      color: white;
-      padding: 12px;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #1666cc;
-    }
-    .error {
-      color: red;
-      margin-top: 10px;
-      display: none;
-    }
-    .course-content {
-      display: none;
-      padding: 20px;
-      background-color: #e7f5e7;
-      border-radius: 8px;
-      margin-top: 20px;
-    }
-    .logout-btn {
-  position: fixed;
-  top: 10px;
-  right: 15px;
-  background-color: #e53935;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  border-radius: 4px;
-  z-index: 999;
-  font-weight: bold;
-  transition: background 0.3s ease;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Beginner Stock Market Course - Trading Ek Mission" />
+  <meta name="google-adsense-account" content="ca-pub-8870960298045491" />
+  <title>Beginner Stock Market Course - Trading Ek Mission</title>
 
-.logout-btn:hover {
-  background-color: #c62828;
-}
-  </style>
+  <!-- Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <!-- AOS Animation -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+
+  <!-- Custom Style -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<header class="main-header">
-    <button id="dark-toggle" class="dark-toggle">
-  🌙
-</button>
-    <div class="logo">
-      <img src="logo.png" alt="Trading Ek Mission Logo" width="100" />
-    </div>
+  <!-- Header -->
+  <header class="main-header">
+    <button id="dark-toggle" class="dark-toggle">🌙</button>
+    <div class="logo">
+      <img src="logo.png" alt="Trading Ek Mission Logo" width="100" />
+    </div>
 
-    <!-- Menu Toggle Button -->
-    <button class="menu-toggle" id="menu-toggle">
-  <span>Menu</span>
-</button>
-    <!-- Slide-In Navigation Menu with Social Icons -->
-    <nav class="menu" id="menu">
-      <ul>
-         <li><a href="index.html">🏠 Home</a></li>
-        <li><a href="course.html">📘 Courses</a></li>
-        <li><a href="blog.html">📝 Blog</a></li>
-        <li><a href="contact.html">📞 Contact Us</a></li>
-        <li><a href="about.html">ℹ️ About Us</a></li>
-      </ul>
-      <div class="social-icons slide-menu-icons">
-        <a href="https://www.instagram.com/cre_ative_art00" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
-        <a href="https://youtube.com/@tradingekmission.online" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
-        <a href="https://whatsapp.com/channel/0029Va9GrLEEwEjuAt29a83b" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-      </div>
-    </nav>
-  </header>
-  <div class="course-container">
-    <h2>🔒 Login to Access Course</h2>
-    <div class="form-group">
-      <label for="username">Email</label>
-      <input type="email" id="username" placeholder="tradingekmission@gmail.com" required>
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" id="password" placeholder="••••••••" required>
-    </div>
-    <button onclick="validateLogin()">Access Course</button>
-    <div class="error" id="error">❌ Incorrect email or password</div>
+    <!-- Menu Button -->
+    <button class="menu-toggle" id="menu-toggle"><span>Menu</span></button>
 
+    <!-- Navigation Menu -->
+    <nav class="menu" id="menu">
+      <ul>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="course.html">📘 Courses</a></li>
+        <li><a href="blog.html">📝 Blog</a></li>
+        <li><a href="contact.html">📞 Contact Us</a></li>
+        <li><a href="about.html">ℹ️ About Us</a></li>
+      </ul>
+      <div class="social-icons slide-menu-icons">
+        <a href="https://www.instagram.com/cre_ative_art00" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+        <a href="https://youtube.com/@tradingekmission.online" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+        <a href="https://whatsapp.com/channel/0029Va9GrLEEwEjuAt29a83b" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </div>
+      <button id="logout-btn" class="logout-btn">🔒 Logout</button>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+<main> 
     <div class="course-content" id="courseContent">
     <h1>Beginner Stock Market Course</h1>
     
@@ -176,39 +94,20 @@
         </ol>
     </div>
     </div>
-    <button onclick="firebase.auth().signOut().then(() => location.href='login.html')">Logout</button>
-  <script>
-    function validateLogin() {
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value;
-      const errorDiv = document.getElementById('error');
-      const content = document.getElementById('courseContent');
+</main>
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Trading Ek Mission. All Rights Reserved.</p>
+    </div>
+  </footer>
+  <!-- Firebase SDK (CDN) -->
+  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
 
-      if (username === 'ppraj606@gmail.com' && password === 'PPraj505@') {
-        errorDiv.style.display = 'none';
-        content.style.display = 'block';
-      } else {
-        errorDiv.style.display = 'block';
-        content.style.display = 'none';
-      }
-    }
-  </script>
-    <!-- Firebase App (compat) -->
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-<!-- Firebase Authentication -->
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
-
-<script>
- <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
+  <!-- Firebase Config -->
+  <script>
+ const firebaseConfig = {
     apiKey: "AIzaSyDa5EPtNbmugtaIMiIaYmVtapYsvU7biMc",
     authDomain: "tradingekmission.firebaseapp.com",
     projectId: "tradingekmission",
@@ -216,34 +115,38 @@
     messagingSenderId: "301971513060",
     appId: "1:301971513060:web:a6027176e12af4b227d6f1",
     measurementId: "G-C0W3J8LNSE"
-  };
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+  </script>
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
-  };
+  <!-- Auth & UI Script -->
+  <script>
+    // Redirect to login if not authenticated
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        window.location.href = "login.html";
+      }
+    });
 
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-</script><script>
-  firebase.auth().onAuthStateChanged((user) => {
-    if (!user) {
-      // User not logged in, redirect to login page
-      window.location.href = "login.html";
-    }
-  });
-</script><script>
-  function logout() {
-    firebase.auth().signOut()
-      .then(() => {
-        window.location.href = "login.html"; // Redirect after logout
-      })
-      .catch((error) => {
-        alert("Error signing out: " + error.message);
-      });
-  }
-</script>
+    // Logout
+    document.getElementById("logout-btn").addEventListener("click", () => {
+      auth.signOut().then(() => {
+        window.location.href = "login.html";
+      });
+    });
+
+    // Toggle Menu
+    document.getElementById("menu-toggle").addEventListener("click", () => {
+      document.getElementById("menu").classList.toggle("open");
+    });
+
+    // Dark Mode
+    document.getElementById("dark-toggle").addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+    });
+  </script>
 
 </body>
 </html>
+ 
