@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     menuToggle.addEventListener("click", () => {
       menu.classList.toggle("active");
       menuToggle.classList.toggle("open");
+      menuToggle.classList.toggle("close");
     });
   }
 
