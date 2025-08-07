@@ -1,37 +1,76 @@
 <!DOCTYPE html>
-<html>
-<head><meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Learn stock trading with expert-led courses. Join Trading Ek Mission.">
-  <meta name="google-adsense-account" content="ca-pub-8870960298045491">
-  <title>Login</title>
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login – Trading Ek Mission</title>
+  <meta name="description" content="Login to Trading Ek Mission – Learn stock trading from scratch." />
+  <meta name="google-adsense-account" content="ca-pub-8870960298045491"/>
+
   <!-- Styles & Fonts -->
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
+
+  <!-- AOS Animation -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script defer src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init();</script>
 </head>
+
 <body>
-  <h2>Login to access the course</h2>
-  <input type="email" id="email" placeholder="Email" /><br>
-  <input type="password" id="password" placeholder="Password" /><br>
-  <button onclick="login()">Login</button>
-  <p id="message"></p>
+  <header class="main-header">
+    <button id="dark-toggle" class="dark-toggle">🌙</button>
+    <div class="logo">
+      <img src="logo.png" alt="Trading Ek Mission Logo" width="100" />
+    </div>
 
-  <!-- Firebase CDN -->
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
-  
+    <!-- Toggle Menu -->
+    <button class="menu-toggle" id="menu-toggle"><span>Menu</span></button>
+
+    <!-- Navigation -->
+    <nav class="menu" id="menu">
+      <ul>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="course.html">📘 Courses</a></li>
+        <li><a href="blog.html">📝 Blog</a></li>
+        <li><a href="contact.html">📞 Contact Us</a></li>
+        <li><a href="about.html">ℹ️ About Us</a></li>
+      </ul>
+      <div class="social-icons slide-menu-icons">
+        <a href="https://www.instagram.com/cre_ative_art00" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+        <a href="https://youtube.com/@tradingekmission.online" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+        <a href="https://whatsapp.com/channel/0029Va9GrLEEwEjuAt29a83b" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <form id="login-form" data-aos="fade-up">
+      <label for="email">Email</label>
+      <input type="email" id="email" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" required>
+
+      <button type="submit">Login</button>
+      <p id="form-message" class="form-message"></p>
+    </form>
+  </main>
+
+  <footer class="main-footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Trading Ek Mission. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+  <!-- Firebase Config -->
   <script>
-    <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
+    const firebaseConfig = {
     apiKey: "AIzaSyDa5EPtNbmugtaIMiIaYmVtapYsvU7biMc",
     authDomain: "tradingekmission.firebaseapp.com",
     projectId: "tradingekmission",
@@ -40,27 +79,50 @@
     appId: "1:301971513060:web:a6027176e12af4b227d6f1",
     measurementId: "G-C0W3J8LNSE"
   };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-
-    };
     firebase.initializeApp(firebaseConfig);
+  </script>
 
-    function login() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+  <!-- Login Logic -->
+  <script>
+    const loginForm = document.getElementById('login-form');
+    const formMsg = document.getElementById('form-message');
 
-      firebase.auth().signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          // Login successful
-          window.location.href = "course.html"; // Redirect
-        })
-        .catch((error) => {
-          document.getElementById("message").textContent = error.message;
-        });
-    }
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      try {
+        const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+
+        // Optional: Display logged-in email
+        // formMsg.textContent = `Welcome, ${user.email}`;
+
+        formMsg.textContent = "Login successful! Redirecting...";
+        setTimeout(() => {
+          window.location.href = "course.html";
+        }, 1500);
+      } catch (error) {
+        formMsg.textContent = error.message;
+      }
+    });
+  </script>
+
+  <!-- Menu Toggle & Dark Mode -->
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('menu');
+    const darkToggle = document.getElementById('dark-toggle');
+
+    menuToggle.addEventListener('click', () => {
+      menu.classList.toggle('open');
+    });
+
+    darkToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+    });
   </script>
 </body>
 </html>
