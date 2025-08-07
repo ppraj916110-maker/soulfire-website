@@ -1,5 +1,10 @@
  /* === Reset === */
-* {
+element.style{ CONTAIN-INTRINSIC-HEIGHT:AUTO 100PX;}
+[data-aos^=fade][data-aos^=fade]
+{ opacity:10;
+ transition-property:opacity,transform;
+}
+{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -298,16 +303,6 @@ form button:hover {
 .success-screen h2 {
   color: green;
   margin-bottom: 10px;
-}
-
-@keyframes fadeIn {
-  from { opacity: 10; transform: translateY(20px); }
-  to { opacity: 100; transform: translateY(0); }
-}
-element.style{ CONTAIN-INTRINSIC-HEIGHT:AUTO 100PX;}
-[data-aos^=fade][data-aos^=fade]
-{ opacity:100;
- transition-property:opacity,transform;
 }
 
 /* Dark Mode Support */
