@@ -55,9 +55,22 @@
       </div>
     </nav>
   </header>
-  <main class="content-area">
-    <div class="container">
-    <h1>Beginner Stock Market Course</h1>
+ <main class="content-area">
+  <div class="course-container">
+    <h2>🔒 Login to Access Course</h2>
+    <div class="form-group">
+      <label for="username">Email</label>
+      <input type="email" id="username" placeholder="rajkumar3052000@gmail.com" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="••••••••" required>
+    </div>
+    <button onclick="validateLogin()">Access Course</button>
+    <div class="error" id="error">❌ Incorrect email or password</div>
+
+    <div class="course-content" id="courseContent">
+      <h1>Beginner Stock Market Course</h1>
     
     <p>A beginner's course on the stock market is designed to provide you with the fundamental knowledge and skills needed to start investing. These courses typically cover a wide range of topics, from basic definitions to practical strategies.</p>
 
@@ -66,7 +79,7 @@
     <p>A comprehensive beginner's course will typically include the following modules:</p>
     <ul>
         <li><strong>Introduction to Investing:</strong> This covers the "why" and "how" of investing, including the difference between saving and investing, and the risks and rewards associated with it.</li>
-        <li><strong>Understanding the Stock Market:</strong> You'll learn about what a stock is, what a stock exchange does (e.g., NYSE, NASDAQ), and the difference between primary and secondary markets.</li>
+        <li><strong>Understanding the Stock Market:</strong> You'll learn about what a stock is, what a stock exchange does (e.g., NSE, BSE ), and the difference between primary and secondary markets.</li>
         <li><strong>Key Terminology:</strong> The course will demystify common jargon like "bull market," "bear market," "IPO" (Initial Public Offering), and "dividends."</li>
         <li><strong>Types of Investments:</strong> You'll be introduced to different investment instruments, such as individual stocks, mutual funds, and ETFs (Exchange-Traded Funds).</li>
         <li><strong>Analysis Methods:</strong> Courses often provide an overview of both fundamental analysis (evaluating a company's financial health) and technical analysis (studying price charts and trends).</li>
@@ -98,7 +111,7 @@
         </ol>
     </div>
     </div>
-  </main>
+</main>
   <footer class="main-footer">
     <div class="footer-content">
       <p>&copy; 2025 Trading Ek Mission. All Rights Reserved.</p>
