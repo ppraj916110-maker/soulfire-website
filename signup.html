@@ -93,7 +93,7 @@
     // Redirect if already logged in
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        window.location.href = "beginner.html";
+        window.location.href = "course.html";
       }
     });
 
@@ -121,7 +121,7 @@
         await createUserWithEmailAndPassword(auth, email, password);
         formMsg.textContent = "✅ Signup successful! Redirecting...";
         setTimeout(() => {
-          window.location.href = "beginner.html";
+          window.location.href = "course.html";
         }, 1500);
       } catch (error) {
         formMsg.textContent = `❌ ${error.message}`;
