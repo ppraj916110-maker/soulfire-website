@@ -427,3 +427,16 @@ body.dark-mode .logout-btn {
 body.dark-mode .logout-btn:hover {
   background-color: #a12630;
 }
+.quote-section {
+    text-align: center;
+    margin: 50px auto;
+    max-width: 700px;
+    padding: 20px;
+}
+
+.trader-quote {
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--text-color, #333);
+    transition: opacity 0.8s ease-in-out;
+}
