@@ -160,8 +160,10 @@ if (currentPage === "login.html") {
     });
 }
 
-// ===== Auth Protection (Courses Page) =====
-if (currentPage === "beginner.html") {
+// ===== Auth Protection for Multiple Pages =====
+const protectedPages = ["beginner.html", "technical.html"];
+
+if (protectedPages.includes(currentPage)) {
     onAuthStateChanged(auth, (user) => {
         if (!user) {
             window.location.href = "login.html";
