@@ -52,9 +52,10 @@
         <a href="https://whatsapp.com/channel/0029Va9GrLEEwEjuAt29a83b" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
       </div>
     </nav>
+<button id="logout-btn" class="logout-btn">🔒 Logout</button>
   </header>
 <main>
-    <section data-aos="fade-up">
+<section data-aos="fade-up">
       <h2>Explore Our Trading Courses</h2>
       <p>Gain in-depth knowledge and hands-on experience with our expert-designed stock trading courses.</p>
     </section>
@@ -74,10 +75,55 @@
       </div>
     </section>
 </main> 
-  <footer class="main-footer">
+
+<footer class="main-footer">
     <div class="footer-content">
       <p>&copy; 2025 Trading Ek Mission. All Rights Reserved.</p>
     </div>
   </footer>
+  <!-- Firebase Config + Auth Protection -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDa5EPtNbmugtaIMiIaYmVtapYsvU7biMc",
+      authDomain: "tradingekmission.firebaseapp.com",
+      projectId: "tradingekmission",
+      storageBucket: "tradingekmission.firebasestorage.app",
+      messagingSenderId: "301971513060",
+      appId: "1:301971513060:web:a6027176e12af4b227d6f1",
+      measurementId: "G-C0W3J8LNSE"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app);
+    const auth = getAuth();
+
+    // 🔒 Redirect if not logged in
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "login.html";
+      }
+    });
+
+    // 🔓 Logout handler
+    document.getElementById("logout-btn").addEventListener("click", () => {
+      signOut(auth).then(() => {
+        window.location.href = "login.html";
+      });
+    });
+
+    // 🌙 Dark Mode
+    document.getElementById("dark-toggle").addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+    });
+
+    // 📱 Menu toggle
+    document.getElementById("menu-toggle").addEventListener("click", () => {
+      document.getElementById("menu").classList.toggle("open");
+    });
+  </script>
 </body>
 </html>
