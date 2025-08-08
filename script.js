@@ -144,3 +144,36 @@ if (logoutBtn) {
     });
 }
 }
+// ===== Rotating Trader Quotes =====
+const quotes = [
+    "Every expert was once a beginner — start your journey today.",
+    "Small consistent steps build big trading success.",
+    "In trading, patience is not just a virtue — it’s a profit strategy.",
+    "Learn before you earn — the market rewards preparation.",
+    "A disciplined trader turns losses into lessons.",
+    "Trading is not about speed, it’s about direction.",
+    "Risk is the cost of opportunity — manage it wisely.",
+    "Your first trade is not the end goal, it’s the starting line.",
+    "Charts don’t lie, but traders who read them well succeed.",
+    "The best investment you can make is in your trading education."
+];
+
+let currentQuoteIndex = 0;
+const quoteElement = document.getElementById("trader-quote");
+
+if (quoteElement) {
+    function showNextQuote() {
+        quoteElement.style.opacity = 0; // Fade out
+        setTimeout(() => {
+            quoteElement.textContent = quotes[currentQuoteIndex];
+            quoteElement.style.opacity = 1; // Fade in
+            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+        }, 800); // Match fade-out duration
+    }
+
+    // Show first quote immediately
+    showNextQuote();
+
+    // Change every 5 seconds
+    setInterval(showNextQuote, 5000);
+}
