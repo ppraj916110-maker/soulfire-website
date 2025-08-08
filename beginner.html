@@ -3,40 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Beginner Stock Market Course - Trading Ek Mission" />
-  <meta name="google-adsense-account" content="ca-pub-8870960298045491" />
-  <title>Beginner Stock Market Course - Trading Ek Mission</title>
-
-  <!-- Fonts & Icons -->
-  <link rel="stylesheet"  href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
-
-  <!-- AOS Animation -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
-  <script defer src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init();
-  </script>
-
-  <!-- Custom Style -->
+  <meta name="description" content="Learn stock trading with expert-led courses. Join Trading Ek Mission.">
+  <meta name="google-adsense-account" content="ca-pub-8870960298045491">
+  <title>Beginner's-Trading Ek Mission</title>
+  <!-- Styles & Fonts -->
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+ <link href="https://elizarucksack.com/ncf6r6q8s?key=ba3b34ab33d86a6c46a362deb82ea547"/>
+  <!-- Scripts -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8870960298045491" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script defer src="script.js"></script>
+<script type='text/javascript' src='//elizarucksack.com/fe/3e/64/fe3e64f63a14d34ff1d0198d1e5b7ef6.js'></script>
+<script async="async" data-cfasync="false" src="//elizarucksack.com/1142400de3633af5c69b68c8cad8d77c/invoke.js"></script>
+<div id="container-1142400de3633af5c69b68c8cad8d77c"></div>
 </head>
+
 <body>
-  <!-- Header -->
   <header class="main-header">
-    <button id="dark-toggle" class="dark-toggle">🌙</button>
+    <button id="dark-toggle" class="dark-toggle">
+  🌙
+</button>
     <div class="logo">
       <img src="logo.png" alt="Trading Ek Mission Logo" width="100" />
     </div>
 
-    <!-- Menu Button -->
-    <button class="menu-toggle" id="menu-toggle"><span>Menu</span></button>
-
-    <!-- Navigation Menu -->
+    <!-- Menu Toggle Button -->
+    <button class="menu-toggle" id="menu-toggle">
+  <span>Menu</span>
+</button>
+    <!-- Slide-In Navigation Menu with Social Icons -->
     <nav class="menu" id="menu">
       <ul>
-        <li><a href="index.html">🏠 Home</a></li>
+         <li><a href="index.html">🏠 Home</a></li>
         <li><a href="course.html">📘 Courses</a></li>
         <li><a href="blog.html">📝 Blog</a></li>
         <li><a href="contact.html">📞 Contact Us</a></li>
@@ -47,11 +51,9 @@
         <a href="https://youtube.com/@tradingekmission.online" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
         <a href="https://whatsapp.com/channel/0029Va9GrLEEwEjuAt29a83b" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
       </div>
-      <button id="logout-btn" class="logout-btn">🔒 Logout</button>
     </nav>
   </header>
-
-  <!-- Main Content -->
+<!-- Main Content -->
   <main> 
     <div class="course-content" id="courseContent">
       <h1>Beginner Stock Market Course</h1>
@@ -89,57 +91,10 @@
       </div>
     </div>
   </main>
-
-  <!-- Footer -->
-  <footer class="main-footer">
+<footer class="main-footer">
     <div class="footer-content">
       <p>&copy; 2025 Trading Ek Mission. All Rights Reserved.</p>
     </div>
   </footer>
-
-  <!-- Firebase Config + Auth Protection -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyDa5EPtNbmugtaIMiIaYmVtapYsvU7biMc",
-      authDomain: "tradingekmission.firebaseapp.com",
-      projectId: "tradingekmission",
-      storageBucket: "tradingekmission.firebasestorage.app",
-      messagingSenderId: "301971513060",
-      appId: "1:301971513060:web:a6027176e12af4b227d6f1",
-      measurementId: "G-C0W3J8LNSE"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    getAnalytics(app);
-    const auth = getAuth();
-
-    // 🔒 Redirect if not logged in
-    onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        window.location.href = "login.html";
-      }
-    });
-
-    // 🔓 Logout handler
-    document.getElementById("logout-btn").addEventListener("click", () => {
-      signOut(auth).then(() => {
-        window.location.href = "login.html";
-      });
-    });
-
-    // 🌙 Dark Mode
-    document.getElementById("dark-toggle").addEventListener("click", () => {
-      document.body.classList.toggle("dark-mode");
-    });
-
-    // 📱 Menu toggle
-    document.getElementById("menu-toggle").addEventListener("click", () => {
-      document.getElementById("menu").classList.toggle("open");
-    });
-  </script>
 </body>
 </html>
