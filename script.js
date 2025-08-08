@@ -153,7 +153,7 @@ if (currentPage === "login.html") {
         try {
             await signInWithEmailAndPassword(auth, email, password);
             formMsg.textContent = "✅ Login successful! Redirecting...";
-            setTimeout(() => window.location.href = "course.html", 1500);
+            setTimeout(() => window.location.href = "beginner.html", 1500);
         } catch (error) {
             formMsg.textContent = `❌ ${error.message}`;
         }
@@ -161,7 +161,7 @@ if (currentPage === "login.html") {
 }
 
 // ===== Auth Protection (Courses Page) =====
-if (currentPage === "course.html") {
+if (currentPage === "beginner.html") {
     onAuthStateChanged(auth, (user) => {
         if (!user) {
             window.location.href = "login.html";
