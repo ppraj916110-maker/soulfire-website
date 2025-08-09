@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeMenuBtn = document.getElementById('close-menu-btn');
   const darkToggle = document.getElementById('dark-toggle');
   const body = document.body;
+}
   // B. Handle the main menu toggle button
   if (menuToggle && menu) {
     menuToggle.addEventListener('click', () => {
