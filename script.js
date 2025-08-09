@@ -178,3 +178,19 @@ if (logoutBtn) {
         signOut(auth).then(() => window.location.href = "login.html");
     });
 }
+// Disable right-click menu globally
+document.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+  alert('Right-click is disabled on this website.');
+});
+
+// Disable Ctrl+C, Ctrl+U, Ctrl+S, PrintScreen keys globally
+document.addEventListener('keydown', function(e) {
+  if (
+    (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's')) ||
+    e.key === 'PrintScreen'
+  ) {
+    e.preventDefault();
+    alert('This action is disabled on this website.');
+  }
+});
