@@ -1,33 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // A. Get all the necessary elements using their IDs
-  const menuToggle = document.getElementById('menu-toggle');
-  const menu = document.getElementById('menu');
-  const closeMenuBtn = document.getElementById('close-menu-btn');
-  const darkToggle = document.getElementById('dark-toggle');
-  const body = document.body;
-}
-  // B. Handle the main menu toggle button
-  if (menuToggle && menu) {
-    menuToggle.addEventListener('click', () => {
-      // Toggle the 'active' class on the menu to show/hide it
-      menu.classList.toggle('active');
-    });
-  }
+    // A. Get all the necessary elements using their IDs
+    const menuToggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('menu');
+    const closeMenuBtn = document.getElementById('close-menu-btn');
+    const darkToggle = document.getElementById('dark-toggle');
+    const body = document.body;
+    const quoteElement = document.getElementById("trader-quote");
+    const signupForm = document.getElementById("signup-form");
+    const formMsg = document.getElementById("form-message");
+    const loginForm = document.getElementById("login-form");
+    const logoutBtn = document.getElementById("logout-btn");
 
-  // C. Handle the NEW close button
-  if (closeMenuBtn && menu) {
-    closeMenuBtn.addEventListener('click', () => {
-      // When clicked, explicitly remove the 'active' class from the menu
-      menu.classList.remove('active');
-    });
-  }
-
-    // ====== Slide Menu Toggle ======
+    // B. Handle the main menu toggle button
     if (menuToggle && menu) {
-        menuToggle.addEventListener("click", () => {
-            menu.classList.toggle("active");
+        menuToggle.addEventListener('click', () => {
+            menu.classList.toggle('active');
             menuToggle.classList.toggle("open");
             menuToggle.classList.toggle("close");
+        });
+    }
+
+    // C. Handle the NEW close button
+    if (closeMenuBtn && menu) {
+        closeMenuBtn.addEventListener('click', () => {
+            menu.classList.remove('active');
+            menuToggle.classList.remove("open");
+            menuToggle.classList.remove("close");
         });
     }
 
@@ -73,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     let currentQuoteIndex = 0;
-    const quoteElement = document.getElementById("trader-quote");
 
     if (quoteElement) {
         function showNextQuote() {
@@ -88,125 +85,128 @@ document.addEventListener('DOMContentLoaded', () => {
         showNextQuote();
         setInterval(showNextQuote, 5000);
     }
-}); // ✅ Closing DOMContentLoaded
 
-// ===== Firebase Imports =====
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
-import {
-    getAuth,
-    onAuthStateChanged,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
-// ===== Firebase Config =====
-const firebaseConfig = {
-    apiKey: "AIzaSyDa5EPtNbmugtaIMiIaYmVtapYsvU7biMc",
-    authDomain: "tradingekmission.firebaseapp.com",
-    projectId: "tradingekmission",
-    storageBucket: "tradingekmission.firebasestorage.app",
-    messagingSenderId: "301971513060",
-    appId: "1:301971513060:web:a6027176e12af4b227d6f1",
-    measurementId: "G-C0W3J8LNSE"
-};
-
-// ===== Init Firebase =====
-const app = initializeApp(firebaseConfig);
-getAnalytics(app);
-const auth = getAuth(app);
-
-// ===== Detect Current Page =====
-const currentPage = window.location.pathname.split("/").pop();
-
-// ===== Signup Logic =====
-if (currentPage === "signup.html") {
-    const signupForm = document.getElementById("signup-form");
-    const formMsg = document.getElementById("form-message");
-
-    signupForm.addEventListener("submit", async (e) => {
+    // Disable right-click menu silently
+    document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
+    });
 
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value.trim();
-        const confirmPassword = document.getElementById("confirm-password").value.trim();
-
-        if (password !== confirmPassword) {
-            formMsg.textContent = "❌ Passwords do not match!";
-            return;
-        }
-
-        if (password.length < 8) {
-            formMsg.textContent = "⚠️ Password must be at least 8 characters.";
-            return;
-        }
-
-        if (!/[!@#$%^&*]/.test(password)) {
-            formMsg.textContent = "⚠️ Password must contain at least one special character (!@#$%^&*).";
-            return;
-        }
-
-        try {
-            await createUserWithEmailAndPassword(auth, email, password);
-            formMsg.textContent = "✅ Signup successful! Redirecting...";
-            setTimeout(() => window.location.href = "course.html", 1500);
-        } catch (error) {
-            formMsg.textContent = `❌ ${error.message}`;
+    // Disable Ctrl+C, Ctrl+U, Ctrl+S, PrintScreen keys silently
+    document.addEventListener('keydown', function(e) {
+        if (
+            (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's')) ||
+            e.key === 'PrintScreen'
+        ) {
+            e.preventDefault();
         }
     });
-}
 
-// ===== Login Logic =====
-if (currentPage === "login.html") {
-    const loginForm = document.getElementById("login-form");
-    const formMsg = document.getElementById("form-message");
+    // ===== Firebase Imports =====
+    import {
+        initializeApp
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import {
+        getAnalytics
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+    import {
+        getAuth,
+        onAuthStateChanged,
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
+        signOut
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-    loginForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
+    // ===== Firebase Config =====
+    const firebaseConfig = {
+        apiKey: "AIzaSyDa5EPtNbmugtaIMiIaYmVtapYsvU7biMc",
+        authDomain: "tradingekmission.firebaseapp.com",
+        projectId: "tradingekmission",
+        storageBucket: "tradingekmission.firebasestorage.app",
+        messagingSenderId: "301971513060",
+        appId: "1:301971513060:web:a6027176e12af4b227d6f1",
+        measurementId: "G-C0W3J8LNSE"
+    };
 
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value.trim();
+    // ===== Init Firebase =====
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app);
+    const auth = getAuth(app);
 
-        try {
-            await signInWithEmailAndPassword(auth, email, password);
-            formMsg.textContent = "✅ Login successful! Redirecting...";
-            setTimeout(() => window.location.href = "beginner.html", 1500);
-        } catch (error) {
-            formMsg.textContent = `❌ ${error.message}`;
-        }
-    });
-}
+    // ===== Detect Current Page =====
+    const currentPage = window.location.pathname.split("/").pop();
 
-// ===== Auth Protection for Multiple Pages =====
-const protectedPages = ["beginner.html", "technical.html","advance.html"];
+    // ===== Signup Logic =====
+    if (currentPage === "signup.html") {
+        const signupForm = document.getElementById("signup-form");
+        const formMsg = document.getElementById("form-message");
 
-if (protectedPages.includes(currentPage)) {
-    onAuthStateChanged(auth, (user) => {
-        if (!user) {
-            window.location.href = "login.html";
-        }
-    });
-}
+        signupForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
 
-// ===== Logout Button =====
-const logoutBtn = document.getElementById("logout-btn");
-if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
-        signOut(auth).then(() => window.location.href = "login.html");
-    });
-}
-// Disable right-click menu silently
-document.addEventListener('contextmenu', function(e) {
-  e.preventDefault();
-});
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+            const confirmPassword = document.getElementById("confirm-password").value.trim();
 
-// Disable Ctrl+C, Ctrl+U, Ctrl+S, PrintScreen keys silently
-document.addEventListener('keydown', function(e) {
-  if (
-    (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's')) ||
-    e.key === 'PrintScreen'
-  ) {
-    e.preventDefault();
-  }
+            if (password !== confirmPassword) {
+                formMsg.textContent = "❌ Passwords do not match!";
+                return;
+            }
+
+            if (password.length < 8) {
+                formMsg.textContent = "⚠️ Password must be at least 8 characters.";
+                return;
+            }
+
+            if (!/[!@#$%^&*]/.test(password)) {
+                formMsg.textContent = "⚠️ Password must contain at least one special character (!@#$%^&*).";
+                return;
+            }
+
+            try {
+                await createUserWithEmailAndPassword(auth, email, password);
+                formMsg.textContent = "✅ Signup successful! Redirecting...";
+                setTimeout(() => window.location.href = "course.html", 1500);
+            } catch (error) {
+                formMsg.textContent = `❌ ${error.message}`;
+            }
+        });
+    }
+
+    // ===== Login Logic =====
+    if (currentPage === "login.html") {
+        const loginForm = document.getElementById("login-form");
+        const formMsg = document.getElementById("form-message");
+
+        loginForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                formMsg.textContent = "✅ Login successful! Redirecting...";
+                setTimeout(() => window.location.href = "beginner.html", 1500);
+            } catch (error) {
+                formMsg.textContent = `❌ ${error.message}`;
+            }
+        });
+    }
+
+    // ===== Auth Protection for Multiple Pages =====
+    const protectedPages = ["beginner.html", "technical.html", "advance.html"];
+    if (protectedPages.includes(currentPage)) {
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = "login.html";
+            }
+        });
+    }
+
+    // ===== Logout Button =====
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", () => {
+            signOut(auth).then(() => window.location.href = "login.html");
+        });
+    }
 });
