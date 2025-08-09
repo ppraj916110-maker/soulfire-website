@@ -1,8 +1,26 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const menuToggle = document.getElementById("menu-toggle");
-    const menu = document.getElementById("menu");
-    const darkToggle = document.getElementById("dark-toggle");
-    const body = document.body;
+document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
+  // A. Get all the necessary elements using their IDs
+  const menuToggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('menu');
+  const closeMenuBtn = document.getElementById('close-menu-btn');
+  const darkToggle = document.getElementById('dark-toggle');
+  const body = document.body;
+  // B. Handle the main menu toggle button
+  if (menuToggle && menu) {
+    menuToggle.addEventListener('click', () => {
+      // Toggle the 'active' class on the menu to show/hide it
+      menu.classList.toggle('active');
+    });
+  }
+
+  // C. Handle the NEW close button
+  if (closeMenuBtn && menu) {
+    closeMenuBtn.addEventListener('click', () => {
+      // When clicked, explicitly remove the 'active' class from the menu
+      menu.classList.remove('active');
+    });
+  }
 
     // ====== Slide Menu Toggle ======
     if (menuToggle && menu) {
@@ -192,12 +210,3 @@ document.addEventListener('keydown', function(e) {
     e.preventDefault();
   }
 });
-// Get the close button and the menu elements
-const closeMenuBtn = document.getElementById('close-menu-btn');
-const menu = document.getElementById('menu');
-
-// Add a click event listener to the close button
-closeMenuBtn.addEventListener('click', () => {
-  menu.classList.remove('menu-open');
-});
-
