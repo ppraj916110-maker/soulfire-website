@@ -161,7 +161,7 @@ if (currentPage === "login.html") {
 }
 
 // ===== Auth Protection for Multiple Pages =====
-const protectedPages = ["beginner.html", "technical.html"];
+const protectedPages = ["beginner.html", "technical.html","advance.html"];
 
 if (protectedPages.includes(currentPage)) {
     onAuthStateChanged(auth, (user) => {
