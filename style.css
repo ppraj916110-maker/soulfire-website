@@ -442,7 +442,7 @@ body.dark-mode .logout-btn:hover {
 }
 /* Disable text selection & dragging site-wide */
 body {
-  -webkit-user-select: none;
+  -webkit-user-select: all;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
