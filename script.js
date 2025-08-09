@@ -1,3 +1,18 @@
+// ===== Firebase Imports (CORRECT LOCATION) =====
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import {
+    getAnalytics
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+import {
+    getAuth,
+    onAuthStateChanged,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
 document.addEventListener('DOMContentLoaded', () => {
     // A. Get all the necessary elements using their IDs
     const menuToggle = document.getElementById('menu-toggle');
@@ -33,28 +48,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentTheme = localStorage.getItem("theme");
     if (currentTheme === "dark") {
         body.classList.add("dark-mode");
-        darkToggle.textContent = "☀️";
+        if (darkToggle) {
+            darkToggle.textContent = "☀️";
+        }
     } else {
-        darkToggle.textContent = "🌙";
+        if (darkToggle) {
+            darkToggle.textContent = "🌙";
+        }
     }
 
     // ====== Dark Mode Toggle Button ======
-    darkToggle.addEventListener("click", () => {
-        body.classList.toggle("dark-mode");
-        if (body.classList.contains("dark-mode")) {
-            localStorage.setItem("theme", "dark");
-            darkToggle.textContent = "☀️";
-        } else {
-            localStorage.setItem("theme", "light");
-            darkToggle.textContent = "🌙";
-        }
-    });
+    if (darkToggle) {
+        darkToggle.addEventListener("click", () => {
+            body.classList.toggle("dark-mode");
+            if (body.classList.contains("dark-mode")) {
+                localStorage.setItem("theme", "dark");
+                darkToggle.textContent = "☀️";
+            } else {
+                localStorage.setItem("theme", "light");
+                darkToggle.textContent = "🌙";
+            }
+        });
+    }
 
     // ====== AOS Animation ======
-    AOS.init({
-        duration: 1000,
-        once: true,
-    });
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 1000,
+            once: true,
+        });
+    }
 
     // ===== Rotating Trader Quotes =====
     const quotes = [
@@ -101,21 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ===== Firebase Imports =====
-    import {
-        initializeApp
-    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-    import {
-        getAnalytics
-    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
-    import {
-        getAuth,
-        onAuthStateChanged,
-        createUserWithEmailAndPassword,
-        signInWithEmailAndPassword,
-        signOut
-    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
     // ===== Firebase Config =====
     const firebaseConfig = {
         apiKey: "AIzaSyDa5EPtNbmugtaIMiIaYmVtapYsvU7biMc",
@@ -136,10 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentPage = window.location.pathname.split("/").pop();
 
     // ===== Signup Logic =====
-    if (currentPage === "signup.html") {
-        const signupForm = document.getElementById("signup-form");
-        const formMsg = document.getElementById("form-message");
-
+    if (currentPage === "signup.html" && signupForm) {
         signupForm.addEventListener("submit", async (e) => {
             e.preventDefault();
 
@@ -173,10 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ===== Login Logic =====
-    if (currentPage === "login.html") {
-        const loginForm = document.getElementById("login-form");
-        const formMsg = document.getElementById("form-message");
-
+    if (currentPage === "login.html" && loginForm) {
         loginForm.addEventListener("submit", async (e) => {
             e.preventDefault();
 
