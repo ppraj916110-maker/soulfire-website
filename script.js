@@ -192,3 +192,6 @@ document.addEventListener('keydown', function(e) {
     e.preventDefault();
   }
 });
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
