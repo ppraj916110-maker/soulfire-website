@@ -440,51 +440,16 @@ body.dark-mode .logout-btn:hover {
     color: var(--text-color, #333);
     transition: opacity 0.8s ease-in-out;
 }
-/* Responsive styles for Advanced Intraday Trading page */
-@media (max-width: 900px) {
-  main.content-area {
-    padding: 10px 15px;
-  }
-  .intraday-guide,
-  .intraday-chart {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-  .chart-controls {
-    flex-direction: column;
-    gap: 12px;
-  }
-  .chart-controls > * {
-    width: 100%;
-  }
-  canvas#intradayChart {
-    height: 300px !important;
-  }
-  table.intraday-table {
-    font-size: 12px;
-    overflow-x: auto;
-    display: block;
-    width: 100%;
-  }
-  .chart-error {
-    font-size: 14px;
-  }
-  button.cta-button {
-    padding: 12px 20px;
-    font-size: 16px;
-  }
+/* Disable text selection & dragging site-wide */
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
 }
 
-/* Smaller mobile screens */
-@media (max-width: 480px) {
-  .chart-controls input,
-  .chart-controls select,
-  .chart-controls button,
-  .chart-controls label {
-    font-size: 14px;
-  }
-  main.content-area h1,
-  main.content-area h2 {
-    font-size: 1.5rem;
-  }
+img, body {
+  -webkit-user-drag: none;
+  user-drag: none;
 }
