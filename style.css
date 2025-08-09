@@ -453,3 +453,9 @@ img, body {
   -webkit-user-drag: none;
   user-drag: none;
 }
+#google_translate_element {
+  display: inline-block;
+}
+#google_translate_element {
+  float: right;
+}
