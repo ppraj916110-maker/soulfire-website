@@ -1,432 +1,247 @@
- /* === Reset === */
-{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* === 1. Reset & Global Styles === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #f9fafc;
-  color: #333;
-  overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9fafc;
+    color: #333;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+    -webkit-user-drag: none;
+    user-drag: none;
 }
 
-/* === Header === */
+a {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+/* === 2. Dark Mode Global Styles === */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode a {
+    color: #f0f0f0;
+}
+
+/* === 3. Header & Navigation === */
 .main-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  background-color: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+}
+
+body.dark-mode .main-header {
+    background-color: #1f1f1f;
+    color: #fff;
 }
 
 .logo img {
-  height: 50px;
+    height: 50px;
 }
 
-/* === Menu Toggle Button === */
-.menu-toggle {
-  font-size: 1.2rem;
-  background-color: navy-blue;
-  border:solid;
-  color: #333;
-  cursor: pointer;
-  transition: transform 0.3s ease;
+.menu-toggle, .dark-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #555;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
-.menu-toggle:hover {
-  transform: rotate(0deg);
+.menu-toggle:hover, .dark-toggle:hover {
+    transform: scale(1.1);
 }
 
-/* Slide Menu */
+body.dark-mode .menu-toggle, body.dark-mode .dark-toggle {
+    color: #f0f0f0;
+}
+
 .menu {
-  transform: translateX(-100%);
-  transition: transform 0.3s ease-in-out;
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 260px;
-  height: 100vh;
-  background: #fff;
-  z-index: 999;
-  padding: 2rem;
-}
-.menu.active {
-  transform: translateX(0);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 260px;
+    height: 100vh;
+    background: #fff;
+    z-index: 999;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Dark Mode */
-body.dark-mode {
-  background-color: #121212;
-  color: #e0e0e0;
+.menu.active {
+    transform: translateX(0);
 }
+
 body.dark-mode .menu {
-  background: #1e1e1e;
+    background: #1e1e1e;
 }
-body.dark-mode a {
-  color: #f0f0f0;
-}
-/* === Menu Links === */
+
 .menu ul {
-  list-style: none;
-  width: 100%;
+    list-style: none;
+    width: 100%;
 }
 
 .menu ul li {
-  margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .menu ul li a {
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: #333;
-  text-decoration: none;
-  position: relative;
-  padding-bottom: 4px;
-  transition: color 0.3s ease;
+    font-size: 1.2rem;
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 4px;
 }
 
 .menu ul li a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0%;
-  height: 2px;
-  background-color: #0077cc;
-  transition: width 0.3s;
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #0077cc;
+    transition: width 0.3s;
 }
 
 .menu ul li a:hover::after {
-  width: 100%;
+    width: 100%;
 }
 
 .menu ul li a:hover {
-  color: #0077cc;
+    color: #0077cc;
 }
 
-/* === Social Icons in Slide Menu === */
+body.dark-mode .menu ul li a:hover {
+    color: #90cdf4;
+}
+
 .slide-menu-icons {
-  margin-top: auto;
-  width: 100%;
-  border-top: 1px solid #ccc;
-  padding-top: 1.5rem;
+    margin-top: auto;
+    width: 100%;
+    border-top: 1px solid #ccc;
+    padding-top: 1.5rem;
+}
+
+body.dark-mode .slide-menu-icons {
+    border-color: #444;
 }
 
 .slide-menu-icons a {
-  display: block;
-  margin-bottom: 1rem;
-  color: #666;
-  text-decoration: none;
-  font-size: 1.1rem;
-  transition: color 0.3s ease;
+    display: block;
+    margin-bottom: 1rem;
+    color: #666;
+    font-size: 1.1rem;
+}
+
+body.dark-mode .slide-menu-icons a {
+    color: #ccc;
 }
 
 .slide-menu-icons a:hover {
-  color: #0077cc;
+    color: #0077cc;
 }
 
-/* === Main Content Area === */
+.close-menu-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #ff0000;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+/* === 4. Main Content === */
+main {
+    padding: 2rem 1.5rem;
+    max-width: 960px;
+    margin: auto;
+    line-height: 1.7;
+}
+
 .content-area {
-  padding: 2rem;
-  animation: fadeIn 0.6s ease-in-out;
+    animation: fadeIn 0.6s ease-in-out;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* === Call to Action === */
-.call-to-action {
-  margin-top: 3rem;
-  background: linear-gradient(to right, #e0f7fa, #e3f2fd);
-  padding: 2rem;
-  text-align: center;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
-}
-
-.cta-button {
-  margin-top: 1.2rem;
-  background-color: #0077cc;
-  color: #fff;
-  padding: 0.8rem 1.8rem;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: background 0.3s ease;
-}
-
-.cta-button:hover {
-  background-color: #005fa3;
-}
-
-/* === Footer === */
-.main-footer {
-  background-color: #111;
-  color: #fff;
-  padding: 2rem 1rem;
-  text-align: center;
-  margin-top: 4rem;
-  font-size: 0.95rem;
-}
-
-/* === Responsive === */
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-  }
-  /* === Dark Mode === */
-body.dark {
-  background-color: #121212;
-  color: #f0f0f0;
-}
-
-body.dark .main-header {
-  background-color: #1f1f1f;
-  color: #fff;
-}
-
-body.dark .menu {
-  background: linear-gradient(135deg, #1c1c1c, #2a2a2a);
-}
-
-body.dark .menu ul li a {
-  color: #f0f0f0;
-}
-
-body.dark .menu ul li a:hover {
-  color: #90cdf4;
-}
-
-body.dark .main-footer {
-  background-color: #1a1a1a;
-  color: #ccc;
-}
-
-body.dark .cta-button {
-  background-color: #3182ce;
-}
-
-body.dark .cta-button:hover {
-  background-color: #2b6cb0;
-}
-
-.dark-toggle {
-  font-size: 1.5rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-left: 1rem;
-  color: #555;
-  transition: transform 0.2s ease;
-}
-
-.dark-toggle:hover {
-  transform: scale(1.2);
-}
-
-body.dark .dark-toggle {
-  color: #f0f0f0;
-}
-
-  .menu {
-    width: 80%;
-  }
-  font-size: 0.9rem;
-  color: red;
-}
-/* === Login/Signup Form === */
-
-[data-aos^="fade"].aos-animate {
-  opacity: 1;
-}
-
-form {
-  background: #fff;
-  padding: 25px 30px;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  width: 100%;
-  max-width: 400px;
-}
-
-form label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-}
-
-form input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 18px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-form button {
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-form button:hover {
-  background-color: #0056b3;
-}
-
-.form-message {
-  margin-top: 10px;
-  text-align: center;
-  color: red;
-  font-weight: 500;
-}
-
-/* === Success Screen (for signup success) === */
-.success-screen {
-  text-align: center;
-  animation: fadeIn 1s ease-in-out;
-}
-
-.success-screen h2 {
-  color: green;
-  margin-bottom: 10px;
-}
-
-/* Dark Mode Support */
-body.dark {
-  background-color: #121212;
-  color: #e0e0e0;
-}
-
-body.dark #signup-form {
-  background-color: #1e1e1e;
-  border: 1px solid #333;
-}
-
-body.dark input, body.dark label {
-  color: #e0e0e0;
-  background-color: #2c2c2c;
-  border-color: #444;
-}
-
-body.dark .success-screen {
-  background-color: #1d3f2b;
-  color: #a8ffce;
-}
-/* === Main Content Styling === */
-main {
-  padding: 2rem 1.5rem;
-  max-width: 960px;
-  margin: auto;
-  font-family: 'Poppins', sans-serif;
-  color: #333;
-  line-height: 1.7;
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 section {
-  margin-bottom: 3rem;
-  background-color: #ffffff;
-  padding: 1.5rem 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease;
-}
-
-/* Headings */
-section h1,
-section h2,
-section h3 {
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: #111;
-}
-
-/* Paragraphs */
-section p {
-  margin-bottom: 1rem;
-  font-size: 1rem;
-}
-
-/* Lists */
-ul,
-ol {
-  margin-left: 1.2rem;
-  padding-left: 1rem;
-}
-
-ul li,
-ol li {
-  margin-bottom: 0.75rem;
-}
-
-ul li span,
-ol li span {
-  font-size: 0.95rem;
-}
-
-/* Bold terms inside rules */
-strong {
-  font-weight: 600;
-  color: #222;
-}
-
-/* === Dark Mode === */
-body.dark-mode {
-  background-color: #121212;
-  color: #e0e0e0;
+    margin-bottom: 3rem;
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 body.dark-mode section {
-  background-color: #1e1e1e;
-  color: #e0e0e0;
+    background-color: #1e1e1e;
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.05);
 }
 
-body.dark-mode section h1,
-body.dark-mode section h2,
-body.dark-mode section h3 {
-  color: #ffffff;
+section h1, section h2, section h3 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #111;
+}
+
+body.dark-mode section h1, body.dark-mode section h2, body.dark-mode section h3 {
+    color: #ffffff;
+}
+
+section p {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+ul, ol {
+    margin-left: 1.2rem;
+    padding-left: 1rem;
+}
+
+ul li, ol li {
+    margin-bottom: 0.75rem;
+}
+
+strong {
+    font-weight: 600;
+    color: #222;
 }
 
 body.dark-mode strong {
-  color: #ffffff;
-}
-/* === Logout Button === */
-.logout-btn {
-  display: inline-block;
-  margin-top: 2rem;
-  padding: 10px 20px;
-  background-color: #dc3545;
-  color: #fff;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+    color: #ffffff;
 }
 
-.logout-btn:hover {
-  background-color: #c82333;
-}
-
-body.dark-mode .logout-btn {
-  background-color: #b02a37;
-}
-body.dark-mode .logout-btn:hover {
-  background-color: #a12630;
-}
+/* === 5. Quotes === */
 .quote-section {
     text-align: center;
     margin: 50px auto;
@@ -437,50 +252,180 @@ body.dark-mode .logout-btn:hover {
 .trader-quote {
     font-size: 1.4rem;
     font-style: italic;
-    color: var(--text-color, #333);
+    color: #333;
     transition: opacity 0.8s ease-in-out;
 }
-/* Disable text selection & dragging site-wide */
-body {
-  -webkit-user-select: all;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  cursor: default;
+
+body.dark-mode .trader-quote {
+    color: #e0e0e0;
 }
 
-img, body {
-  -webkit-user-drag: none;
-  user-drag: none;
+/* === 6. Forms & Buttons === */
+form {
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
 }
+
+body.dark-mode form {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+body.dark-mode form input {
+    color: #e0e0e0;
+    background-color: #2c2c2c;
+    border-color: #444;
+}
+
+form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+.form-message {
+    margin-top: 10px;
+    text-align: center;
+    color: red;
+    font-weight: 500;
+}
+
+.success-screen {
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.success-screen h2 {
+    color: green;
+    margin-bottom: 10px;
+}
+
+body.dark-mode .success-screen {
+    background-color: #1d3f2b;
+    color: #a8ffce;
+}
+
+.logout-btn {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #c82333;
+}
+
+body.dark-mode .logout-btn {
+    background-color: #b02a37;
+}
+
+body.dark-mode .logout-btn:hover {
+    background-color: #a12630;
+}
+
+/* === 7. Call to Action === */
+.call-to-action {
+    margin-top: 3rem;
+    background: linear-gradient(to right, #e0f7fa, #e3f2fd);
+    padding: 2rem;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+}
+
+.cta-button {
+    margin-top: 1.2rem;
+    background-color: #0077cc;
+    color: #fff;
+    padding: 0.8rem 1.8rem;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #005fa3;
+}
+
+body.dark-mode .cta-button {
+    background-color: #3182ce;
+}
+
+body.dark-mode .cta-button:hover {
+    background-color: #2b6cb0;
+}
+
+/* === 8. Footer === */
+.main-footer {
+    background-color: #111;
+    color: #fff;
+    padding: 2rem 1rem;
+    text-align: center;
+    margin-top: 4rem;
+    font-size: 0.95rem;
+}
+
+body.dark-mode .main-footer {
+    background-color: #1a1a1a;
+    color: #ccc;
+}
+
+/* === 9. Third-Party (Google Translate) === */
 #google_translate_element {
-  display: inline-block;
+    display: inline-block;
+    float: center; /* This might not work as intended, consider a flexbox container for proper centering */
 }
-#google_translate_element {
-  float: center;
+
+/* === 10. Responsive Design (Mobile First) === */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .menu {
+        width: 80%;
+    }
 }
-/* Close Button for ALL screens */
-.close-btn {
-  /* This ensures the button is always visible */
-  display: block; 
-  
-  /* Resetting button styles */
-  background: none;
-  border: none;
 
-  /* Styling the 'X' character */
-  color: #ff0000; /* Assuming a dark background for the menu */
-  font-size: 2rem;
-  font-weight: bold;
-
-  /* Positioning for the button */
-  position: absolute;
-  top: 10px;
-  right: 20px;
-
-  /* Making it interactive */
-  cursor: pointer;
-  
-  /* Ensures the button is on top of other menu content */
-  z-index: 1001; 
+@media (min-width: 769px) {
+    .menu-toggle, .close-menu-btn {
+        display: none;
+    }
 }
