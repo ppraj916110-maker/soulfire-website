@@ -459,19 +459,28 @@ img, body {
 #google_translate_element {
   float: center;
 }
+/* Close Button for ALL screens */
 .close-btn {
+  /* This ensures the button is always visible */
+  display: block; 
+  
+  /* Resetting button styles */
   background: none;
   border: none;
-  color: #ff0000; /* Assuming your menu has a dark background */
-  font-size: 2rem; /* Larger font size for visibility */
+
+  /* Styling the 'X' character */
+  color: #ff0000; /* Assuming a dark background for the menu */
+  font-size: 2rem;
+  font-weight: bold;
+
+  /* Positioning for the button */
   position: absolute;
   top: 10px;
   right: 20px;
-  cursor: pointer;
-  z-index: 1001; /* Ensure it's on top of other menu content */
-  -webkit-tap-highlight-color: transparent; /* Removes highlight on mobile */
-}
 
-.close-btn:hover {
-  color: #ccc; /* Lighter color on hover */
+  /* Making it interactive */
+  cursor: pointer;
+  
+  /* Ensures the button is on top of other menu content */
+  z-index: 1001; 
 }
