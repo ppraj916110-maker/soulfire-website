@@ -192,19 +192,12 @@ document.addEventListener('keydown', function(e) {
     e.preventDefault();
   }
 });
-.close-btn {
-  background: none;
-  border: none;
-  color: #ff0000; /* Assuming your menu has a dark background */
-  font-size: 2rem; /* Larger font size for visibility */
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  cursor: pointer;
-  z-index: 1001; /* Ensure it's on top of other menu content */
-  -webkit-tap-highlight-color: transparent; /* Removes highlight on mobile */
-}
+// Get the close button and the menu elements
+const closeMenuBtn = document.getElementById('close-menu-btn');
+const menu = document.getElementById('menu');
 
-.close-btn:hover {
-  color: #ccc; /* Lighter color on hover */
-}
+// Add a click event listener to the close button
+closeMenuBtn.addEventListener('click', () => {
+  menu.classList.remove('menu-open');
+});
+
