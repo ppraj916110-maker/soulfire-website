@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-document.addEventListener('DOMContentLoaded', () => {
   // A. Get all the necessary elements using their IDs
   const menuToggle = document.getElementById('menu-toggle');
   const menu = document.getElementById('menu');
