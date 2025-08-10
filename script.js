@@ -211,4 +211,20 @@ document.addEventListener('DOMContentLoaded', () => {
             signOut(auth).then(() => window.location.href = "login.html");
         });
     }
-});
+    
+    // ===== Toggle Content Logic (Site-wide) =====
+    document.querySelectorAll('[data-toggle-target]').forEach(button => {
+        const targetId = button.getAttribute('data-toggle-target');
+        const target = document.getElementById(targetId);
+
+        if (target) {
+            button.addEventListener('click', () => {
+                target.classList.toggle('show');
+                const isExpanded = target.classList.contains('show');
+                button.textContent = isExpanded ? 'Hide Content' : 'Show More Content';
+                button.setAttribute('aria-expanded', isExpanded);
+            });
+        }
+    });
+
+}); // <-- End of DOMContentLoaded
