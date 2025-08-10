@@ -17,25 +17,6 @@
   <!-- Scripts -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8870960298045491" crossorigin="anonymous"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-
-  <style>
-    .more-info {
-        overflow: hidden;
-        max-height: 0;
-        opacity: 0;
-        transition: all 0.4s ease-in-out;
-        margin-top: 1em;
-        padding: 0 1em;
-        border: 1px solid #ccc;
-        background-color: #f9f9f9;
-    }
-
-    .more-info.show {
-        max-height: 500px; /* enough to show content */
-        opacity: 1;
-        padding: 1em;
-    }
-    </style>
 </head>
 <body>
   <header class="main-header">
@@ -81,7 +62,6 @@
     <p>Hey there! 👋 Thinking about your money and how to make it grow is a smart move. Let's explore the fundamental concepts of **saving versus investing**, and the crucial relationship between **risk and reward**. Understanding these ideas is the first step toward building a solid financial future.</p>
 <button id="toggleButton" aria-expanded="false" aria-controls="more-info">Show More Content</button>
 <div id="more-info">
-    <h3>This is the additional content!</h3>
     <h2>Saving vs. Investing</h2>
            <div class="image-container">
                 <img src="saving.png">
@@ -142,17 +122,6 @@
       <p>&copy; 2025 Trading Ek Mission. All Rights Reserved.</p>
     </div>
   </footer>
-  <script>
-    const toggleButton = document.getElementById('toggleButton');
-    const moreInfoDiv = document.getElementById('more-info');
-
-    toggleButton.addEventListener('click', () => {
-        moreInfoDiv.classList.toggle('show');
-        const isExpanded = moreInfoDiv.classList.contains('show');
-        toggleButton.textContent = isExpanded ? 'Hide Content' : 'Show More Content';
-        toggleButton.setAttribute('aria-expanded', isExpanded);
-    });
-</script>
   <script type="text/javascript">
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
