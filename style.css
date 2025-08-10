@@ -329,6 +329,17 @@ form button:hover {
     color: green;
     margin-bottom: 10px;
 }
+.login-redirect {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.login-redirect a {
+  color: var(--primary-color); /* Assuming you have a primary color variable */
+  text-decoration: underline;
+  font-weight: 600;
+}
 
 body.dark-mode .success-screen {
     background-color: #1d3f2b;
