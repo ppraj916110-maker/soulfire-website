@@ -213,10 +213,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // ===== Toggle Content Logic (Site-wide) =====
-   document.addEventListener('DOMContentLoaded', function() {
-        const toggleButton = document.getElementById('toggleButton');
+    const toggleButton = document.getElementById('toggleButton');
         const moreInfo = document.getElementById('more-info');
-
+    
         toggleButton.addEventListener('click', function() {
             const isExpanded = this.getAttribute('aria-expanded') === 'true' || false;
             this.setAttribute('aria-expanded', !isExpanded);
@@ -232,5 +231,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Initialize the content to be hidden
         moreInfo.style.display = 'none';
-    });
-}); // <-- End of DOMContentLoaded
+    });       // <-- End of DOMContentLoaded
