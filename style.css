@@ -466,7 +466,7 @@ body.dark-mode .main-footer {
 }
 
 .toggle-content.show {
-    max-height: 500px; /* adjust height if content is taller */
+    max-height: 400px; /* adjust height if content is taller */
     opacity: 1;
     padding: 1em;
 }
@@ -489,14 +489,14 @@ body.dark-mode .main-footer {
 
 /* Dark Mode Support */
 .dark-mode .toggle-content {
-    border-color: #555;
-    background-color: #222;
+    border-color: none;
+    background-color: none;
     color: #fff;
 }
 
 .dark-mode .toggle-btn {
     background-color: #444;
-    border-color: #666;
+    border-color: none;
 }
 
 .dark-mode .toggle-btn:hover {
