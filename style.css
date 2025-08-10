@@ -453,3 +453,52 @@ body.dark-mode .main-footer {
             font-style: italic;
             color: #555;
         }
+/* === Toggle Content Animation === */
+.toggle-content {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    padding: 0;
+    margin-top: 1em;
+    border: 1px solid var(--border-color, #ccc);
+    background-color: var(--bg-light, #f9f9f9);
+    transition: all 0.4s ease-in-out;
+}
+
+.toggle-content.show {
+    max-height: 500px; /* adjust height if content is taller */
+    opacity: 1;
+    padding: 1em;
+}
+
+/* Toggle Button Style */
+.toggle-btn {
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 1px solid var(--primary-color, #007BFF);
+    background-color: var(--primary-color, #007BFF);
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-btn:hover {
+    background-color: var(--primary-hover, #0056b3);
+}
+
+/* Dark Mode Support */
+.dark-mode .toggle-content {
+    border-color: #555;
+    background-color: #222;
+    color: #fff;
+}
+
+.dark-mode .toggle-btn {
+    background-color: #444;
+    border-color: #666;
+}
+
+.dark-mode .toggle-btn:hover {
+    background-color: #666;
+}
