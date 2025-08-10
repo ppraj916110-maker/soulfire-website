@@ -213,14 +213,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // ===== Toggle Content Logic (Site-wide) =====
-    const toggleButton = document.getElementById('toggleButton');
-        const moreInfo = document.getElementById('more-info');
-    
-        toggleButton.addEventListener('click', function() {
+   const toggleButtons = document.querySelectorAll('.toggle-btn');
+    toggleButtons.forEach(button => {
+        const moreInfo = document.getElementById(button.dataset.target);
+
+        // Initially hide the content
+        moreInfo.style.display = 'none';
+
+        button.addEventListener('click', function() {
             const isExpanded = this.getAttribute('aria-expanded') === 'true' || false;
             this.setAttribute('aria-expanded', !isExpanded);
             
-            if (moreInfo.style.display === 'none' || moreInfo.style.display === '') {
+            if (moreInfo.style.display === 'none') {
                 moreInfo.style.display = 'block';
                 this.innerHTML = '<strong>Show Less Content</strong>';
             } else {
@@ -228,7 +232,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.innerHTML = '<strong>Show More Content</strong>';
             }
         });
-
-        // Initialize the content to be hidden
-        moreInfo.style.display = 'none';
-    });       // <-- End of DOMContentLoaded
+    });
+});   // <-- End of DOMContentLoaded
