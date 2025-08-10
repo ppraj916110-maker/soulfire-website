@@ -213,18 +213,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // ===== Toggle Content Logic (Site-wide) =====
-    document.querySelectorAll('[data-toggle-target]').forEach(button => {
-        const targetId = button.getAttribute('data-toggle-target');
-        const target = document.getElementById(targetId);
+   document.addEventListener('DOMContentLoaded', function() {
+        const toggleButton = document.getElementById('toggleButton');
+        const moreInfo = document.getElementById('more-info');
 
-        if (target) {
-            button.addEventListener('click', () => {
-                target.classList.toggle('show');
-                const isExpanded = target.classList.contains('show');
-                button.textContent = isExpanded ? 'Hide Content' : 'Show More Content';
-                button.setAttribute('aria-expanded', isExpanded);
-            });
-        }
+        toggleButton.addEventListener('click', function() {
+            const isExpanded = this.getAttribute('aria-expanded') === 'true' || false;
+            this.setAttribute('aria-expanded', !isExpanded);
+            
+            if (moreInfo.style.display === 'none' || moreInfo.style.display === '') {
+                moreInfo.style.display = 'block';
+                this.innerHTML = '<strong>Show Less Content</strong>';
+            } else {
+                moreInfo.style.display = 'none';
+                this.innerHTML = '<strong>Show More Content</strong>';
+            }
+        });
+
+        // Initialize the content to be hidden
+        moreInfo.style.display = 'none';
     });
-
 }); // <-- End of DOMContentLoaded
