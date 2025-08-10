@@ -18,6 +18,24 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8870960298045491" crossorigin="anonymous"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
+  <style>
+    .more-info {
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        transition: all 0.4s ease-in-out;
+        margin-top: 1em;
+        padding: 0 1em;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+    }
+
+    .more-info.show {
+        max-height: 500px; /* enough to show content */
+        opacity: 1;
+        padding: 1em;
+    }
+    </style>
 </head>
 <body>
   <header class="main-header">
@@ -58,8 +76,48 @@
       <p>A beginner's course on the stock market is designed to provide you with the fundamental knowledge and skills needed to start investing.</p>
 
       <h2>Key Concepts You'll Learn</h2>
-      <ul>
-        <li><strong>Introduction to Investing:</strong> Saving vs investing, risk vs reward.</li>
+      <ol type="1.">
+        <li><strong>Introduction to Investing:</strong>
+    <p>Hey there! 👋 Thinking about your money and how to make it grow is a smart move. Let's explore the fundamental concepts of **saving versus investing**, and the crucial relationship between **risk and reward**. Understanding these ideas is the first step toward building a solid financial future.</p>
+<button id="toggleButton" aria-expanded="false" aria-controls="more-info">Show More Content</button>
+<div id="more-info">
+    <h3>This is the additional content!</h3>
+    <h2>Saving vs. Investing</h2>
+           <div class="image-container">
+                <img src="saving.png">
+            </div>
+    <p>The main difference between saving and investing is **purpose** and **growth potential**.</p>
+    <ul>
+        <li>
+            <h3>Saving</h3>
+            <p>This is for **short-term goals** and emergencies. When you save, you're putting money in a place that's safe and easily accessible, like a savings account. The primary goal is to **preserve your principal** (the money you put in). Because it's so safe, the returns are very low. Your money won't grow much, and in some cases, its purchasing power might even decrease over time due to inflation.</p>
+    
+        </li>
+        <li>
+            <h3>Investing</h3>
+            <p>This is for **long-term goals**, like retirement or buying a house years down the line. When you invest, you're putting your money into assets like stocks, bonds, or real estate with the goal of **growing your wealth significantly** over time. Investing comes with a greater chance of returns, but also more risk.</p>
+
+        </li>
+    </ul>
+    <p>The key takeaway is that you should do both. **Save for the short term, and invest for the long term.**</p>
+
+    <hr>
+
+    <h2>Risk vs. Reward</h2>
+    <p>Risk and reward are two sides of the same coin in the world of investing. They are directly linked: to get a higher potential reward, you usually have to take on more risk.</p>
+    <ul>
+        <li>
+            <h3>Risk</h3>
+            <p>This is the possibility of losing some or all of your money. Different investments have different levels of risk. For example, a savings account has almost no risk, while investing in a single company's stock is much riskier. The value of the stock could go up, or it could go down significantly.</p>
+        </li>
+        <li>
+            <h3>Reward</h3>
+            <p>This is the potential return on your investment, or how much money you could make. The more risk you take, the higher the potential reward. Investments with lower risk, like government bonds, offer lower returns. Investments with higher risk, like growth stocks, offer the potential for much higher returns.</p>
+        </li>
+    </ul>
+    <p>Think of it like this: A savings account is like taking a stroll on a flat, paved path. It's safe, but you won't get anywhere fast. Investing in a volatile stock is like hiking up a steep mountain trail. It's more challenging and there's a chance you could stumble, but the view from the top could be incredible.</p>
+    <p>The goal is to find a level of risk you're comfortable with that aligns with your financial goals and timeline. It's about finding the right balance for you. ⚖️</p>
+        </div></li>
         <li><strong>Understanding the Stock Market:</strong> NSE, BSE, IPO, primary/secondary market.</li>
         <li><strong>Key Terminology:</strong> Bull/bear market, dividends, IPOs.</li>
         <li><strong>Types of Investments:</strong> Stocks, mutual funds, ETFs.</li>
@@ -67,15 +125,15 @@
         <li><strong>Setting Up Your Account:</strong> Opening a Demat and trading account.</li>
         <li><strong>Building a Strategy:</strong> Goals, risk tolerance, diversification.</li>
         <li><strong>Risk Management:</strong> Avoiding common mistakes.</li>
-      </ul>
+      </ol>
       <h2>Before You Begin</h2>
       <div class="highlight">
-        <ol>
+        <ul>
           <li><strong>Set Clear Goals:</strong> Know your why.</li>
           <li><strong>Understand Your Risk Tolerance:</strong> Be realistic.</li>
           <li><strong>Practice with a Simulator:</strong> Try virtual trading.</li>
           <li><strong>Start Small:</strong> Use money you can afford to lose.</li>
-        </ol>
+        </ul>
       </div>
     </div>
   </main>
@@ -84,6 +142,17 @@
       <p>&copy; 2025 Trading Ek Mission. All Rights Reserved.</p>
     </div>
   </footer>
+  <script>
+    const toggleButton = document.getElementById('toggleButton');
+    const moreInfoDiv = document.getElementById('more-info');
+
+    toggleButton.addEventListener('click', () => {
+        moreInfoDiv.classList.toggle('show');
+        const isExpanded = moreInfoDiv.classList.contains('show');
+        toggleButton.textContent = isExpanded ? 'Hide Content' : 'Show More Content';
+        toggleButton.setAttribute('aria-expanded', isExpanded);
+    });
+</script>
   <script type="text/javascript">
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
