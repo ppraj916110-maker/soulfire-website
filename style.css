@@ -334,6 +334,11 @@ body.dark-mode .success-screen {
     background-color: #1d3f2b;
     color: #a8ffce;
 }
+/* This centers the button using text-align */
+.logout-wrapper {
+  text-align: center; /* Centers the button horizontally */
+/* Adds some space above and below the button */
+}
 
 .logout-btn {
     display: inline-block;
