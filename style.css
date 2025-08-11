@@ -510,42 +510,19 @@ body.dark-mode .main-footer {
     margin-bottom: 0.4em;
 }
 .progress-container {
-    width: 100%;
-    background-color: #e0e0e0;
-    border-radius: 25px;
-    margin-top: 20px;
+  background-color: #eee;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 25px;
+  margin-bottom: 15px;
 }
 .progress-bar {
-    width: 0%; /* This will be updated by JavaScript */
-    height: 40px;
-    background-color: #4caf50;
-    border-radius: 25px;
-    text-align: right;
-    line-height: 40px;
-    color: white;
-    font-weight: bold;
-    padding-right: 15px;
-    transition: width 0.5s ease-in-out;
-}
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin-top: 30px;
-}
-li {
-    padding: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-li.completed {
-    background-color: #e8f5e9;
-    text-decoration: line-through;
-    color: #757575;
-}
-li:hover {
-    background-color: #f1f1f1;
+  height: 100%;
+  background-color: #4caf50;
+  color: #fff;
+  text-align: center;
+  line-height: 25px;
+  width: 0%;
+  transition: width 0.4s ease;
+  font-weight: bold;
 }
