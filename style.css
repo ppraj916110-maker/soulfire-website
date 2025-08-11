@@ -516,7 +516,7 @@ body.dark-mode .main-footer {
   border-radius: 5px;
 }
 .lessonList li.completed {
-  text-decoration: line-through;
-  color: #8bc34a; /* A light, readable green */
-  background-color: #f7fcf7; /* A very light green background */
+  text-decoration: none;
+  color: none; /* A light, readable green */
+  background-color: #8bc34a; /* A very light green background */
 }
