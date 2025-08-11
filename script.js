@@ -235,20 +235,40 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-    //Progress container
  // Select all course containers
-    const courseContainers = document.querySelectorAll('.course-container');
+    document.querySelectorAll('.course-container').forEach(function (course) {
+        const lessons = course.querySelectorAll('.lesson-list li');
+        const progressBar = course.querySelector('.progress-bar');
 
-    courseContainers.forEach(container => {
-        // Find the elements for this specific course
-        const lessons = container.querySelectorAll('.lesson-list li');
-        const progressBar = container.querySelector('.progress-bar');
-        const totalLessons = lessons.length;
+        if (!progressBar || lessons.length === 0) return; // Skip if HTML incomplete
+
+        let totalLessons = lessons.length;
         let completedLessons = 0;
 
+        // Count already completed lessons on page load
         lessons.forEach(lesson => {
-            lesson.addEventListener('click', () => {
-                // Toggle the completed class for this lesson
+            if (lesson.classList.contains('completed')) {
+                completedLessons++;
+            }
+        });
+
+        // Update progress display
+        function updateProgressBar() {
+            const progress = Math.round((completedLessons / totalLessons) * 100);
+            progressBar.style.width = progress + '%';
+            progressBar.textContent = progress + '%';
+            progressBar.setAttribute('aria-valuenow', progress);
+        }
+
+        // Initial update
+        updateProgressBar();
+
+        // Lesson click handler
+        lessons.forEach(function (lesson) {
+            lesson.addEventListener('click', function (e) {
+                // Ignore clicks on links or buttons inside lessons
+                if (['a', 'button'].includes(e.target.tagName.toLowerCase())) return;
+
                 if (lesson.classList.contains('completed')) {
                     lesson.classList.remove('completed');
                     completedLessons--;
@@ -256,16 +276,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     lesson.classList.add('completed');
                     completedLessons++;
                 }
-                
-                // Update the progress bar for this specific course
                 updateProgressBar();
             });
         });
-
-        function updateProgressBar() {
-            const percentage = (completedLessons / totalLessons) * 100;
-            progressBar.style.width = percentage + '%';
-            progressBar.textContent = Math.round(percentage) + '%';
-        }
     });
 });   // <-- End of DOMContentLoaded
