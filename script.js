@@ -235,12 +235,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
- // Select all course containers
+  /* =====================
+       PROGRESS METER LOGIC
+       ===================== */
     document.querySelectorAll('.course-container').forEach(function (course) {
         const lessons = course.querySelectorAll('.lesson-list li');
         const progressBar = course.querySelector('.progress-bar');
 
-        if (!progressBar || lessons.length === 0) return; // Skip if HTML incomplete
+        if (!progressBar || lessons.length === 0) return;
 
         let totalLessons = lessons.length;
         let completedLessons = 0;
@@ -252,12 +254,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Update progress display
+        // Update progress display + color
         function updateProgressBar() {
             const progress = Math.round((completedLessons / totalLessons) * 100);
             progressBar.style.width = progress + '%';
             progressBar.textContent = progress + '%';
             progressBar.setAttribute('aria-valuenow', progress);
+
+            // Color transition: red → yellow → green
+            if (progress < 50) {
+                // Red to yellow
+                progressBar.style.backgroundColor = `rgb(255, ${Math.round(progress * 5.1)}, 0)`;
+            } else {
+                // Yellow to green
+                progressBar.style.backgroundColor = `rgb(${Math.round(255 - (progress - 50) * 5.1)}, 255, 0)`;
+            }
         }
 
         // Initial update
@@ -266,7 +277,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Lesson click handler
         lessons.forEach(function (lesson) {
             lesson.addEventListener('click', function (e) {
-                // Ignore clicks on links or buttons inside lessons
                 if (['a', 'button'].includes(e.target.tagName.toLowerCase())) return;
 
                 if (lesson.classList.contains('completed')) {
@@ -279,20 +289,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateProgressBar();
             });
         });
-        function updateProgressBar() {
-    const progress = Math.round((completedLessons / totalLessons) * 100);
-    progressBar.style.width = progress + '%';
-    progressBar.textContent = progress + '%';
-    progressBar.setAttribute('aria-valuenow', progress);
-
-    // Color transition: red → yellow → green
-    if (progress < 50) {
-        // Red to yellow
-        progressBar.style.backgroundColor = `rgb(255, ${Math.round(progress * 5.1)}, 0)`;
-    } else {
-        // Yellow to green
-        progressBar.style.backgroundColor = `rgb(${Math.round(255 - (progress - 50) * 5.1)}, 255, 0)`;
-    }
-}
     });
 });   // <-- End of DOMContentLoaded
