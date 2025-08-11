@@ -235,4 +235,32 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+    //Progress container
+const lessons = document.querySelectorAll('#lessonList li');
+    const progressBar = document.getElementById('progressBar');
+    const totalLessons = lessons.length;
+    let completedLessons = 0;
+
+    lessons.forEach(lesson => {
+        lesson.addEventListener('click', () => {
+            // Toggle the completed class
+            if (lesson.classList.contains('completed')) {
+                lesson.classList.remove('completed');
+                completedLessons--;
+            } else {
+                lesson.classList.add('completed');
+                completedLessons++;
+            }
+            
+            // Update the progress bar
+            updateProgressBar();
+        });
+    });
+
+    function updateProgressBar() {
+        const percentage = (completedLessons / totalLessons) * 100;
+        progressBar.style.width = percentage + '%';
+        progressBar.textContent = Math.round(percentage) + '%';
+    }
+    
 });   // <-- End of DOMContentLoaded
