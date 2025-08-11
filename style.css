@@ -516,3 +516,7 @@ body.dark-mode .main-footer {
     border-radius: 5px;
     transition: width 0.3s ease, background-color 0.3s ease;
 }
+.completed {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
