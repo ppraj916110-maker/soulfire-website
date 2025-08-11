@@ -279,5 +279,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateProgressBar();
             });
         });
+        function updateProgressBar() {
+    const progress = Math.round((completedLessons / totalLessons) * 100);
+    progressBar.style.width = progress + '%';
+    progressBar.textContent = progress + '%';
+    progressBar.setAttribute('aria-valuenow', progress);
+
+    // Color transition: red → yellow → green
+    if (progress < 50) {
+        // Red to yellow
+        progressBar.style.backgroundColor = `rgb(255, ${Math.round(progress * 5.1)}, 0)`;
+    } else {
+        // Yellow to green
+        progressBar.style.backgroundColor = `rgb(${Math.round(255 - (progress - 50) * 5.1)}, 255, 0)`;
+    }
+}
     });
 });   // <-- End of DOMContentLoaded
