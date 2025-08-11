@@ -522,8 +522,8 @@ body.dark-mode .main-footer {
   width: 0%;
   background-color: #4caf50;
   border-radius: 20px;
-  text-align: center;
-  color: white;
+  text-align: right;
+  color: #169f15;
   font-size: 12px;
   line-height: 20px;
 }
