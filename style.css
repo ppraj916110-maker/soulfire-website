@@ -517,6 +517,6 @@ body.dark-mode .main-footer {
 }
 .lessonList li.completed {
   text-decoration: none;
-  color: none; /* A light, readable green */
-  background-color: #8bc34a; /* A very light green background */
+  color: #8bc34a; /* A light, readable green */
+  background-color: none; /* A very light green background */
 }
