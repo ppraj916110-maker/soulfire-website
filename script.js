@@ -13,7 +13,7 @@ import {
     signOut
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function () => {
     // A. Get all the necessary elements using their IDs
     const menuToggle = document.getElementById('menu-toggle');
     const menu = document.getElementById('menu');
