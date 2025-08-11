@@ -83,6 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const quotes = [
         "Every expert was once a beginner — start your journey today.",
         "Small consistent steps build big trading success.",
+        "Mistakes, failure, humiliation, disappointment and rejection are all a part of growth and development.",
+        "No one can achieve anything in life without facing all these five things.",
         "In trading, patience is not just a virtue — it’s a profit strategy.",
         "Learn before you earn — the market rewards preparation.",
         "A disciplined trader turns losses into lessons.",
