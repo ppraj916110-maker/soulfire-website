@@ -264,16 +264,26 @@ document.querySelectorAll('.course-container').forEach(courseContainer => {
         });
     }
 });
-    // Toggle "More" content
-    document.querySelectorAll('.toggle-btn').forEach(button => {
-        const moreInfo = document.getElementById(button.dataset.target);
-        if (moreInfo) {
-            moreInfo.style.display = 'none';
-            button.addEventListener('click', () => {
-                const isHidden = moreInfo.style.display === 'none';
-                moreInfo.style.display = isHidden ? 'block' : 'none';
-                button.setAttribute('aria-expanded', isHidden);
-            });
-        }
-    });
+  // Toggle "More" content (Corrected to change button text)
+document.querySelectorAll('.toggle-btn').forEach(button => {
+    const moreInfo = document.getElementById(button.dataset.target);
+    if (moreInfo) {
+        // Hide the content by default on page load
+        moreInfo.style.display = 'none';
+
+        button.addEventListener('click', () => {
+            const isHidden = moreInfo.style.display === 'none';
+            
+            if (isHidden) {
+                moreInfo.style.display = 'block';
+                button.innerHTML = '<strong>Show Less Content</strong>'; // Change text to 'Show Less'
+            } else {
+                moreInfo.style.display = 'none';
+                button.innerHTML = '<strong>Show More Content</strong>'; // Change text back to 'Show More'
+            }
+            
+            button.setAttribute('aria-expanded', !isHidden); // Set aria-expanded based on new state
+        });
+    }
+});
 });
