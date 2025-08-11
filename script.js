@@ -12,8 +12,7 @@ import {
     signInWithEmailAndPassword,
     signOut
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
-document.addEventListener('DOMContentLoaded', function () => {
+document.addEventListener('DOMContentLoaded', () => {
     // A. Get all the necessary elements using their IDs
     const menuToggle = document.getElementById('menu-toggle');
     const menu = document.getElementById('menu');
@@ -213,72 +212,68 @@ document.addEventListener('DOMContentLoaded', function () => {
             signOut(auth).then(() => window.location.href = "login.html");
         });
     }
-    
-    // ===== Toggle Content Logic (Site-wide) =====
-   const toggleButtons = document.querySelectorAll('.toggle-btn');
-    toggleButtons.forEach(button => {
-        const moreInfo = document.getElementById(button.dataset.target);
+    document.querySelectorAll('.course-container').forEach(function (course) {
+        const lessons = course.querySelectorAll('.lesson-list li');
+        const progressBar = course.querySelector('.progress-bar');
+        const courseId = course.getAttribute('data-course-id');
 
-        // Initially hide the content
-        moreInfo.style.display = 'none';
+        if (!progressBar || lessons.length === 0 || !courseId) return;
 
-        button.addEventListener('click', function() {
-            const isExpanded = this.getAttribute('aria-expanded') === 'true' || false;
-            this.setAttribute('aria-expanded', !isExpanded);
-            
-            if (moreInfo.style.display === 'none') {
-                moreInfo.style.display = 'block';
-                this.innerHTML = '<strong>Show Less Content</strong>';
-            } 
-            else {
-                moreInfo.style.display = 'none';
-                this.innerHTML = '<strong>Show More Content</strong>';
+        // Load saved state from localStorage
+        let completedLessonsSet = new Set(JSON.parse(localStorage.getItem(courseId) || '[]'));
+
+        // Apply saved completions
+        completedLessonsSet.forEach(index => {
+            if (lessons[index]) {
+                lessons[index].classList.add('completed');
             }
         });
-    });
- /* =====================
-   PROGRESS METER LOGIC
-   ===================== */
-document.querySelectorAll('.course-container').forEach(function (course) {
-    const lessons = course.querySelectorAll('.lesson-list li');
-    const progressBar = course.querySelector('.progress-bar');
 
-    if (!progressBar || lessons.length === 0) return;
+        function updateProgressBar() {
+            const completedCount = completedLessonsSet.size;
+            const total = lessons.length;
+            const progress = Math.round((completedCount / total) * 100);
+            progressBar.style.width = progress + '%';
+            progressBar.textContent = progress + '%';
+            progressBar.setAttribute('aria-valuenow', progress);
 
-    let totalLessons = lessons.length;
-    let completedLessons = 0;
-
-    // Count already completed lessons
-    lessons.forEach(lesson => {
-        if (lesson.classList.contains('completed')) {
-            completedLessons++;
+            // Color transition: red → yellow → green
+            if (progress < 50) {
+                progressBar.style.backgroundColor = `rgb(255, ${Math.round(progress * 5.1)}, 0)`;
+            } else {
+                progressBar.style.backgroundColor = `rgb(${Math.round(255 - (progress - 50) * 5.1)}, 255, 0)`;
+            }
         }
-    });
 
-    function updateProgressBar() {
-        const progress = Math.round((completedLessons / totalLessons) * 100);
-        progressBar.style.width = progress + '%';
-        progressBar.textContent = progress + '%';
-        progressBar.setAttribute('aria-valuenow', progress);
+        // Initial display
+        updateProgressBar();
 
-        if (progress < 50) {
-            progressBar.style.backgroundColor = `rgb(255, ${Math.min(Math.round(progress * 5.1), 255)}, 0)`;
-        } else {
-            progressBar.style.backgroundColor = `rgb(${Math.min(Math.round(255 - (progress - 50) * 5.1), 255)}, 255, 0)`;
-        }
-    }
-
-    updateProgressBar();
-
-    lessons.forEach(function (lesson) {
-        lesson.addEventListener('click', function (e) {
-            if (e.target.closest('a, button')) return; // ignore link/button clicks
-
-            lesson.classList.toggle('completed');
-            completedLessons = course.querySelectorAll('.lesson-list li.completed').length;
-            updateProgressBar();
+        // Lesson click toggle
+        lessons.forEach((lesson, index) => {
+            lesson.addEventListener('click', function () {
+                if (lesson.classList.contains('completed')) {
+                    lesson.classList.remove('completed');
+                    completedLessonsSet.delete(index);
+                } else {
+                    lesson.classList.add('completed');
+                    completedLessonsSet.add(index);
+                }
+                localStorage.setItem(courseId, JSON.stringify(Array.from(completedLessonsSet)));
+                updateProgressBar();
+            });
         });
     });
-});
 
+    // Toggle "More" content
+    document.querySelectorAll('.toggle-btn').forEach(button => {
+        const moreInfo = document.getElementById(button.dataset.target);
+        if (moreInfo) {
+            moreInfo.style.display = 'none';
+            button.addEventListener('click', () => {
+                const isHidden = moreInfo.style.display === 'none';
+                moreInfo.style.display = isHidden ? 'block' : 'none';
+                button.setAttribute('aria-expanded', isHidden);
+            });
+        }
+    });
 });   // <-- End of DOMContentLoaded
