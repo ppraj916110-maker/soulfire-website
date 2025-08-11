@@ -229,7 +229,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (moreInfo.style.display === 'none') {
                 moreInfo.style.display = 'block';
                 this.innerHTML = '<strong>Show Less Content</strong>';
-            } else {
+            } 
+            else {
                 moreInfo.style.display = 'none';
                 this.innerHTML = '<strong>Show More Content</strong>';
             }
