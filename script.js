@@ -213,77 +213,119 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-   // Progress Meter Logic (Final Corrected Version for all pages)
-document.querySelectorAll('.course-container').forEach(courseContainer => {
-    const progressBar = courseContainer.querySelector('#progressBar');
-    const lessonList = courseContainer.querySelector('.lessonList');
-    const courseId = courseContainer.getAttribute('data-course-id');
+    // --- Course Progress and Toggles (Dynamic, Reusable Section) ---
+    document.querySelectorAll('.course-container').forEach(courseContainer => {
+        const progressBar = courseContainer.querySelector('#progressBar');
+        const lessonList = courseContainer.querySelector('.lessonList');
+        const courseId = courseContainer.getAttribute('data-course-id');
 
-    if (progressBar && lessonList && courseId) {
-        const lessons = lessonList.querySelectorAll('li');
-        const totalLessons = lessons.length;
-        
-        let completedLessonsSet = new Set(JSON.parse(localStorage.getItem(courseId) || '[]'));
-
-        // Apply saved completions on page load
-        lessons.forEach((lesson, index) => {
-            if (completedLessonsSet.has(index)) {
-                lesson.classList.add('completed');
-            }
-        });
-
-        function updateProgressBar() {
-            const completedCount = completedLessonsSet.size;
-            const progress = Math.round((completedCount / totalLessons) * 100);
+        if (progressBar && lessonList && courseId) {
+            const lessons = lessonList.querySelectorAll('li');
+            const totalLessons = lessons.length;
             
-            progressBar.style.width = progress + '%';
-            progressBar.textContent = progress + '%';
-            
-            if (progress < 50) {
-                progressBar.style.backgroundColor = `rgb(255, ${Math.round(progress * 5.1)}, 0)`;
-            } else {
-                progressBar.style.backgroundColor = `rgb(${Math.round(255 - (progress - 50) * 5.1)}, 255, 0)`;
-            }
-        }
+            let completedLessonsSet = new Set(JSON.parse(localStorage.getItem(courseId) || '[]'));
 
-        updateProgressBar();
-
-        // Lesson click handler
-        lessons.forEach((lesson, index) => {
-            lesson.addEventListener('click', () => {
-                if (lesson.classList.contains('completed')) {
-                    lesson.classList.remove('completed');
-                    completedLessonsSet.delete(index);
-                } else {
+            // Apply saved completions on page load
+            lessons.forEach((lesson, index) => {
+                if (completedLessonsSet.has(index)) {
                     lesson.classList.add('completed');
-                    completedLessonsSet.add(index);
                 }
-                localStorage.setItem(courseId, JSON.stringify(Array.from(completedLessonsSet)));
-                updateProgressBar();
             });
-        });
-    }
-});
-  // Toggle "More" content (Corrected to change button text)
-document.querySelectorAll('.toggle-btn').forEach(button => {
-    const moreInfo = document.getElementById(button.dataset.target);
-    if (moreInfo) {
-        // Hide the content by default on page load
-        moreInfo.style.display = 'none';
 
-        button.addEventListener('click', () => {
-            const isHidden = moreInfo.style.display === 'none';
-            
-            if (isHidden) {
-                moreInfo.style.display = 'block';
-                button.innerHTML = '<strong>Show Less Content</strong>'; // Change text to 'Show Less'
-            } else {
-                moreInfo.style.display = 'none';
-                button.innerHTML = '<strong>Show More Content</strong>'; // Change text back to 'Show More'
+            function updateProgressBar() {
+                const completedCount = completedLessonsSet.size;
+                const progress = Math.round((completedCount / totalLessons) * 100);
+                
+                progressBar.style.width = progress + '%';
+                progressBar.textContent = progress + '%';
+                
+                if (progress < 50) {
+                    progressBar.style.backgroundColor = `rgb(255, ${Math.round(progress * 5.1)}, 0)`;
+                } else {
+                    progressBar.style.backgroundColor = `rgb(${Math.round(255 - (progress - 50) * 5.1)}, 255, 0)`;
+                }
             }
+
+            updateProgressBar();
+
+            // Lesson click handler
+            lessons.forEach((lesson, index) => {
+                lesson.addEventListener('click', () => {
+                    if (lesson.classList.contains('completed')) {
+                        lesson.classList.remove('completed');
+                        completedLessonsSet.delete(index);
+                    } else {
+                        lesson.classList.add('completed');
+                        completedLessonsSet.add(index);
+                    }
+                    localStorage.setItem(courseId, JSON.stringify(Array.from(completedLessonsSet)));
+                    updateProgressBar();
+                });
+            });
+        }
+    });
+
+    // Toggle "More" content (Corrected to change button text)
+    document.querySelectorAll('.toggle-btn').forEach(button => {
+        const moreInfo = document.getElementById(button.dataset.target);
+        if (moreInfo) {
+            // Hide the content by default on page load
+            moreInfo.style.display = 'none';
+            // Set initial button text
+            button.innerHTML = '<strong>Show More Content</strong>';
+
+            button.addEventListener('click', () => {
+                const isHidden = moreInfo.style.display === 'none';
+                
+                if (isHidden) {
+                    moreInfo.style.display = 'block';
+                    button.innerHTML = '<strong>Show Less Content</strong>'; // Change text to 'Show Less'
+                } else {
+                    moreInfo.style.display = 'none';
+                    button.innerHTML = '<strong>Show More Content</strong>'; // Change text back to 'Show More'
+                }
+                
+                button.setAttribute('aria-expanded', !isHidden); // Set aria-expanded based on new state
+            });
+        }
+    });
+
+    // --- NEW Combined Progress Meter Logic ---
+    function updateCombinedProgressMeter() {
+        const progressBar = document.getElementById('combinedProgressBar');
+        const progressText = document.getElementById('progressText');
+        
+        if (!progressBar) return; // Exit if not on the course.html page
+
+        const courseIds = ["beginnerCourse", "technicalCourse", "advanceCourse"];
+        
+        // IMPORTANT: You MUST update these numbers if you change the number of lessons in each course.
+        const lessonCounts = {
+            "beginnerCourse": 7,  // Total lessons in beginner.html
+            "technicalCourse": 11, // Update this with your actual count
+            "advanceCourse": 7    // Update this with your actual count
+        };
+        
+        let totalCompletedLessons = 0;
+        let totalLessons = 0;
+
+        courseIds.forEach(courseId => {
+            const completed = JSON.parse(localStorage.getItem(courseId) || '[]').length;
+            const total = lessonCounts[courseId];
             
-            button.setAttribute('aria-expanded', !isHidden); // Set aria-expanded based on new state
+            totalCompletedLessons += completed;
+            totalLessons += total;
         });
+        
+        const progress = totalLessons > 0 ? Math.round((totalCompletedLessons / totalLessons) * 100) : 0;
+        
+        progressBar.style.width = progress + '%';
+        progressBar.textContent = progress + '%';
+        progressText.textContent = `Total lessons completed: ${totalCompletedLessons} / ${totalLessons}`;
     }
-});
-});
+
+    // Call the new function when the page loads if it's the courses page
+    if (currentPage === "course.html") {
+        updateCombinedProgressMeter();
+    }
+});    
