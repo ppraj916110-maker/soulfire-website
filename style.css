@@ -250,9 +250,9 @@ body.dark-mode strong {
 }
 
 .trader-quote {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-style: italic;
-    color: #333;
+    color: #f08080;
     transition: opacity 0.8s ease-in-out;
 }
 
@@ -448,7 +448,7 @@ body.dark-mode .main-footer {
         .image-container {
             text-align: left;
             margin: 20px 0;
-            padding: 10px;
+            padding: 5px;
             border: 1px solid #ddd;
             border-radius: 5px;
             background-color: #f9f9f9;
@@ -492,7 +492,7 @@ body.dark-mode .main-footer {
 .toggle-content h3 {
     margin-top: 0;
     font-size: 1.25rem;
-    color: #007BFF;
+    color: #0077FF;
 }
 
 /* Paragraphs inside toggle content */
