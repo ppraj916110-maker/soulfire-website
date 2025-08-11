@@ -511,7 +511,12 @@ body.dark-mode .main-footer {
 }
 .progress-bar {
   width: 0%;
-  height: 25px;
+  height: 15px;
   background-color: #4caf50;
   border-radius: 5px;
+}
+.lessonList li.completed {
+  text-decoration: line-through;
+  color: #8bc34a; /* A light, readable green */
+  background-color: #f7fcf7; /* A very light green background */
 }
