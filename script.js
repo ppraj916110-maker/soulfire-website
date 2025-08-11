@@ -236,31 +236,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     //Progress container
-const lessons = document.querySelectorAll('#lessonList li');
-    const progressBar = document.getElementById('progressBar');
-    const totalLessons = lessons.length;
-    let completedLessons = 0;
+ // Select all course containers
+    const courseContainers = document.querySelectorAll('.course-container');
 
-    lessons.forEach(lesson => {
-        lesson.addEventListener('click', () => {
-            // Toggle the completed class
-            if (lesson.classList.contains('completed')) {
-                lesson.classList.remove('completed');
-                completedLessons--;
-            } else {
-                lesson.classList.add('completed');
-                completedLessons++;
-            }
-            
-            // Update the progress bar
-            updateProgressBar();
+    courseContainers.forEach(container => {
+        // Find the elements for this specific course
+        const lessons = container.querySelectorAll('.lesson-list li');
+        const progressBar = container.querySelector('.progress-bar');
+        const totalLessons = lessons.length;
+        let completedLessons = 0;
+
+        lessons.forEach(lesson => {
+            lesson.addEventListener('click', () => {
+                // Toggle the completed class for this lesson
+                if (lesson.classList.contains('completed')) {
+                    lesson.classList.remove('completed');
+                    completedLessons--;
+                } else {
+                    lesson.classList.add('completed');
+                    completedLessons++;
+                }
+                
+                // Update the progress bar for this specific course
+                updateProgressBar();
+            });
         });
-    });
 
-    function updateProgressBar() {
-        const percentage = (completedLessons / totalLessons) * 100;
-        progressBar.style.width = percentage + '%';
-        progressBar.textContent = Math.round(percentage) + '%';
-    }
-    
+        function updateProgressBar() {
+            const percentage = (completedLessons / totalLessons) * 100;
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = Math.round(percentage) + '%';
+        }
+    });
 });   // <-- End of DOMContentLoaded
