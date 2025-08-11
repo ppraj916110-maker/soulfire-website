@@ -509,32 +509,9 @@ body.dark-mode .main-footer {
 .toggle-content li {
     margin-bottom: 0.4em;
 }
-.course-container {
-        border: 1px solid #ccc;
-        padding: 15px;
-        margin: 20px 0;
-        border-radius: 8px;
-        background: #fafafa;
-    }
-    .lesson-list li {
-        cursor: pointer;
-        padding: 5px 0;
-    }
-    .lesson-list li.completed {
-        text-decoration: line-through;
-        opacity: 0.7;
-    }
-    .progress {
-        width: 100%;
-        background: #ddd;
-        border-radius: 5px;
-        overflow: hidden;
-        margin: 10px 0;
-    }
-    .progress-bar {
-        color: white;
-        text-align: center;
-        height: 20px;
-        border-radius: 5px;
-        transition: width 0.3s ease, background-color 0.3s ease;
-    }
+.progress-bar {
+  width: 0%;
+  height: 25px;
+  background-color: #4caf50;
+  border-radius: 5px;
+}
