@@ -82,7 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===== Rotating Trader Quotes =====
     const quotes = [
         "Every expert was once a beginner — start your journey today.",
-        "Mistakes, failure, humiliation, disappointment and rejection are all a part of growth and development. No one can achieve anything in life without facing all these five things.✌️";
+        "Mistakes, failure, humiliation, disappointment and rejection are all a part of growth and development.";
+        "No one can achieve anything in life without facing all these five things.✌️";
         "Small consistent steps build big trading success.",
         "In trading, patience is not just a virtue — it’s a profit strategy.",
         "Learn before you earn — the market rewards preparation.",
