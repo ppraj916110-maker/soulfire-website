@@ -212,58 +212,61 @@ document.addEventListener('DOMContentLoaded', () => {
             signOut(auth).then(() => window.location.href = "login.html");
         });
     }
-    document.querySelectorAll('.course-container').forEach(function (course) {
-        const lessons = course.querySelectorAll('.lesson-list li');
-        const progressBar = course.querySelector('.progress-bar');
-        const courseId = course.getAttribute('data-course-id');
 
-        if (!progressBar || lessons.length === 0 || !courseId) return;
+    // Progress Meter Logic (Final Corrected Version)
+    const courseContainer = document.querySelector('.course-container');
 
-        // Load saved state from localStorage
-        let completedLessonsSet = new Set(JSON.parse(localStorage.getItem(courseId) || '[]'));
+    if (courseContainer) {
+        const progressBar = courseContainer.querySelector('#progressBar');
+        const lessonList = courseContainer.querySelector('.lessonList');
 
-        // Apply saved completions
-        completedLessonsSet.forEach(index => {
-            if (lessons[index]) {
-                lessons[index].classList.add('completed');
-            }
-        });
+        if (progressBar && lessonList) {
+            const lessons = lessonList.querySelectorAll('li');
+            const totalLessons = lessons.length;
+            const courseId = "beginnerCourse"; // Unique ID for this course
 
-        function updateProgressBar() {
-            const completedCount = completedLessonsSet.size;
-            const total = lessons.length;
-            const progress = Math.round((completedCount / total) * 100);
-            progressBar.style.width = progress + '%';
-            progressBar.textContent = progress + '%';
-            progressBar.setAttribute('aria-valuenow', progress);
+            let completedLessonsSet = new Set(JSON.parse(localStorage.getItem(courseId) || '[]'));
 
-            // Color transition: red → yellow → green
-            if (progress < 50) {
-                progressBar.style.backgroundColor = `rgb(255, ${Math.round(progress * 5.1)}, 0)`;
-            } else {
-                progressBar.style.backgroundColor = `rgb(${Math.round(255 - (progress - 50) * 5.1)}, 255, 0)`;
-            }
-        }
-
-        // Initial display
-        updateProgressBar();
-
-        // Lesson click toggle
-        lessons.forEach((lesson, index) => {
-            lesson.addEventListener('click', function () {
-                if (lesson.classList.contains('completed')) {
-                    lesson.classList.remove('completed');
-                    completedLessonsSet.delete(index);
-                } else {
+            // Apply saved completions on page load
+            lessons.forEach((lesson, index) => {
+                if (completedLessonsSet.has(index)) {
                     lesson.classList.add('completed');
-                    completedLessonsSet.add(index);
                 }
-                localStorage.setItem(courseId, JSON.stringify(Array.from(completedLessonsSet)));
-                updateProgressBar();
             });
-        });
-    });
 
+            function updateProgressBar() {
+                const completedCount = completedLessonsSet.size;
+                const progress = Math.round((completedCount / totalLessons) * 100);
+                
+                progressBar.style.width = progress + '%';
+                progressBar.textContent = progress + '%';
+                
+                if (progress < 50) {
+                    progressBar.style.backgroundColor = `rgb(255, ${Math.round(progress * 5.1)}, 0)`;
+                } else {
+                    progressBar.style.backgroundColor = `rgb(${Math.round(255 - (progress - 50) * 5.1)}, 255, 0)`;
+                }
+            }
+
+            updateProgressBar();
+
+            // Lesson click handler
+            lessons.forEach((lesson, index) => {
+                lesson.addEventListener('click', () => {
+                    if (lesson.classList.contains('completed')) {
+                        lesson.classList.remove('completed');
+                        completedLessonsSet.delete(index);
+                    } else {
+                        lesson.classList.add('completed');
+                        completedLessonsSet.add(index);
+                    }
+                    localStorage.setItem(courseId, JSON.stringify(Array.from(completedLessonsSet)));
+                    updateProgressBar();
+                });
+            });
+        }
+    }
+    
     // Toggle "More" content
     document.querySelectorAll('.toggle-btn').forEach(button => {
         const moreInfo = document.getElementById(button.dataset.target);
@@ -276,4 +279,4 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
-});   // <-- End of DOMContentLoaded
+});
