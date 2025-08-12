@@ -347,8 +347,11 @@ body.dark-mode .success-screen {
     color: #a8ffce;
 }
 /* This centers the button using text-align */
-.logout-wrapper {
-  text-align: center; /* Centers the button horizontally */
+ .logout-wrapper {
+  position: absolute; /* or 'absolute' */
+  bottom: 0;
+  width: 80%;
+ text-align: center; /* Centers the button horizontally */
 /* Adds some space above and below the button */
 }
 
@@ -448,7 +451,7 @@ body.dark-mode .main-footer {
 }
         .image-container {
             text-align: left;
-            margin: 20px 0;
+            margin: 10px 0;
             padding: 5px;
             border: 1px solid #ddd;
             border-radius: 5px;
