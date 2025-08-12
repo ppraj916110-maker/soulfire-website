@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const formMsg = document.getElementById("form-message");
     const loginForm = document.getElementById("login-form");
     const logoutBtn = document.getElementById("logout-btn");
-    const authIcon = document.getElementById("auth-icon"); // This is from the previous fix, now integrated below
+    const authIcon = document.getElementById("auth-icon");
     
     // B. Handle the main menu toggle button
     if (menuToggle && menu) {
@@ -199,24 +199,20 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 await signInWithEmailAndPassword(auth, email, password);
                 formMsg.textContent = "✅ Login successful! Redirecting...";
-                setTimeout(() => window.location.href = "beginner.html", 1500);
+                setTimeout(() => window.location.href = "course.html", 1500);
             } catch (error) {
                 formMsg.textContent = `❌ ${error.message}`;
             }
         });
     }
 
-    // ===== UNIVERSAL AUTHENTICATION LISTENER (FIXED: Handles all pages) =====
+    // ===== UNIVERSAL AUTHENTICATION LISTENER (FIXED: Handles protected pages only) =====
     onAuthStateChanged(auth, (user) => {
-        // --- Protected Pages Redirection ---
+        // Define protected pages. All other pages are public.
         const protectedPages = ["beginner.html", "technical.html", "advance.html"];
-        if (protectedPages.includes(currentPage) && !user) {
-            window.location.href = "login.html";
-        }
 
-        // --- Logout Button Redirection (for all pages) ---
-        // If a user is logged out and the current page is NOT login/signup, redirect them.
-        if (!user && currentPage !== "login.html" && currentPage !== "signup.html") {
+        // --- Auth Protection Logic: Redirects non-logged-in users from protected pages only ---
+        if (!user && protectedPages.includes(currentPage)) {
             window.location.href = "login.html";
         }
         
@@ -232,6 +228,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     icon.classList.add("fa-lock", "locked");
                 }
             });
+        }
+
+        // --- Logout Button Display Logic (Bonus UX Feature) ---
+        if (logoutBtn) {
+            if (user) {
+                logoutBtn.style.display = 'block'; // Show the button
+            } else {
+                logoutBtn.style.display = 'none'; // Hide the button
+            }
         }
     });
 
@@ -331,9 +336,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // IMPORTANT: You MUST update these numbers if you change the number of lessons in each course.
         const lessonCounts = {
-            "beginnerCourse": 7,  // Total lessons in beginner.html
-            "technicalCourse": 11, // Update this with your actual count
-            "advanceCourse": 7    // Update this with your actual count
+            "beginnerCourse": 15,  // Total lessons in beginner.html
+            "technicalCourse": 25, // Update this with your actual count
+            "advanceCourse": 20    // Update this with your actual count
         };
         
         let totalCompletedLessons = 0;
@@ -359,4 +364,3 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCombinedProgressMeter();
     }
 });
- 
