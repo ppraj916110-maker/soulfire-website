@@ -8,7 +8,7 @@
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f9fafc;
-    color: #333;
+    color: darkgoldenrod;
     overflow-x: hidden;
     transition: background-color 0.3s ease, color 0.3s ease;
     -webkit-user-select: none;
@@ -179,10 +179,10 @@ body.dark-mode .slide-menu-icons a {
 
 /* === 4. Main Content === */
 main {
-    padding: 2rem 1.5rem;
+    padding: 0.5rem 0.5rem;
     max-width: 1040px;
     margin: auto;
-    line-height: 1.7;
+    line-height: normal;
 }
 
 .content-area {
@@ -195,10 +195,10 @@ main {
 }
 
 section {
-    margin-bottom: 3rem;
-    background-color: #ffffff;
-    padding: 1.5rem;
-    border-radius: 12px;
+    margin-bottom: 0rem;
+    background-color: transparent;
+    padding: 0rem;
+    border-radius: 1px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -209,9 +209,9 @@ body.dark-mode section {
 }
 
 section h1, section h2, section h3 {
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 1rem;
-    color: #111;
+    color:#b70397;
 }
 
 body.dark-mode section h1, body.dark-mode section h2, body.dark-mode section h3 {
@@ -224,17 +224,17 @@ section p {
 }
 
 ul, ol {
-    margin-left: 1.2rem;
-    padding-left: 1rem;
+    margin-left: 1rem;
+    padding-left: 0rem;
 }
 
 ul li, ol li {
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
 }
 
 strong {
-    font-weight: 600;
-    color: #222;
+    font-weight: 700;
+    color:#f70bad;
 }
 
 body.dark-mode strong {
@@ -472,7 +472,7 @@ body.dark-mode .main-footer {
 }
 
 .toggle-content[aria-expanded="true"] {
-    display: block;
+    display: flow;
 }
 /* Style only the toggleable content area */
 .toggle-content {
@@ -511,12 +511,12 @@ body.dark-mode .main-footer {
 }
 .progress-bar {
   width: 0%;
-  height: 15px;
-  background-color: #4caf50;
-  border-radius: 5px;
+  height: 10px;
+  background-color:#c6fbaf;
+  border-radius: 100px;
 }
 .lessonList li.completed {
   text-decoration: none;
-  color: #8bc34a; /* A light, readable green */
+  color: #00c; /* A light, readable green */
   background-color: none; /* A very light green background */
 }
