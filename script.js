@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===== Detect Current Page =====
     const currentPage = window.location.pathname.split("/").pop();
 
-    // ===== Signup Logic =====
+  // ===== Signup Logic =====
     if (currentPage === "signup.html" && signupForm) {
         signupForm.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -152,6 +152,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = document.getElementById("email").value.trim();
             const password = document.getElementById("password").value.trim();
             const confirmPassword = document.getElementById("confirm-password").value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // <-- Email regex
+
+            // --- Client-Side Validation ---
+            if (!emailRegex.test(email)) {
+                formMsg.textContent = "❌ Please enter a valid email address.";
+                return;
+            }
 
             if (password !== confirmPassword) {
                 formMsg.textContent = "❌ Passwords do not match!";
@@ -167,8 +174,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 formMsg.textContent = "⚠️ Password must contain at least one special character (!@#$%^&*).";
                 return;
             }
-
+            
+            // If all client-side checks pass, proceed to Firebase
             try {
+                // Firebase will perform its own server-side validation here
                 await createUserWithEmailAndPassword(auth, email, password);
                 formMsg.textContent = "✅ Signup successful! Redirecting...";
                 setTimeout(() => window.location.href = "course.html", 1500);
@@ -177,7 +186,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
     // ===== Login Logic =====
     if (currentPage === "login.html" && loginForm) {
         loginForm.addEventListener("submit", async (e) => {
