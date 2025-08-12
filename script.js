@@ -24,7 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const formMsg = document.getElementById("form-message");
     const loginForm = document.getElementById("login-form");
     const logoutBtn = document.getElementById("logout-btn");
-
+    const authIcon = document.getElementById("auth-icon"); // This is from the previous fix, now integrated below
+    
     // B. Handle the main menu toggle button
     if (menuToggle && menu) {
         menuToggle.addEventListener('click', () => {
@@ -144,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===== Detect Current Page =====
     const currentPage = window.location.pathname.split("/").pop();
 
-    // ===== Signup Logic (FIXED: Redirects to login) =====
+    // ===== Signup Logic =====
     if (currentPage === "signup.html" && signupForm) {
         signupForm.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -205,23 +206,43 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ===== Auth Protection for Multiple Pages =====
-    const protectedPages = ["beginner.html", "technical.html", "advance.html"];
-    if (protectedPages.includes(currentPage)) {
-        onAuthStateChanged(auth, (user) => {
-            if (!user) {
-                window.location.href = "login.html";
-            }
-        });
-    }
+    // ===== UNIVERSAL AUTHENTICATION LISTENER (FIXED: Handles all pages) =====
+    onAuthStateChanged(auth, (user) => {
+        // --- Protected Pages Redirection ---
+        const protectedPages = ["beginner.html", "technical.html", "advance.html"];
+        if (protectedPages.includes(currentPage) && !user) {
+            window.location.href = "login.html";
+        }
 
-    // ===== Logout Button (FIXED: Redirect now handled by onAuthStateChanged) =====
+        // --- Logout Button Redirection (for all pages) ---
+        // If a user is logged out and the current page is NOT login/signup, redirect them.
+        if (!user && currentPage !== "login.html" && currentPage !== "signup.html") {
+            window.location.href = "login.html";
+        }
+        
+        // --- Lock/Unlock Icons Logic (for course page only) ---
+        if (currentPage === "course.html") {
+            const lockIcons = document.querySelectorAll('.course-lock-icon');
+            lockIcons.forEach(icon => {
+                if (user) {
+                    icon.classList.remove("fa-lock", "locked");
+                    icon.classList.add("fa-unlock", "unlocked");
+                } else {
+                    icon.classList.remove("fa-unlock", "unlocked");
+                    icon.classList.add("fa-lock", "locked");
+                }
+            });
+        }
+    });
+
+    // ===== Logout Button =====
     if (logoutBtn) {
         logoutBtn.addEventListener("click", () => {
+            // This is still the simple, correct logic.
             signOut(auth);
         });
     }
-
+    
     // --- Course Progress and Toggles (Dynamic, Reusable Section) ---
     document.querySelectorAll('.course-container').forEach(courseContainer => {
         const progressBar = courseContainer.querySelector('#progressBar');
@@ -281,17 +302,17 @@ document.addEventListener('DOMContentLoaded', () => {
             // Hide the content by default on page load
             moreInfo.style.display = 'none';
             // Set initial button text
-            button.innerHTML = 'Show More Content';
+            button.innerHTML = '<strong>Show More Content</strong>';
 
             button.addEventListener('click', () => {
                 const isHidden = moreInfo.style.display === 'none';
                 
                 if (isHidden) {
                     moreInfo.style.display = 'block';
-                    button.innerHTML = 'Show Less Content'; // Change text to 'Show Less'
+                    button.innerHTML = '<strong>Show Less Content</strong>'; // Change text to 'Show Less'
                 } else {
                     moreInfo.style.display = 'none';
-                    button.innerHTML = 'Show More Content'; // Change text back to 'Show More'
+                    button.innerHTML = '<strong>Show More Content</strong>'; // Change text back to 'Show More'
                 }
                 
                 button.setAttribute('aria-expanded', !isHidden); // Set aria-expanded based on new state
@@ -310,9 +331,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // IMPORTANT: You MUST update these numbers if you change the number of lessons in each course.
         const lessonCounts = {
-            "beginnerCourse": 15,  // Total lessons in beginner.html
-            "technicalCourse": 25, // Update this with your actual count
-            "advanceCourse": 20   // Update this with your actual count
+            "beginnerCourse": 7,  // Total lessons in beginner.html
+            "technicalCourse": 11, // Update this with your actual count
+            "advanceCourse": 7    // Update this with your actual count
         };
         
         let totalCompletedLessons = 0;
@@ -338,3 +359,4 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCombinedProgressMeter();
     }
 });
+ 
