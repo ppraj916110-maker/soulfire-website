@@ -1,3 +1,4 @@
+
 /* === 1. Reset & Global Styles === */
 * {
     margin: 0;
@@ -195,12 +196,12 @@ main {
 }
 
 section {
-margin-bottom: 0rem;
-background-color: transparent;
-padding: 0rem;
-border-radius: 1px;
-box-shadow: inset 0px -1px 20px 20px rgba(177, 34, 34, 0.05);
-transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 0rem;
+    background-color: transparent;
+    padding: 0rem;
+    border-radius: 1px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 body.dark-mode section {
@@ -208,22 +209,17 @@ body.dark-mode section {
     box-shadow: 0 2px 8px rgba(255, 255, 255, 0.05);
 }
 
-section h1{
-    font-weight: 800;
-    margin-bottom: 1rem;
-    color:#20B2AA;
-}
-
-section h2, section h3 {
-    font-weight: 600;
+section h1, section h2, section h3 {
+    font-weight: 700;
     margin-bottom: 1rem;
     color:#b70397;
+}
+
 body.dark-mode section h1, body.dark-mode section h2, body.dark-mode section h3 {
-    color: #f0f0f0;
+    color: #ffffff;
 }
 
 section p {
-    color: dark-blue;
     margin-bottom: 1rem;
     font-size: 1rem;
 }
@@ -238,12 +234,12 @@ ul li, ol li {
 }
 
 strong {
-    font-weight: 600;
+    font-weight: 700;
     color:#f70bad;
 }
 
 body.dark-mode strong {
-    color: #f0f0f0;
+    color: #ffffff;
 }
 
 /* === 5. Quotes === */
@@ -267,7 +263,7 @@ body.dark-mode .trader-quote {
 
 /* === 6. Forms & Buttons === */
 form {
-    background: #ffffff;
+    background: #fff;
     padding: 25px 30px;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -522,6 +518,6 @@ body.dark-mode .main-footer {
 }
 .lessonList li.completed {
   text-decoration: none;
-  color: #90EE90; /* A light, readable green */
+  color: #00c; /* A light, readable green */
   background-color: none; /* A very light green background */
 }
