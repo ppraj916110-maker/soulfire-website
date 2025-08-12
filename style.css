@@ -521,3 +521,21 @@ body.dark-mode .main-footer {
   color: #00c; /* A light, readable green */
   background-color: none; /* A very light green background */
 }
+/* Styling for all the course lock icons */
+.course-lock-icon {
+    font-size: 20px;
+    margin-left: 8px;
+    transition: all 0.5s ease;
+    color: #ffc107; /* Default color for a locked state */
+}
+
+/* Color for the unlocked state */
+.course-lock-icon.unlocked {
+    color: #28a745; /* Green for unlocked */
+    transform: scale(1.1);
+}
+
+/* Color for the locked state */
+.course-lock-icon.locked {
+    color: #dc3545; /* Red for locked */
+}
