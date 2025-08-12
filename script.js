@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===== Detect Current Page =====
     const currentPage = window.location.pathname.split("/").pop();
 
-  // ===== Signup Logic =====
+    // ===== Signup Logic (FIXED: Redirects to login) =====
     if (currentPage === "signup.html" && signupForm) {
         signupForm.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -179,13 +179,14 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 // Firebase will perform its own server-side validation here
                 await createUserWithEmailAndPassword(auth, email, password);
-                formMsg.textContent = "✅ Signup successful! Redirecting...";
-                setTimeout(() => window.location.href = "course.html", 1500);
+                formMsg.textContent = "✅ Signup successful! Redirecting to login...";
+                setTimeout(() => window.location.href = "login.html", 1500);
             } catch (error) {
                 formMsg.textContent = `❌ ${error.message}`;
             }
         });
     }
+
     // ===== Login Logic =====
     if (currentPage === "login.html" && loginForm) {
         loginForm.addEventListener("submit", async (e) => {
@@ -214,10 +215,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ===== Logout Button =====
+    // ===== Logout Button (FIXED: Redirect now handled by onAuthStateChanged) =====
     if (logoutBtn) {
         logoutBtn.addEventListener("click", () => {
-            signOut(auth).then(() => window.location.href = "login.html");
+            signOut(auth);
         });
     }
 
@@ -280,17 +281,17 @@ document.addEventListener('DOMContentLoaded', () => {
             // Hide the content by default on page load
             moreInfo.style.display = 'none';
             // Set initial button text
-            button.innerHTML = '<strong>Show More Content</strong>';
+            button.innerHTML = 'Show More Content';
 
             button.addEventListener('click', () => {
                 const isHidden = moreInfo.style.display === 'none';
                 
                 if (isHidden) {
                     moreInfo.style.display = 'block';
-                    button.innerHTML = '<strong>Show Less Content</strong>'; // Change text to 'Show Less'
+                    button.innerHTML = 'Show Less Content'; // Change text to 'Show Less'
                 } else {
                     moreInfo.style.display = 'none';
-                    button.innerHTML = '<strong>Show More Content</strong>'; // Change text back to 'Show More'
+                    button.innerHTML = 'Show More Content'; // Change text back to 'Show More'
                 }
                 
                 button.setAttribute('aria-expanded', !isHidden); // Set aria-expanded based on new state
@@ -309,9 +310,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // IMPORTANT: You MUST update these numbers if you change the number of lessons in each course.
         const lessonCounts = {
-            "beginnerCourse": 7,  // Total lessons in beginner.html
-            "technicalCourse": 11, // Update this with your actual count
-            "advanceCourse": 7    // Update this with your actual count
+            "beginnerCourse": 15,  // Total lessons in beginner.html
+            "technicalCourse": 25, // Update this with your actual count
+            "advanceCourse": 20   // Update this with your actual count
         };
         
         let totalCompletedLessons = 0;
@@ -336,4 +337,4 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentPage === "course.html") {
         updateCombinedProgressMeter();
     }
-});    
+});
