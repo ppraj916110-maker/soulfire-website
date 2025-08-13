@@ -1,79 +1,54 @@
-// ---------------------------
-// Firebase Integration Script
-// ---------------------------
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
-import {
-    getAuth,
-    onAuthStateChanged,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-import {
-    getFirestore,
-    doc,
-    setDoc,
-    getDoc
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    // -------------------------------------
-    // UI ELEMENT REFERENCES
-    // -------------------------------------
-    const menuToggleBtn = document.getElementById("menu-toggle");
-    const sideMenu = document.getElementById("menu");
+    // ----- UI Elements -----
+    const menuToggle = document.getElementById("menu-toggle");
+    const menu = document.getElementById("menu");
     const closeMenuBtn = document.getElementById("close-menu-btn");
-    const darkModeToggle = document.getElementById("dark-toggle");
-    const pageBody = document.body;
-    const quoteElement = document.getElementById("trader-quote");
+    const darkToggle = document.getElementById("dark-toggle");
+    const body = document.body;
+    const quoteEl = document.getElementById("trader-quote");
     const signupForm = document.getElementById("signup-form");
     const loginForm = document.getElementById("login-form");
-    const logoutButton = document.getElementById("logout-btn");
+    const logoutBtn = document.getElementById("logout-btn");
     const formMessage = document.getElementById("form-message");
 
-    // -------------------------------------
-    // MENU TOGGLE FUNCTIONALITY
-    // -------------------------------------
-    if (menuToggleBtn && sideMenu) {
-        menuToggleBtn.addEventListener("click", () => {
-            sideMenu.classList.toggle("active");
-            menuToggleBtn.classList.toggle("open");
-            menuToggleBtn.classList.toggle("close");
+    // ----- Menu Toggle -----
+    if (menuToggle && menu) {
+        menuToggle.addEventListener("click", () => {
+            menu.classList.toggle("active");
+            menuToggle.classList.toggle("open");
+            menuToggle.classList.toggle("close");
         });
     }
-
-    if (closeMenuBtn && sideMenu) {
+    if (closeMenuBtn && menu) {
         closeMenuBtn.addEventListener("click", () => {
-            sideMenu.classList.remove("active");
-            menuToggleBtn.classList.remove("open", "close");
+            menu.classList.remove("active");
+            menuToggle.classList.remove("open", "close");
         });
     }
 
-    // -------------------------------------
-    // DARK MODE SETUP
-    -------------------------------------
+    // ----- Dark Mode -----
     if (localStorage.getItem("theme") === "dark") {
-        pageBody.classList.add("dark-mode");
-        if (darkModeToggle) darkModeToggle.textContent = "☀️";
+        body.classList.add("dark-mode");
+        if (darkToggle) darkToggle.textContent = "☀️";
     } else {
-        if (darkModeToggle) darkModeToggle.textContent = "🌙";
+        if (darkToggle) darkToggle.textContent = "🌙";
     }
-
-    if (darkModeToggle) {
-        darkModeToggle.addEventListener("click", () => {
-            pageBody.classList.toggle("dark-mode");
-            const isDarkMode = pageBody.classList.contains("dark-mode");
-            localStorage.setItem("theme", isDarkMode ? "dark" : "light");
-            darkModeToggle.textContent = isDarkMode ? "☀️" : "🌙";
+    if (darkToggle) {
+        darkToggle.addEventListener("click", () => {
+            body.classList.toggle("dark-mode");
+            const isDark = body.classList.contains("dark-mode");
+            localStorage.setItem("theme", isDark ? "dark" : "light");
+            darkToggle.textContent = isDark ? "☀️" : "🌙";
         });
     }
 
-    // -------------------------------------
-    // INITIALIZE AOS ANIMATIONS
-    // -------------------------------------
+    // ----- AOS Animation -----
     if (typeof AOS !== "undefined") {
         AOS.init({
             duration: 1000,
@@ -81,10 +56,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // -------------------------------------
-    // ROTATING QUOTES FOR TRADER MOTIVATION
-    // -------------------------------------
-    const quotesList = [
+    // ----- Rotating Quotes -----
+    const quotes = [
         "Every expert was once a beginner — start your journey today.",
         "Small consistent steps build big trading success.",
         "Mistakes, failure, humiliation, disappointment and rejection are all a part of growth.",
@@ -97,34 +70,32 @@ document.addEventListener("DOMContentLoaded", () => {
         "Charts don’t lie, but traders who read them well succeed.",
         "The best investment you can make is in your trading education."
     ];
-    let currentQuoteIndex = 0;
-
-    if (quoteElement) {
-        const changeQuote = () => {
-            quoteElement.style.opacity = 0;
+    let quoteIndex = 0;
+    if (quoteEl) {
+        const showQuote = () => {
+            quoteEl.style.opacity = 0;
             setTimeout(() => {
-                quoteElement.textContent = quotesList[currentQuoteIndex];
-                quoteElement.style.opacity = 1;
-                currentQuoteIndex = (currentQuoteIndex + 1) % quotesList.length;
+                quoteEl.textContent = quotes[quoteIndex];
+                quoteEl.style.opacity = 1;
+                quoteIndex = (quoteIndex + 1) % quotes.length;
             }, 800);
         };
-        changeQuote();
-        setInterval(changeQuote, 5000);
+        showQuote();
+        setInterval(showQuote, 5000);
     }
 
-    // -------------------------------------
-    // DISABLE RIGHT CLICK & COPY SHORTCUTS
-    // -------------------------------------
+    // ----- Disable Right Click + Copy -----
     document.addEventListener("contextmenu", e => e.preventDefault());
     document.addEventListener("keydown", e => {
-        if ((e.ctrlKey && ["c", "u", "s"].includes(e.key.toLowerCase())) || e.key === "PrintScreen") {
+        if (
+            (e.ctrlKey && ["c", "u", "s"].includes(e.key.toLowerCase())) ||
+            e.key === "PrintScreen"
+        ) {
             e.preventDefault();
         }
     });
 
-    // -------------------------------------
-    // FIREBASE CONFIGURATION
-    // -------------------------------------
+    // ----- Firebase Config -----
     const firebaseConfig = {
         apiKey: "AIzaSyDa5EPtNbmugtaIMiIaYmVtapYsvU7biMc",
         authDomain: "tradingekmission.firebaseapp.com",
@@ -140,12 +111,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // Get current page file name
     const currentPage = window.location.pathname.split("/").pop();
 
-    // -------------------------------------
-    // SIGNUP FUNCTIONALITY
-    // -------------------------------------
+    // ----- Signup -----
     if (currentPage === "signup.html" && signupForm) {
         signupForm.addEventListener("submit", async e => {
             e.preventDefault();
@@ -153,13 +121,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const password = document.getElementById("password").value.trim();
             const confirmPassword = document.getElementById("confirm-password").value.trim();
 
-            // Email validation
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                 formMessage.textContent = "❌ Please enter a valid email address.";
                 return;
             }
-
-            // Password validations
             if (password !== confirmPassword) {
                 formMessage.textContent = "❌ Passwords do not match!";
                 return;
@@ -175,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             try {
                 await createUserWithEmailAndPassword(auth, email, password);
-                formMessage.textContent = "✅ Signup successful! Redirecting... Remember your password.";
+                formMessage.textContent = "✅ Signup successful! Redirecting...Remember your password";
                 setTimeout(() => window.location.href = "login.html", 1500);
             } catch (error) {
                 formMessage.textContent = `❌ ${error.message}`;
@@ -183,9 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // -------------------------------------
-    // LOGIN FUNCTIONALITY
-    // -------------------------------------
+    // ----- Login -----
     if (currentPage === "login.html" && loginForm) {
         loginForm.addEventListener("submit", async e => {
             e.preventDefault();
@@ -202,19 +165,15 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // -------------------------------------
-    // AUTH STATE CHANGE HANDLING
-    // -------------------------------------
+    // ----- Auth State -----
     onAuthStateChanged(auth, async user => {
         const protectedPages = ["beginner.html", "technical.html", "advance.html"];
-
-        // Redirect to login if user is not authenticated
         if (!user && protectedPages.includes(currentPage)) {
             window.location.href = "login.html";
             return;
         }
 
-        // Lock/Unlock course icons
+        // Lock/Unlock Course Icons
         if (currentPage === "course.html") {
             document.querySelectorAll(".course-lock-icon").forEach(icon => {
                 icon.classList.toggle("fa-lock", !user);
@@ -222,128 +181,106 @@ document.addEventListener("DOMContentLoaded", () => {
                 icon.classList.toggle("fa-unlock", !!user);
                 icon.classList.toggle("unlocked", !!user);
             });
+            if (user) {
+                await updateProgress(user.uid);
+            }
         }
 
-        // Show logout button only when logged in
-        if (logoutButton) {
-            logoutButton.style.display = user ? "block" : "none";
+        // Show Logout
+        if (logoutBtn) {
+            logoutBtn.style.display = user ? "block" : "none";
         }
 
-        // Track lesson completion for each course
+        // Track Lessons per Course
         if (user) {
             const courseContainers = document.querySelectorAll(".course-container");
-
             for (const container of courseContainers) {
                 const lessonList = container.querySelector(".lessonList");
                 const courseId = container.getAttribute("data-course-id");
 
                 if (lessonList) {
                     const lessons = lessonList.querySelectorAll("li");
+                    const userRef = doc(db, "users", user.uid);
+                    const userSnap = await getDoc(userRef);
+                    const userData = userSnap.exists() ? userSnap.data() : {};
+                    let completedSet = new Set(userData[courseId] || []);
 
-                    try {
-                        const userRef = doc(db, "users", user.uid);
-                        const userSnap = await getDoc(userRef);
-                        const userData = userSnap.exists() ? userSnap.data() : {};
-                        let completedLessons = new Set(userData[courseId] || []);
-
-                        lessons.forEach((lesson, index) => {
-                            // Check if the lesson is in the completed lessons set and apply the class
-                            // Using toString() for robustness against data type inconsistencies
-                            if (completedLessons.has(index.toString())) {
-                                lesson.classList.add("completed");
+                    lessons.forEach((lesson, index) => {
+                        if (completedSet.has(index)) {
+                            lesson.classList.add("completed");
+                        }
+                        lesson.addEventListener("click", async () => {
+                            lesson.classList.toggle("completed");
+                            if (lesson.classList.contains("completed")) {
+                                completedSet.add(index);
+                            } else {
+                                completedSet.delete(index);
                             }
-
-                            lesson.addEventListener("click", async () => {
-                                lesson.classList.toggle("completed");
-
-                                if (lesson.classList.contains("completed")) {
-                                    completedLessons.add(index.toString());
-                                } else {
-                                    completedLessons.delete(index.toString());
-                                }
-
-                                try {
-                                    await setDoc(userRef, {
-                                        ...userData,
-                                        [courseId]: Array.from(completedLessons)
-                                    });
-                                    // Update progress meter on click
-                                    if (currentPage === "course.html") {
-                                        await updateProgress(user.uid);
-                                    }
-                                } catch (err) {
-                                    console.error("Error saving lesson progress:", err);
-                                }
+                            await setDoc(userRef, {
+                                ...userData,
+                                [courseId]: Array.from(completedSet)
                             });
+                            if (currentPage === "course.html") {
+                                await updateProgress(user.uid);
+                            }
                         });
-                    } catch (err) {
-                        console.error("Error loading lesson progress:", err);
-                    }
+                    });
                 }
-            }
-
-            // **FIX:** Call the updateProgress function here, after all lessons have been checked
-            if (currentPage === "course.html") {
-                await updateProgress(user.uid);
             }
         }
     });
 
-    // -------------------------------------
-    // LOGOUT FUNCTIONALITY
-    // -------------------------------------
-    if (logoutButton) {
-        logoutButton.addEventListener("click", () => signOut(auth));
+    // ----- Logout -----
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", () => signOut(auth));
     }
 
-    // -------------------------------------
-    // SHOW/HIDE CONTENT BUTTONS
-    // -------------------------------------
-    document.querySelectorAll(".toggle-btn").forEach(button => {
-        const targetElement = document.getElementById(button.dataset.target);
-
-        if (targetElement) {
-            targetElement.style.display = "none";
-            button.innerHTML = "<strong>Show More Content</strong>";
-
-            button.addEventListener("click", () => {
-                const isHidden = targetElement.style.display === "none";
-                targetElement.style.display = isHidden ? "block" : "none";
-                button.innerHTML = `<strong>${isHidden ? "Show Less" : "Show More"} Content</strong>`;
-                button.setAttribute("aria-expanded", !isHidden);
+    // ----- Show/Hide Content Buttons -----
+    document.querySelectorAll(".toggle-btn").forEach(btn => {
+        const target = document.getElementById(btn.dataset.target);
+        if (target) {
+            target.style.display = "none";
+            btn.innerHTML = "<strong>Show More Content</strong>";
+            btn.addEventListener("click", () => {
+                const isHidden = target.style.display === "none";
+                target.style.display = isHidden ? "block" : "none";
+                btn.innerHTML = `<strong>${isHidden ? "Show Less" : "Show More"} Content</strong>`;
+                btn.setAttribute("aria-expanded", !isHidden);
             });
         }
     });
 
-    // -------------------------------------
-    // UPDATE COURSE PROGRESS BARS
-    // -------------------------------------
+    // ----- Update Progress -----
     async function updateProgress(uid) {
-        const combinedProgressBar = document.getElementById("combinedProgressBar");
-        const totalProgressText = document.getElementById("progressText");
+        const combinedBar = document.getElementById("combinedProgressBar");
+        const progressText = document.getElementById("progressText");
 
-        const courseIds = ["beginnerCourse", "technicalCourse", "advanceCourse"];
+        const courseKeys = ["beginnerCourse", "technicalCourse", "advanceCourse"];
+        const courseNameMap = {
+            beginnerCourse: "Beginner",
+            technicalCourse: "Technical",
+            advanceCourse: "Advance"
+        };
 
         try {
             const userRef = doc(db, "users", uid);
             const userSnap = await getDoc(userRef);
             const userData = userSnap.exists() ? userSnap.data() : {};
 
-            let totalLessonsCompleted = 0;
-            let totalLessonsAvailable = 0;
+            let totalCompleted = 0;
+            let totalLessons = 0;
 
-            courseIds.forEach(courseId => {
-                const courseContainer = document.querySelector(`.course-container[data-course-id="${courseId}"] .lessonList`);
-                const lessonCount = courseContainer ? courseContainer.querySelectorAll("li").length : 0;
-                const completedCount = (userData[courseId] || []).length;
+            courseKeys.forEach(key => {
+                const container = document.querySelector(`.course-container[data-course-id="${key}"] .lessonList`);
+                const lessonCount = container ? container.querySelectorAll("li").length : 0;
+                const completedCount = (userData[key] || []).length;
 
-                totalLessonsCompleted += completedCount;
-                totalLessonsAvailable += lessonCount;
+                totalCompleted += completedCount;
+                totalLessons += lessonCount;
 
-                // Update individual progress bar
-                const bar = document.getElementById(`${courseId}ProgressBar`);
-                const text = document.getElementById(`${courseId}ProgressText`);
-
+                // Update individual progress bars
+                const bar = document.getElementById(`${key}ProgressBar`);
+                const text = document.getElementById(`${key}ProgressText`);
                 if (bar && text) {
                     const percent = lessonCount > 0 ? Math.round((completedCount / lessonCount) * 100) : 0;
                     bar.style.width = percent + "%";
@@ -353,17 +290,13 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             // Update combined progress bar
-            const combinedPercent = totalLessonsAvailable > 0
-                ? Math.round((totalLessonsCompleted / totalLessonsAvailable) * 100)
-                : 0;
-
-            if (combinedProgressBar) {
-                combinedProgressBar.style.width = combinedPercent + "%";
-                combinedProgressBar.textContent = combinedPercent + "%";
+            const combinedPercent = totalLessons > 0 ? Math.round((totalCompleted / totalLessons) * 100) : 0;
+            if (combinedBar) {
+                combinedBar.style.width = combinedPercent + "%";
+                combinedBar.textContent = combinedPercent + "%";
             }
-
-            if (totalProgressText) {
-                totalProgressText.textContent = `Total lessons completed: ${totalLessonsCompleted} / ${totalLessonsAvailable}`;
+            if (progressText) {
+                progressText.textContent = `Total lessons completed: ${totalCompleted} / ${totalLessons}`;
             }
         } catch (err) {
             console.error("Error updating progress:", err);
