@@ -1,3 +1,6 @@
+// This is the complete, corrected script.js file.
+// Please replace your old file with this new code.
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
 import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
@@ -166,6 +169,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ----- Auth State -----
+    // FIX: Moving updateProgress call to the end of the listener
+    // This ensures lesson counts are fetched and classes are applied before progress is calculated.
     onAuthStateChanged(auth, async user => {
         const protectedPages = ["beginner.html", "technical.html", "advance.html"];
         if (!user && protectedPages.includes(currentPage)) {
@@ -181,9 +186,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 icon.classList.toggle("fa-unlock", !!user);
                 icon.classList.toggle("unlocked", !!user);
             });
-            if (user) {
-                await updateProgress(user.uid);
-            }
         }
 
         // Show Logout
@@ -203,29 +205,35 @@ document.addEventListener("DOMContentLoaded", () => {
                     const userRef = doc(db, "users", user.uid);
                     const userSnap = await getDoc(userRef);
                     const userData = userSnap.exists() ? userSnap.data() : {};
+                    // FIX: Using index.toString() for consistency
                     let completedSet = new Set(userData[courseId] || []);
 
                     lessons.forEach((lesson, index) => {
-                        if (completedSet.has(index)) {
+                        if (completedSet.has(index.toString())) { // FIX: Changed from index to index.toString()
                             lesson.classList.add("completed");
                         }
                         lesson.addEventListener("click", async () => {
                             lesson.classList.toggle("completed");
                             if (lesson.classList.contains("completed")) {
-                                completedSet.add(index);
+                                completedSet.add(index.toString()); // FIX: Changed from index to index.toString()
                             } else {
-                                completedSet.delete(index);
+                                completedSet.delete(index.toString()); // FIX: Changed from index to index.toString()
                             }
                             await setDoc(userRef, {
                                 ...userData,
                                 [courseId]: Array.from(completedSet)
                             });
+                            // FIX: Only call updateProgress on course.html
                             if (currentPage === "course.html") {
                                 await updateProgress(user.uid);
                             }
                         });
                     });
                 }
+            }
+             // FIX: Moved the initial updateProgress call here, after the loops
+            if (currentPage === "course.html" && user) {
+                await updateProgress(user.uid);
             }
         }
     });
@@ -255,11 +263,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const combinedBar = document.getElementById("combinedProgressBar");
         const progressText = document.getElementById("progressText");
 
-        const courseKeys = ["beginnerCourse", "technicalCourse", "advanceCourse"];
-        const courseNameMap = {
-            beginnerCourse: "Beginner",
-            technicalCourse: "Technical",
-            advanceCourse: "Advance"
+        // FIX: Hardcoded lesson counts to avoid DOM issues on course.html
+        const lessonCounts = {
+            beginnerCourse: 6,
+            technicalCourse: 12, // Update with your actual count
+            advanceCourse: 8     // Update with your actual count
         };
 
         try {
@@ -270,11 +278,11 @@ document.addEventListener("DOMContentLoaded", () => {
             let totalCompleted = 0;
             let totalLessons = 0;
 
-            courseKeys.forEach(key => {
-                const container = document.querySelector(`.course-container[data-course-id="${key}"] .lessonList`);
-                const lessonCount = container ? container.querySelectorAll("li").length : 0;
+            // FIX: Use hardcoded lesson counts for total
+            for (const key in lessonCounts) {
+                const lessonCount = lessonCounts[key];
                 const completedCount = (userData[key] || []).length;
-
+                
                 totalCompleted += completedCount;
                 totalLessons += lessonCount;
 
@@ -287,7 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     bar.textContent = percent + "%";
                     text.textContent = `Completed: ${completedCount} / ${lessonCount}`;
                 }
-            });
+            }
 
             // Update combined progress bar
             const combinedPercent = totalLessons > 0 ? Math.round((totalCompleted / totalLessons) * 100) : 0;
