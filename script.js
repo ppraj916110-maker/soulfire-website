@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // -------------------------------------
     // DARK MODE SETUP
-    // -------------------------------------
+    -------------------------------------
     if (localStorage.getItem("theme") === "dark") {
         pageBody.classList.add("dark-mode");
         if (darkModeToggle) darkModeToggle.textContent = "☀️";
@@ -222,10 +222,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 icon.classList.toggle("fa-unlock", !!user);
                 icon.classList.toggle("unlocked", !!user);
             });
-
-            if (user) {
-                await updateProgress(user.uid);
-            }
         }
 
         // Show logout button only when logged in
@@ -251,7 +247,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         let completedLessons = new Set(userData[courseId] || []);
 
                         lessons.forEach((lesson, index) => {
-                            if (completedLessons.has(index)) {
+                            // Check if the lesson is in the completed lessons set and apply the class
+                            // Using toString() for robustness against data type inconsistencies
+                            if (completedLessons.has(index.toString())) {
                                 lesson.classList.add("completed");
                             }
 
@@ -259,9 +257,9 @@ document.addEventListener("DOMContentLoaded", () => {
                                 lesson.classList.toggle("completed");
 
                                 if (lesson.classList.contains("completed")) {
-                                    completedLessons.add(index);
+                                    completedLessons.add(index.toString());
                                 } else {
-                                    completedLessons.delete(index);
+                                    completedLessons.delete(index.toString());
                                 }
 
                                 try {
@@ -269,6 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                         ...userData,
                                         [courseId]: Array.from(completedLessons)
                                     });
+                                    // Update progress meter on click
                                     if (currentPage === "course.html") {
                                         await updateProgress(user.uid);
                                     }
@@ -281,6 +280,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         console.error("Error loading lesson progress:", err);
                     }
                 }
+            }
+
+            // **FIX:** Call the updateProgress function here, after all lessons have been checked
+            if (currentPage === "course.html") {
+                await updateProgress(user.uid);
             }
         }
     });
