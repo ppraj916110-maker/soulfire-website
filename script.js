@@ -1,4 +1,4 @@
-// ===== Firebase Imports (CORRECT LOCATION) =====
+// ===== Firebase Imports (UPDATED for Firestore) =====
 import {
     initializeApp
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
@@ -12,6 +12,13 @@ import {
     signInWithEmailAndPassword,
     signOut
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import {
+    getFirestore,
+    doc,
+    setDoc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
 document.addEventListener('DOMContentLoaded', () => {
     // A. Get all the necessary elements using their IDs
     const menuToggle = document.getElementById('menu-toggle');
@@ -25,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById("login-form");
     const logoutBtn = document.getElementById("logout-btn");
     const authIcon = document.getElementById("auth-icon");
-    
+
     // B. Handle the main menu toggle button
     if (menuToggle && menu) {
         menuToggle.addEventListener('click', () => {
@@ -141,6 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const app = initializeApp(firebaseConfig);
     getAnalytics(app);
     const auth = getAuth(app);
+    const db = getFirestore(app); // <-- Firestore initialized here
 
     // ===== Detect Current Page =====
     const currentPage = window.location.pathname.split("/").pop();
@@ -199,15 +207,15 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 await signInWithEmailAndPassword(auth, email, password);
                 formMsg.textContent = "✅ Login successful! Redirecting...";
-                setTimeout(() => window.location.href = "course.html", 1500);
+                setTimeout(() => window.location.href = "beginner.html", 1500);
             } catch (error) {
                 formMsg.textContent = `❌ ${error.message}`;
             }
         });
     }
 
-    // ===== UNIVERSAL AUTHENTICATION LISTENER (FIXED: Handles protected pages only) =====
-    onAuthStateChanged(auth, (user) => {
+    // ===== UNIVERSAL AUTHENTICATION LISTENER (FINAL VERSION) =====
+    onAuthStateChanged(auth, async (user) => {
         // Define protected pages. All other pages are public.
         const protectedPages = ["beginner.html", "technical.html", "advance.html"];
 
@@ -230,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // --- Logout Button Display Logic (Bonus UX Feature) ---
+        // --- Logout Button Display Logic ---
         if (logoutBtn) {
             if (user) {
                 logoutBtn.style.display = 'block'; // Show the button
@@ -238,69 +246,65 @@ document.addEventListener('DOMContentLoaded', () => {
                 logoutBtn.style.display = 'none'; // Hide the button
             }
         }
+        
+        // --- Progress Tracking Logic (New Firestore implementation) ---
+        // This runs only if the user is logged in
+        if (user) {
+            if (currentPage === "course.html") {
+                await updateCombinedProgressMeter(user.uid, db);
+            }
+            
+            const courseContainers = document.querySelectorAll('.course-container');
+            courseContainers.forEach(courseContainer => {
+                const lessonList = courseContainer.querySelector('.lessonList');
+                const courseId = courseContainer.getAttribute('data-course-id');
+                
+                // Get progress for this course and user
+                if (lessonList) {
+                    const lessons = lessonList.querySelectorAll('li');
+                    
+                    const userDocRef = doc(db, "users", user.uid);
+                    const docSnap = await getDoc(userDocRef);
+                    const userData = docSnap.exists() ? docSnap.data() : {};
+                    let completedLessonsSet = new Set(userData[courseId] || []);
+                    
+                    lessons.forEach((lesson, index) => {
+                        if (completedLessonsSet.has(index)) {
+                            lesson.classList.add('completed');
+                        }
+                    });
+                    
+                    lessons.forEach((lesson, index) => {
+                        lesson.addEventListener('click', async () => {
+                            if (lesson.classList.contains('completed')) {
+                                lesson.classList.remove('completed');
+                                completedLessonsSet.delete(index);
+                            } else {
+                                lesson.classList.add('completed');
+                                completedLessonsSet.add(index);
+                            }
+                            
+                            const updatedData = { ...userData, [courseId]: Array.from(completedLessonsSet) };
+                            await setDoc(userDocRef, updatedData);
+                            
+                            if (currentPage === "course.html") {
+                                await updateCombinedProgressMeter(user.uid, db);
+                            }
+                        });
+                    });
+                }
+            });
+        }
     });
 
     // ===== Logout Button =====
     if (logoutBtn) {
         logoutBtn.addEventListener("click", () => {
-            // This is still the simple, correct logic.
             signOut(auth);
         });
     }
     
-    // --- Course Progress and Toggles (Dynamic, Reusable Section) ---
-    document.querySelectorAll('.course-container').forEach(courseContainer => {
-        const progressBar = courseContainer.querySelector('#progressBar');
-        const lessonList = courseContainer.querySelector('.lessonList');
-        const courseId = courseContainer.getAttribute('data-course-id');
-
-        if (progressBar && lessonList && courseId) {
-            const lessons = lessonList.querySelectorAll('li');
-            const totalLessons = lessons.length;
-            
-            let completedLessonsSet = new Set(JSON.parse(localStorage.getItem(courseId) || '[]'));
-
-            // Apply saved completions on page load
-            lessons.forEach((lesson, index) => {
-                if (completedLessonsSet.has(index)) {
-                    lesson.classList.add('completed');
-                }
-            });
-
-            function updateProgressBar() {
-                const completedCount = completedLessonsSet.size;
-                const progress = Math.round((completedCount / totalLessons) * 100);
-                
-                progressBar.style.width = progress + '%';
-                progressBar.textContent = progress + '%';
-                
-                if (progress < 50) {
-                    progressBar.style.backgroundColor = `rgb(255, ${Math.round(progress * 5.1)}, 0)`;
-                } else {
-                    progressBar.style.backgroundColor = `rgb(${Math.round(255 - (progress - 50) * 5.1)}, 255, 0)`;
-                }
-            }
-
-            updateProgressBar();
-
-            // Lesson click handler
-            lessons.forEach((lesson, index) => {
-                lesson.addEventListener('click', () => {
-                    if (lesson.classList.contains('completed')) {
-                        lesson.classList.remove('completed');
-                        completedLessonsSet.delete(index);
-                    } else {
-                        lesson.classList.add('completed');
-                        completedLessonsSet.add(index);
-                    }
-                    localStorage.setItem(courseId, JSON.stringify(Array.from(completedLessonsSet)));
-                    updateProgressBar();
-                });
-            });
-        }
-    });
-
-    // Toggle "More" content (Corrected to change button text)
+    // --- Toggle "More" content (Corrected to change button text) ---
     document.querySelectorAll('.toggle-btn').forEach(button => {
         const moreInfo = document.getElementById(button.dataset.target);
         if (moreInfo) {
@@ -325,27 +329,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- NEW Combined Progress Meter Logic ---
-    function updateCombinedProgressMeter() {
+    // --- NEW Combined Progress Meter Logic (Updated for Firestore) ---
+    async function updateCombinedProgressMeter(uid, db) {
         const progressBar = document.getElementById('combinedProgressBar');
         const progressText = document.getElementById('progressText');
         
         if (!progressBar) return; // Exit if not on the course.html page
 
         const courseIds = ["beginnerCourse", "technicalCourse", "advanceCourse"];
-        
-        // IMPORTANT: You MUST update these numbers if you change the number of lessons in each course.
         const lessonCounts = {
             "beginnerCourse": 15,  // Total lessons in beginner.html
             "technicalCourse": 25, // Update this with your actual count
             "advanceCourse": 20    // Update this with your actual count
         };
+
+        const userDocRef = doc(db, "users", uid);
+        const docSnap = await getDoc(userDocRef);
+        const userData = docSnap.exists() ? docSnap.data() : {};
         
         let totalCompletedLessons = 0;
         let totalLessons = 0;
 
         courseIds.forEach(courseId => {
-            const completed = JSON.parse(localStorage.getItem(courseId) || '[]').length;
+            const completed = (userData[courseId] || []).length;
             const total = lessonCounts[courseId];
             
             totalCompletedLessons += completed;
@@ -361,6 +367,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Call the new function when the page loads if it's the courses page
     if (currentPage === "course.html") {
-        updateCombinedProgressMeter();
+        // We can't call the async function directly outside the listener, so the listener handles it.
     }
 });
