@@ -57,76 +57,125 @@
   </header>
 <main>
     <section data-aos="fade-up">
-        <h2>Explore Our Trading Courses</h2>
-        <p>Gain in-depth knowledge and hands-on experience with our expert-designed stock trading courses.</p>
-        <section>
-        <div class="progress-container">
-            <div class="progress-bar" id="combinedProgressBar">0%</div>
-        </div>
-        <p id="progressText">Total lessons completed: 0/0  </p>
+      <h2>Explore Our Trading Courses</h2>
+      <p>Gain in-depth knowledge and hands-on experience with our expert-designed stock trading courses.</p>
+
+      <!-- Combined Progress -->
+      <div class="progress-container">
+        <div class="progress-bar" id="combinedProgressBar">0%</div>
+      </div>
+      <p id="progressText">Total lessons completed: 0 / 0</p>
+
+      <ol type="A">
+        <!-- Beginner Course -->
+        <li>
+          <section class="course-container" data-course-id="beginnerCourse">
+            <div class="course-card" data-aos="fade-right">
+              <h3>
+                <u>Beginner: Stock Market Basic</u>
+                <span class="course-lock-icon fa-solid fa-lock"></span>
+              </h3>
+              <p>Learn the basics of stock trading, market structure, and essential terminology to get started.</p>
+            </div>
+            <div class="progress-container">
+              <div class="progress-bar" id="beginnerCourseProgressBar">0%</div>
+            </div>
+            <p id="beginnerCourseProgressText">Completed: 0 / 6</p>
+
+            <!-- Lesson List -->
+            <ul class="lessonList" id="beginnerLessonList">
+              <li data-lesson-index="0">Introduction to Stock Market</li>
+              <li data-lesson-index="1">How Stock Exchanges Work</li>
+              <li data-lesson-index="2">Types of Financial Instruments</li>
+              <li data-lesson-index="3">Market Participants</li>
+              <li data-lesson-index="4">Order Types & Execution</li>
+              <li data-lesson-index="5">Basic Terminology</li>
+            </ul>
+            <button class="toggle-btn" data-target="beginnerLessonList"><strong>Show More Content</strong></button>
+          </section>
+        </li>
+
+        <!-- Technical Course -->
+        <li>
+          <section class="course-container" data-course-id="technicalCourse">
+            <div class="course-card" data-aos="fade-left">
+              <h3>
+                <u>Intermediate: Technical Analysis Mastery</u>
+                <span class="course-lock-icon fa-solid fa-lock"></span>
+              </h3>
+              <p>Master the art of technical analysis using charts, indicators, and price action strategies.</p>
+            </div>
+            <div class="progress-container">
+              <div class="progress-bar" id="technicalCourseProgressBar">0%</div>
+            </div>
+            <p id="technicalCourseProgressText">Completed: 0 / 12</p>
+
+            <!-- Lesson List -->
+            <ul class="lessonList" id="technicalLessonList">
+              <li data-lesson-index="0">Introduction to Technical Analysis</li>
+              <li data-lesson-index="1">Chart Types and Timeframes</li>
+              <li data-lesson-index="2">Support and Resistance</li>
+              <li data-lesson-index="3">Trendlines and Channels</li>
+              <li data-lesson-index="4">Moving Averages</li>
+              <li data-lesson-index="5">RSI & Momentum Indicators</li>
+              <li data-lesson-index="6">MACD Strategies</li>
+              <li data-lesson-index="7">Candlestick Patterns</li>
+              <li data-lesson-index="8">Breakout and Pullback Trading</li>
+              <li data-lesson-index="9">Volume Analysis</li>
+              <li data-lesson-index="10">Multiple Time Frame Analysis</li>
+              <li data-lesson-index="11">Risk Reward & Position Sizing</li>
+            </ul>
+            <button class="toggle-btn" data-target="technicalLessonList"><strong>Show More Content</strong></button>
+          </section>
+        </li>
+
+        <!-- Advance Course -->
+        <li>
+          <section class="course-container" data-course-id="advanceCourse">
+            <div class="course-card" data-aos="zoom-in">
+              <h3>
+                <u>Advance: Risk Management & Execution Skills</u>
+                <span class="course-lock-icon fa-solid fa-lock"></span>
+              </h3>
+              <p>Develop high-level intraday strategies, risk management, and live market execution skills.</p>
+            </div>
+            <div class="progress-container">
+              <div class="progress-bar" id="advanceCourseProgressBar">0%</div>
+            </div>
+            <p id="advanceCourseProgressText">Completed: 0 / 8</p>
+
+            <!-- Lesson List -->
+            <ul class="lessonList" id="advanceLessonList">
+              <li data-lesson-index="0">Principles of Risk Management</li>
+              <li data-lesson-index="1">Stop Loss & Target Strategies</li>
+              <li data-lesson-index="2">Position Sizing & Leverage</li>
+              <li data-lesson-index="3">Intraday Trading Tactics</li>
+              <li data-lesson-index="4">Scalping vs Swing Trading</li>
+              <li data-lesson-index="5">Managing Emotions in Trading</li>
+              <li data-lesson-index="6">Live Market Execution</li>
+              <li data-lesson-index="7">Advanced Exit Strategies</li>
+            </ul>
+            <button class="toggle-btn" data-target="advanceLessonList"><strong>Show More Content</strong></button>
+          </section>
+        </li>
+      </ol>
     </section>
-       <ol type="A">
-            <li>
-    <section class="course-container" data-course-id="beginnerCourse">
-                <div class="course-card" data-aos="fade-right">
-                    <h3>
-                        <a href="beginner.html">
-                            <u>Beginner: Stock Market Basic</u>
-                            <span id="beginner-lock-icon" class="course-lock-icon fa-solid fa-lock"></span>
-                        </a>
-                    </h3>
-                    <p>Learn the basics of stock trading, market structure, and essential terminology to get started.</p>
-                </div>
-               <div class="progress-container">
-            <div class="progress-bar" id="beginnerCourseProgressBar">0%</div>
-        </div>
-        <p id="beginnerCourseProgressText">Completed: 0/6 </p>
-           </section></li>
-            <li>
-              <section class="course-container" data-course-id="technicalCourse">
-                <div class="course-card" data-aos="fade-left">
-                    <h3>
-                        <a href="technical.html">
-                            <u>Intermediate: Technical Analysis Mastery</u>
-                            <span id="technical-lock-icon" class="course-lock-icon fa-solid fa-lock"></span>
-                        </a>
-                    </h3>
-                    <p>Master the art of technical analysis using charts, indicators, and price action strategies.</p>
-                </div>
-                <div class="progress-container">
-            <div class="progress-bar" id="technicalCourseProgressBar">0%</div>
-        </div>
-        <p id="technicalCourseProgressText">Completed: 0/12 </p>
-             </section></li>
-            <li>
-               <section class="course-container" data-course-id="advanceCourse">
-                <div class="course-card" data-aos="zoom-in">
-                    <h3>
-                        <a href="advance.html">
-                            <u>Advance: Risk Management & Execution skills in Trading</u>
-                            <span id="advance-lock-icon" class="course-lock-icon fa-solid fa-lock"></span>
-                        </a>
-                    </h3>
-                    <p>Develop high-level intraday strategies, risk management, and live market execution skills.</p>
-                </div>  <div class="progress-container">
-            <div class="progress-bar" id="advanceCourseProgressBar">0%</div>
-        </div>
-        <p id="advanceCourseProgressText">Completed: 0/8 </p>
-        </section></li>
-        </ol>
-    </section>
-</main>
-<footer class="main-footer">
+  </main>
+
+  <footer class="main-footer">
     <div class="footer-content">
       <p>&copy; 2025 Trading Ek Mission. All Rights Reserved.</p>
     </div>
   </footer>
+
+  <!-- Google Translate -->
   <script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
-}
-</script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
   <div class="logout-wrapper">
     <button id="logout-btn" class="logout-btn">Logout</button>
   </div>
