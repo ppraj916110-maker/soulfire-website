@@ -274,7 +274,7 @@ ul li, ol li {
 }
 
 strong {
-    font-weight: 700;
+    font-weight: 500;
     color: var(--light-strong-color); /* Updated */
 }
 
@@ -527,7 +527,7 @@ body.dark-mode .logout-btn:hover {
 }
 .lessonList li.completed {
     text-decoration: none;
-    color: #00c;
+    color: #0000CC;
     background-color: none;
 }
 .course-lock-icon {
