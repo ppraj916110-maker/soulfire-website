@@ -1,41 +1,40 @@
-// ----- Firebase Imports -----
+// ===== Firebase imports =====
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
 import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-    // UI Elements
+    // ===== UI Elements =====
     const menuToggle = document.getElementById("menu-toggle");
     const menu = document.getElementById("menu");
     const closeMenuBtn = document.getElementById("close-menu-btn");
     const darkToggle = document.getElementById("dark-toggle");
     const body = document.body;
+    const quoteEl = document.getElementById("trader-quote");
     const signupForm = document.getElementById("signup-form");
     const loginForm = document.getElementById("login-form");
     const logoutBtn = document.getElementById("logout-btn");
     const formMessage = document.getElementById("form-message");
 
-    // Menu Toggle
-    if (menuToggle) {
+    // ===== Menu Toggle =====
+    if (menuToggle && menu) {
         menuToggle.addEventListener("click", () => {
             menu.classList.toggle("active");
-            menuToggle.classList.toggle("open");
+            menuToggle.classList.toggle("open", menu.classList.contains("active"));
         });
     }
-    if (closeMenuBtn) {
+    if (closeMenuBtn && menu) {
         closeMenuBtn.addEventListener("click", () => {
             menu.classList.remove("active");
             menuToggle.classList.remove("open");
         });
     }
 
-    // Dark Mode
+    // ===== Dark Mode =====
     if (localStorage.getItem("theme") === "dark") {
         body.classList.add("dark-mode");
         if (darkToggle) darkToggle.textContent = "☀️";
-    } else {
-        if (darkToggle) darkToggle.textContent = "🌙";
     }
     if (darkToggle) {
         darkToggle.addEventListener("click", () => {
@@ -46,7 +45,41 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Firebase Config
+    // ===== AOS Animation =====
+    if (typeof AOS !== "undefined") {
+        AOS.init({ duration: 1000, once: true });
+    }
+
+    // ===== Rotating Quotes =====
+    const quotes = [
+        "Every expert was once a beginner — start your journey today.",
+        "Small consistent steps build big trading success.",
+        "In trading, patience is not just a virtue — it’s a profit strategy.",
+        "A disciplined trader turns losses into lessons."
+    ];
+    let quoteIndex = 0;
+    if (quoteEl) {
+        const showQuote = () => {
+            quoteEl.style.opacity = 0;
+            setTimeout(() => {
+                quoteEl.textContent = quotes[quoteIndex];
+                quoteEl.style.opacity = 1;
+                quoteIndex = (quoteIndex + 1) % quotes.length;
+            }, 800);
+        };
+        showQuote();
+        setInterval(showQuote, 5000);
+    }
+
+    // ===== Disable Right Click + Copy =====
+    document.addEventListener("contextmenu", e => e.preventDefault());
+    document.addEventListener("keydown", e => {
+        if ((e.ctrlKey && ["c", "u", "s"].includes(e.key.toLowerCase())) || e.key === "PrintScreen") {
+            e.preventDefault();
+        }
+    });
+
+    // ===== Firebase Config =====
     const firebaseConfig = {
         apiKey: "AIzaSyDa5EPtNbmugtaIMiIaYmVtapYsvU7biMc",
         authDomain: "tradingekmission.firebaseapp.com",
@@ -56,7 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
         appId: "1:301971513060:web:a6027176e12af4b227d6f1",
         measurementId: "G-C0W3J8LNSE"
     };
-
     const app = initializeApp(firebaseConfig);
     getAnalytics(app);
     const auth = getAuth(app);
@@ -64,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const currentPage = window.location.pathname.split("/").pop();
 
-    // Signup
+    // ===== Signup =====
     if (currentPage === "signup.html" && signupForm) {
         signupForm.addEventListener("submit", async e => {
             e.preventDefault();
@@ -72,22 +104,14 @@ document.addEventListener("DOMContentLoaded", () => {
             const password = document.getElementById("password").value.trim();
             const confirmPassword = document.getElementById("confirm-password").value.trim();
 
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                formMessage.textContent = "❌ Please enter a valid email address.";
-                return;
-            }
-            if (password !== confirmPassword) {
-                formMessage.textContent = "❌ Passwords do not match!";
-                return;
-            }
-            if (password.length < 8) {
-                formMessage.textContent = "⚠️ Password must be at least 8 characters.";
-                return;
-            }
-            if (!/[!@#$%^&*]/.test(password)) {
-                formMessage.textContent = "⚠️ Password must contain a special character (!@#$%^&*).";
-                return;
-            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+                return formMessage.textContent = "❌ Please enter a valid email.";
+            if (password !== confirmPassword)
+                return formMessage.textContent = "❌ Passwords do not match!";
+            if (password.length < 8)
+                return formMessage.textContent = "⚠️ Password must be at least 8 characters.";
+            if (!/[!@#$%^&*]/.test(password))
+                return formMessage.textContent = "⚠️ Password must contain a special character (!@#$%^&*).";
 
             try {
                 await createUserWithEmailAndPassword(auth, email, password);
@@ -99,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Login
+    // ===== Login =====
     if (currentPage === "login.html" && loginForm) {
         loginForm.addEventListener("submit", async e => {
             e.preventDefault();
@@ -116,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Auth State
+    // ===== Auth State =====
     onAuthStateChanged(auth, async user => {
         const protectedPages = ["beginner.html", "technical.html", "advance.html"];
         if (!user && protectedPages.includes(currentPage)) {
@@ -124,53 +148,106 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        // Lock/Unlock course icons
+        if (currentPage === "course.html") {
+            document.querySelectorAll(".course-lock-icon").forEach(icon => {
+                icon.classList.toggle("fa-lock", !user);
+                icon.classList.toggle("locked", !user);
+                icon.classList.toggle("fa-unlock", !!user);
+                icon.classList.toggle("unlocked", !!user);
+            });
+        }
+
         if (logoutBtn) logoutBtn.style.display = user ? "block" : "none";
 
-        if (currentPage === "course.html" && user) {
-            await updateProgress(user.uid);
+        if (user) {
+            const courseContainers = document.querySelectorAll(".course-container");
+            for (const container of courseContainers) {
+                const lessonList = container.querySelector(".lessonList");
+                const courseId = container.getAttribute("data-course-id");
+
+                if (lessonList) {
+                    const lessons = lessonList.querySelectorAll("li");
+                    const userRef = doc(db, "users", user.uid);
+                    const userSnap = await getDoc(userRef);
+                    const userData = userSnap.exists() ? userSnap.data() : {};
+                    let completedSet = new Set(userData[courseId] || []);
+
+                    lessons.forEach((lesson, index) => {
+                        if (completedSet.has(index.toString())) {
+                            lesson.classList.add("completed");
+                        }
+                        lesson.addEventListener("click", async () => {
+                            lesson.classList.toggle("completed");
+                            if (lesson.classList.contains("completed")) {
+                                completedSet.add(index.toString());
+                            } else {
+                                completedSet.delete(index.toString());
+                            }
+                            await setDoc(userRef, { ...userData, [courseId]: Array.from(completedSet) });
+                            if (currentPage === "course.html") {
+                                await updateProgress(user.uid);
+                            }
+                        });
+                    });
+                }
+            }
+
+            if (currentPage === "course.html") {
+                await updateProgress(user.uid);
+            }
         }
     });
 
-    // Logout
-    if (logoutBtn) {
-        logoutBtn.addEventListener("click", () => signOut(auth));
-    }
+    // ===== Logout =====
+    if (logoutBtn) logoutBtn.addEventListener("click", () => signOut(auth));
 
-    // Update Progress Function
+    // ===== Toggle Buttons =====
+    document.querySelectorAll(".toggle-btn").forEach(btn => {
+        const target = document.getElementById(btn.dataset.target);
+        if (target) {
+            target.style.display = "none";
+            btn.innerHTML = "<strong>Show More Content</strong>";
+            btn.addEventListener("click", () => {
+                const isHidden = target.style.display === "none";
+                target.style.display = isHidden ? "block" : "none";
+                btn.innerHTML = `<strong>${isHidden ? "Show Less" : "Show More"} Content</strong>`;
+                btn.setAttribute("aria-expanded", !isHidden);
+            });
+        }
+    });
+
+    // ===== Update Progress =====
     async function updateProgress(uid) {
-        const combinedBar = document.getElementById("combinedProgressBar");
-        const progressText = document.getElementById("progressText");
-
-        const lessonCounts = {
-            beginnerCourse: 6,
-            technicalCourse: 12,
-            advanceCourse: 8
-        };
-
         try {
+            const combinedBar = document.getElementById("combinedProgressBar");
+            const progressText = document.getElementById("progressText");
+
+            const courseContainers = document.querySelectorAll(".course-container");
+            let totalCompleted = 0, totalLessons = 0;
+
             const userRef = doc(db, "users", uid);
             const userSnap = await getDoc(userRef);
             const userData = userSnap.exists() ? userSnap.data() : {};
 
-            let totalCompleted = 0;
-            let totalLessons = 0;
+            courseContainers.forEach(container => {
+                const courseId = container.getAttribute("data-course-id");
+                const lessons = container.querySelectorAll(".lessonList li");
+                const lessonCount = lessons.length;
+                const completedCount = (userData[courseId] || []).length;
 
-            for (const key in lessonCounts) {
-                const lessonCount = lessonCounts[key];
-                const completedCount = (userData[key] || []).length;
-
-                totalCompleted += completedCount;
                 totalLessons += lessonCount;
+                totalCompleted += completedCount;
 
-                const bar = document.getElementById(`${key}ProgressBar`);
-                const text = document.getElementById(`${key}ProgressText`);
+                const bar = document.getElementById(`${courseId}ProgressBar`);
+                const text = document.getElementById(`${courseId}ProgressText`);
                 if (bar && text) {
                     const percent = lessonCount > 0 ? Math.round((completedCount / lessonCount) * 100) : 0;
                     bar.style.width = percent + "%";
                     bar.textContent = percent + "%";
                     text.textContent = `Completed: ${completedCount} / ${lessonCount}`;
                 }
-            }
+            });
 
             const combinedPercent = totalLessons > 0 ? Math.round((totalCompleted / totalLessons) * 100) : 0;
             if (combinedBar) {
