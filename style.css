@@ -227,7 +227,7 @@ body.dark-mode section {
 
 /* --- UPDATED COLORS FOR TEXT ELEMENTS --- */
 section h1 {
-    font-weight: 700;
+    font-weight: 800;
     margin-bottom: 1rem;
     color: var(--light-h1-color);
 }
@@ -239,7 +239,7 @@ section h2 {
 }
 
 section h3 {
-    font-weight: 700;
+    font-weight: 500;
     margin-bottom: 1rem;
     color: var(--light-h3-color);
 }
@@ -433,7 +433,7 @@ body.dark-mode .form-link:hover {
 }
 
 /* Responsive adjustments for small screens */
-@media (max-width: 500px) {
+@media (max-width: 1040px) {
     .auth-form {
         padding: 20px 25px;
     }
