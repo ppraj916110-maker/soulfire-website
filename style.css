@@ -1,4 +1,3 @@
-
 /* === 1. Reset & Global Styles === */
 * {
     margin: 0;
@@ -6,10 +5,27 @@
     box-sizing: border-box;
 }
 
+:root {
+    /* --- NEW COLOR VARIABLES --- */
+    --light-h1-color: #004488;
+    --light-h2-color: #0056b3;
+    --light-h3-color: #0077cc;
+    --light-p-color: #333333;
+    --light-a-color: #0077cc;
+    --light-strong-color: #e67e22;
+
+    --dark-h1-color: #add8e6;
+    --dark-h2-color: #90b8e6;
+    --dark-h3-color: #7997c4;
+    --dark-p-color: #e0e0e0;
+    --dark-a-color: #90cdf4;
+    --dark-strong-color: #f39c12;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f9fafc;
-    color: darkgoldenrod;
+    color: var(--light-p-color); /* Updated */
     overflow-x: hidden;
     transition: background-color 0.3s ease, color 0.3s ease;
     -webkit-user-select: none;
@@ -23,18 +39,18 @@ body {
 
 a {
     text-decoration: none;
-    color: #333;
+    color: var(--light-a-color); /* Updated */
     transition: color 0.3s ease;
 }
 
 /* === 2. Dark Mode Global Styles === */
 body.dark-mode {
     background-color: #121212;
-    color: #e0e0e0;
+    color: var(--dark-p-color); /* Updated */
 }
 
 body.dark-mode a {
-    color: #f0f0f0;
+    color: var(--dark-a-color); /* Updated */
 }
 
 /* === 3. Header & Navigation === */
@@ -209,19 +225,43 @@ body.dark-mode section {
     box-shadow: 0 2px 8px rgba(255, 255, 255, 0.05);
 }
 
-section h1, section h2, section h3 {
+/* --- UPDATED COLORS FOR TEXT ELEMENTS --- */
+section h1 {
     font-weight: 700;
     margin-bottom: 1rem;
-    color:#b70397;
+    color: var(--light-h1-color);
 }
 
-body.dark-mode section h1, body.dark-mode section h2, body.dark-mode section h3 {
-    color: #ffffff;
+section h2 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--light-h2-color);
+}
+
+section h3 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--light-h3-color);
+}
+
+body.dark-mode section h1 {
+    color: var(--dark-h1-color);
+}
+body.dark-mode section h2 {
+    color: var(--dark-h2-color);
+}
+body.dark-mode section h3 {
+    color: var(--dark-h3-color);
 }
 
 section p {
     margin-bottom: 1rem;
     font-size: 1rem;
+    color: var(--light-p-color); /* Updated */
+}
+
+body.dark-mode section p {
+    color: var(--dark-p-color); /* Updated */
 }
 
 ul, ol {
@@ -235,11 +275,11 @@ ul li, ol li {
 
 strong {
     font-weight: 700;
-    color:#f70bad;
+    color: var(--light-strong-color); /* Updated */
 }
 
 body.dark-mode strong {
-    color: #ffffff;
+    color: var(--dark-strong-color); /* Updated */
 }
 
 /* === 5. Quotes === */
@@ -261,123 +301,142 @@ body.dark-mode .trader-quote {
     color: #e0e0e0;
 }
 
-/* === 6. Forms & Buttons === */
-form {
-    background: #fff;
-    padding: 25px 30px;
-    border-radius: 8px;
+/* --- NEW FORM STYLING APPLIED HERE --- */
+/* ==================================== */
+/* Form Styles for Login and Signup     */
+/* ==================================== */
+
+/* Container for the entire form */
+.auth-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
+    background-color: #f9fafc;
+}
+
+body.dark-mode .auth-form-container {
+    background-color: #121212;
+}
+
+.auth-form {
+    width: 100%;
+    max-width: 450px;
+    padding: 30px 40px;
+    background-color: #ffffff;
+    border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    margin: auto;
+    color: #333333;
+    transition: all 0.3s ease;
 }
 
-body.dark-mode form {
-    background-color: #1e1e1e;
-    border: 1px solid #333;
-}
-
-form label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-}
-
-form input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 18px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    background-color: #fff;
-}
-
-body.dark-mode form input {
+body.dark-mode .auth-form {
+    background-color: #1f1f1f;
     color: #e0e0e0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Form Heading */
+.auth-form h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 28px;
+    color: #0077cc;
+}
+
+/* Individual form field group */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Labels for input fields */
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+/* Input field styling */
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode .form-group input {
     background-color: #2c2c2c;
+    color: #e0e0e0;
     border-color: #444;
 }
 
-form button {
+.form-group input:focus {
+    border-color: #0077cc;
+    box-shadow: 0 0 0 3px rgba(0, 119, 204, 0.25);
+}
+
+/* Submit Button */
+.submit-btn {
     width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-form button:hover {
-    background-color: #0056b3;
-}
-
-.form-message {
-    margin-top: 10px;
-    text-align: center;
-    color: red;
-    font-weight: 500;
-}
-
-.success-screen {
-    text-align: center;
-    animation: fadeIn 1s ease-in-out;
-}
-
-.success-screen h2 {
-    color: green;
-    margin-bottom: 10px;
-}
-.login-redirect {
-  margin-top: 15px;
-  text-align: center;
-  font-size: 14px;
-}
-
-.login-redirect a {
-  color: var(--primary-color); /* Assuming you have a primary color variable */
-  text-decoration: underline;
-  font-weight: 600;
-}
-
-body.dark-mode .success-screen {
-    background-color: #1d3f2b;
-    color: #a8ffce;
-}
-/* This centers the button using text-align */
- .logout-wrapper {
-  position: absolute; /* or 'absolute' */
-  bottom: 0;
-  width: 80%;
- text-align: center; /* Centers the button horizontally */
-/* Adds some space above and below the button */
-}
-
-.logout-btn {
-    display: inline-block;
-    margin-top: 2rem;
-    padding: 10px 20px;
-    background-color: #dc3545;
+    padding: 14px;
+    font-size: 18px;
+    font-weight: 700;
     color: #fff;
-    font-weight: bold;
+    background-color: #0077cc;
     border: none;
-    border-radius: 6px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.logout-btn:hover {
-    background-color: #c82333;
+.submit-btn:hover {
+    background-color: #005fa3;
+    transform: translateY(-2px);
 }
 
-body.dark-mode .logout-btn {
-    background-color: #b02a37;
+/* Message for errors or success */
+#form-message {
+    text-align: center;
+    margin-top: 15px;
+    font-weight: 600;
+    min-height: 20px;
+    color: #dc3545;
 }
 
-body.dark-mode .logout-btn:hover {
-    background-color: #a12630;
+/* Links within the form */
+.form-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #0077cc;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+body.dark-mode .form-link {
+    color: #90cdf4;
+}
+
+.form-link:hover {
+    color: #005fa3;
+    text-decoration: underline;
+}
+
+body.dark-mode .form-link:hover {
+    color: #0077cc;
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 500px) {
+    .auth-form {
+        padding: 20px 25px;
+    }
 }
 
 /* === 7. Call to Action === */
@@ -427,118 +486,60 @@ body.dark-mode .main-footer {
     color: #ccc;
 }
 
-/* === 9. Third-Party (Google Translate) === */
-#google_translate_element {
+/* --- OTHER STYLES (Unchanged) --- */
+.logout-wrapper {
+    position: absolute;
+    bottom: 0;
+    width: 80%;
+    text-align: center;
+}
+
+.logout-btn {
     display: inline-block;
-    float: center; /* This might not work as intended, consider a flexbox container for proper centering */
+    margin-top: 2rem;
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-/* === 10. Responsive Design (Mobile First) === */
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
-    }
-
-    .menu {
-        width: 80%;
-    }
+.logout-btn:hover {
+    background-color: #c82333;
 }
 
-@media (min-width: 769px) {
-    .menu-toggle, .close-menu-btn {
-        display: block;
-    }
-}
-        .image-container {
-            text-align: left;
-            margin: 10px 0;
-            padding: 5px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-        .image-container img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-        }
-        .image-container p {
-            margin-top: 10px;
-            font-style: italic;
-            color: #555;
-        }
-/* === Toggle Content Animation === */
-.toggle-content {
-    display: none;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
+body.dark-mode .logout-btn {
+    background-color: #b02a37;
 }
 
-.toggle-content[aria-expanded="true"] {
-    display: flow;
-}
-/* Style only the toggleable content area */
-.toggle-content {
-    /* Hidden by default */
-    margin-top: 1em;
-    padding: 1.2em;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #333;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+body.dark-mode .logout-btn:hover {
+    background-color: #a12630;
 }
 
-/* Heading inside toggle content */
-.toggle-content h3 {
-    margin-top: 0;
-    font-size: 1.25rem;
-    color: #0077FF;
-}
-
-/* Paragraphs inside toggle content */
-.toggle-content p {
-    margin-bottom: 1em;
-}
-
-/* Lists inside toggle content */
-.toggle-content ul,
-.toggle-content ol {
-    margin: 0.5em 0 0.5em 1.5em;
-}
-
-.toggle-content li {
-    margin-bottom: 0.4em;
-}
 .progress-bar {
-  width: 0%;
-  height: 10px;
-  background-color:#c6fbaf;
-  border-radius: 100px;
+    width: 0%;
+    height: 10px;
+    background-color:#c6fbaf;
+    border-radius: 100px;
 }
 .lessonList li.completed {
-  text-decoration: none;
-  color: #00c; /* A light, readable green */
-  background-color: none; /* A very light green background */
+    text-decoration: none;
+    color: #00c;
+    background-color: none;
 }
-/* Styling for all the course lock icons */
 .course-lock-icon {
     font-size: 20px;
     margin-left: 8px;
     transition: all 0.5s ease;
-    color: #ffc107; /* Default color for a locked state */
+    color: #ffc107;
 }
-
-/* Color for the unlocked state */
 .course-lock-icon.unlocked {
-    color: #28a745; /* Green for unlocked */
+    color: #28a745;
     transform: scale(1.1);
 }
-
-/* Color for the locked state */
 .course-lock-icon.locked {
-    color: #dc3545; /* Red for locked */
+    color: #dc3545;
 }
