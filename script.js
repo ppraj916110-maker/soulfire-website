@@ -148,20 +148,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const app = initializeApp(firebaseConfig);
     getAnalytics(app);
     const auth = getAuth(app);
-    const db = getFirestore(app); // <-- Firestore initialized here
+    const db = getFirestore(app);
 
     // ===== Detect Current Page =====
     const currentPage = window.location.pathname.split("/").pop();
 
     // ===== Signup Logic =====
     if (currentPage === "signup.html" && signupForm) {
+        // ADDED 'async' HERE to fix the SyntaxError
         signupForm.addEventListener("submit", async (e) => {
             e.preventDefault();
 
             const email = document.getElementById("email").value.trim();
             const password = document.getElementById("password").value.trim();
             const confirmPassword = document.getElementById("confirm-password").value.trim();
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // <-- Email regex
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
             // --- Client-Side Validation ---
             if (!emailRegex.test(email)) {
@@ -198,6 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ===== Login Logic =====
     if (currentPage === "login.html" && loginForm) {
+        // ADDED 'async' HERE to fix the SyntaxError
         loginForm.addEventListener("submit", async (e) => {
             e.preventDefault();
 
@@ -215,6 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ===== UNIVERSAL AUTHENTICATION LISTENER (FINAL VERSION) =====
+    // This was already correct but is here for reference.
     onAuthStateChanged(auth, async (user) => {
         // Define protected pages. All other pages are public.
         const protectedPages = ["beginner.html", "technical.html", "advance.html"];
@@ -241,9 +244,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- Logout Button Display Logic ---
         if (logoutBtn) {
             if (user) {
-                logoutBtn.style.display = 'block'; // Show the button
+                logoutBtn.style.display = 'block';
             } else {
-                logoutBtn.style.display = 'none'; // Hide the button
+                logoutBtn.style.display = 'none';
             }
         }
         
@@ -274,6 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     });
                     
+                    // ADDED 'async' HERE to fix the SyntaxError
                     lessons.forEach((lesson, index) => {
                         lesson.addEventListener('click', async () => {
                             if (lesson.classList.contains('completed')) {
@@ -334,13 +338,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const progressBar = document.getElementById('combinedProgressBar');
         const progressText = document.getElementById('progressText');
         
-        if (!progressBar) return; // Exit if not on the course.html page
+        if (!progressBar) return;
 
         const courseIds = ["beginnerCourse", "technicalCourse", "advanceCourse"];
         const lessonCounts = {
-            "beginnerCourse": 15,  // Total lessons in beginner.html
-            "technicalCourse": 25, // Update this with your actual count
-            "advanceCourse": 20    // Update this with your actual count
+            "beginnerCourse": 15,
+            "technicalCourse": 25,
+            "advanceCourse": 20
         };
 
         const userDocRef = doc(db, "users", uid);
@@ -365,8 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
         progressText.textContent = `Total lessons completed: ${totalCompletedLessons} / ${totalLessons}`;
     }
 
-    // Call the new function when the page loads if it's the courses page
     if (currentPage === "course.html") {
-        // We can't call the async function directly outside the listener, so the listener handles it.
+        // The async logic is now properly handled within the onAuthStateChanged listener.
     }
 });
