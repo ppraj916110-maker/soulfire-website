@@ -59,18 +59,15 @@
     <section data-aos="fade-up">
         <h2>Explore Our Trading Courses</h2>
         <p>Gain in-depth knowledge and hands-on experience with our expert-designed stock trading courses.</p>
-        <div class="combined-progress-container">
-            <div class="progress">
-                <div id="combinedProgressBar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                    0%
-                </div>
-            </div>
+        <section>
+        <div class="progress-container">
+            <div class="progress-bar" id="combinedProgressBar">0%</div>
         </div>
+        <p id="progressText">Total lessons completed: 0 / 0</p>
     </section>
-    
-    <section class="course-container">
-        <ol type="A">
+       <ol type="A">
             <li>
+    <section class="course-container" data-course-id="beginnerCourse">
                 <div class="course-card" data-aos="fade-right">
                     <h3>
                         <a href="beginner.html">
@@ -80,8 +77,13 @@
                     </h3>
                     <p>Learn the basics of stock trading, market structure, and essential terminology to get started.</p>
                 </div>
-            </li>
+               <div class="progress-container">
+            <div class="progress-bar" id="beginnerCourseProgressBar">0%</div>
+        </div>
+        <p id="beginnerCourseProgressText">Completed: 0 / 0</p>
+           </section></li>
             <li>
+              <section class="course-container" data-course-id="technicalCourse">
                 <div class="course-card" data-aos="fade-left">
                     <h3>
                         <a href="technical.html">
@@ -91,8 +93,13 @@
                     </h3>
                     <p>Master the art of technical analysis using charts, indicators, and price action strategies.</p>
                 </div>
-            </li>
+                <div class="progress-container">
+            <div class="progress-bar" id="technicalCourseProgressBar">0%</div>
+        </div>
+        <p id="technicalCourseProgressText">Completed: 0 / 0</p>
+             </section></li>
             <li>
+               <section class="course-container" data-course-id="advanceCourse">
                 <div class="course-card" data-aos="zoom-in">
                     <h3>
                         <a href="advance.html">
@@ -101,8 +108,11 @@
                         </a>
                     </h3>
                     <p>Develop high-level intraday strategies, risk management, and live market execution skills.</p>
-                </div>
-            </li>
+                </div>  <div class="progress-container">
+            <div class="progress-bar" id="advanceCourseProgressBar">0%</div>
+        </div>
+        <p id="advanceCourseProgressText">Completed: 0 / 0</p>
+        </section></li>
         </ol>
     </section>
 </main>
