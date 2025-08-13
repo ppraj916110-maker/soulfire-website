@@ -1,54 +1,79 @@
+// ---------------------------
+// Firebase Integration Script
+// ---------------------------
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
-import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import {
+    getAuth,
+    onAuthStateChanged,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import {
+    getFirestore,
+    doc,
+    setDoc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    // ----- UI Elements -----
-    const menuToggle = document.getElementById("menu-toggle");
-    const menu = document.getElementById("menu");
+    // -------------------------------------
+    // UI ELEMENT REFERENCES
+    // -------------------------------------
+    const menuToggleBtn = document.getElementById("menu-toggle");
+    const sideMenu = document.getElementById("menu");
     const closeMenuBtn = document.getElementById("close-menu-btn");
-    const darkToggle = document.getElementById("dark-toggle");
-    const body = document.body;
-    const quoteEl = document.getElementById("trader-quote");
+    const darkModeToggle = document.getElementById("dark-toggle");
+    const pageBody = document.body;
+    const quoteElement = document.getElementById("trader-quote");
     const signupForm = document.getElementById("signup-form");
     const loginForm = document.getElementById("login-form");
-    const logoutBtn = document.getElementById("logout-btn");
+    const logoutButton = document.getElementById("logout-btn");
     const formMessage = document.getElementById("form-message");
 
-    // ----- Menu Toggle -----
-    if (menuToggle && menu) {
-        menuToggle.addEventListener("click", () => {
-            menu.classList.toggle("active");
-            menuToggle.classList.toggle("open");
-            menuToggle.classList.toggle("close");
+    // -------------------------------------
+    // MENU TOGGLE FUNCTIONALITY
+    // -------------------------------------
+    if (menuToggleBtn && sideMenu) {
+        menuToggleBtn.addEventListener("click", () => {
+            sideMenu.classList.toggle("active");
+            menuToggleBtn.classList.toggle("open");
+            menuToggleBtn.classList.toggle("close");
         });
     }
-    if (closeMenuBtn && menu) {
+
+    if (closeMenuBtn && sideMenu) {
         closeMenuBtn.addEventListener("click", () => {
-            menu.classList.remove("active");
-            menuToggle.classList.remove("open", "close");
+            sideMenu.classList.remove("active");
+            menuToggleBtn.classList.remove("open", "close");
         });
     }
 
-    // ----- Dark Mode -----
+    // -------------------------------------
+    // DARK MODE SETUP
+    // -------------------------------------
     if (localStorage.getItem("theme") === "dark") {
-        body.classList.add("dark-mode");
-        if (darkToggle) darkToggle.textContent = "☀️";
+        pageBody.classList.add("dark-mode");
+        if (darkModeToggle) darkModeToggle.textContent = "☀️";
     } else {
-        if (darkToggle) darkToggle.textContent = "🌙";
+        if (darkModeToggle) darkModeToggle.textContent = "🌙";
     }
-    if (darkToggle) {
-        darkToggle.addEventListener("click", () => {
-            body.classList.toggle("dark-mode");
-            const isDark = body.classList.contains("dark-mode");
-            localStorage.setItem("theme", isDark ? "dark" : "light");
-            darkToggle.textContent = isDark ? "☀️" : "🌙";
+
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener("click", () => {
+            pageBody.classList.toggle("dark-mode");
+            const isDarkMode = pageBody.classList.contains("dark-mode");
+            localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+            darkModeToggle.textContent = isDarkMode ? "☀️" : "🌙";
         });
     }
 
-    // ----- AOS Animation -----
+    // -------------------------------------
+    // INITIALIZE AOS ANIMATIONS
+    // -------------------------------------
     if (typeof AOS !== "undefined") {
         AOS.init({
             duration: 1000,
@@ -56,8 +81,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ----- Rotating Quotes -----
-    const quotes = [
+    // -------------------------------------
+    // ROTATING QUOTES FOR TRADER MOTIVATION
+    // -------------------------------------
+    const quotesList = [
         "Every expert was once a beginner — start your journey today.",
         "Small consistent steps build big trading success.",
         "Mistakes, failure, humiliation, disappointment and rejection are all a part of growth.",
@@ -70,32 +97,34 @@ document.addEventListener("DOMContentLoaded", () => {
         "Charts don’t lie, but traders who read them well succeed.",
         "The best investment you can make is in your trading education."
     ];
-    let quoteIndex = 0;
-    if (quoteEl) {
-        const showQuote = () => {
-            quoteEl.style.opacity = 0;
+    let currentQuoteIndex = 0;
+
+    if (quoteElement) {
+        const changeQuote = () => {
+            quoteElement.style.opacity = 0;
             setTimeout(() => {
-                quoteEl.textContent = quotes[quoteIndex];
-                quoteEl.style.opacity = 1;
-                quoteIndex = (quoteIndex + 1) % quotes.length;
+                quoteElement.textContent = quotesList[currentQuoteIndex];
+                quoteElement.style.opacity = 1;
+                currentQuoteIndex = (currentQuoteIndex + 1) % quotesList.length;
             }, 800);
         };
-        showQuote();
-        setInterval(showQuote, 5000);
+        changeQuote();
+        setInterval(changeQuote, 5000);
     }
 
-    // ----- Disable Right Click + Copy -----
+    // -------------------------------------
+    // DISABLE RIGHT CLICK & COPY SHORTCUTS
+    // -------------------------------------
     document.addEventListener("contextmenu", e => e.preventDefault());
     document.addEventListener("keydown", e => {
-        if (
-            (e.ctrlKey && ["c", "u", "s"].includes(e.key.toLowerCase())) ||
-            e.key === "PrintScreen"
-        ) {
+        if ((e.ctrlKey && ["c", "u", "s"].includes(e.key.toLowerCase())) || e.key === "PrintScreen") {
             e.preventDefault();
         }
     });
 
-    // ----- Firebase Config -----
+    // -------------------------------------
+    // FIREBASE CONFIGURATION
+    // -------------------------------------
     const firebaseConfig = {
         apiKey: "AIzaSyDa5EPtNbmugtaIMiIaYmVtapYsvU7biMc",
         authDomain: "tradingekmission.firebaseapp.com",
@@ -111,9 +140,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const auth = getAuth(app);
     const db = getFirestore(app);
 
+    // Get current page file name
     const currentPage = window.location.pathname.split("/").pop();
 
-    // ----- Signup -----
+    // -------------------------------------
+    // SIGNUP FUNCTIONALITY
+    // -------------------------------------
     if (currentPage === "signup.html" && signupForm) {
         signupForm.addEventListener("submit", async e => {
             e.preventDefault();
@@ -121,10 +153,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const password = document.getElementById("password").value.trim();
             const confirmPassword = document.getElementById("confirm-password").value.trim();
 
+            // Email validation
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                 formMessage.textContent = "❌ Please enter a valid email address.";
                 return;
             }
+
+            // Password validations
             if (password !== confirmPassword) {
                 formMessage.textContent = "❌ Passwords do not match!";
                 return;
@@ -140,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             try {
                 await createUserWithEmailAndPassword(auth, email, password);
-                formMessage.textContent = "✅ Signup successful! Redirecting...Remember your password";
+                formMessage.textContent = "✅ Signup successful! Redirecting... Remember your password.";
                 setTimeout(() => window.location.href = "login.html", 1500);
             } catch (error) {
                 formMessage.textContent = `❌ ${error.message}`;
@@ -148,7 +183,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ----- Login -----
+    // -------------------------------------
+    // LOGIN FUNCTIONALITY
+    // -------------------------------------
     if (currentPage === "login.html" && loginForm) {
         loginForm.addEventListener("submit", async e => {
             e.preventDefault();
@@ -165,15 +202,19 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ----- Auth State -----
+    // -------------------------------------
+    // AUTH STATE CHANGE HANDLING
+    // -------------------------------------
     onAuthStateChanged(auth, async user => {
         const protectedPages = ["beginner.html", "technical.html", "advance.html"];
+
+        // Redirect to login if user is not authenticated
         if (!user && protectedPages.includes(currentPage)) {
             window.location.href = "login.html";
             return;
         }
 
-        // Lock/Unlock Course Icons
+        // Lock/Unlock course icons
         if (currentPage === "course.html") {
             document.querySelectorAll(".course-lock-icon").forEach(icon => {
                 icon.classList.toggle("fa-lock", !user);
@@ -181,106 +222,124 @@ document.addEventListener("DOMContentLoaded", () => {
                 icon.classList.toggle("fa-unlock", !!user);
                 icon.classList.toggle("unlocked", !!user);
             });
+
             if (user) {
                 await updateProgress(user.uid);
             }
         }
 
-        // Show Logout
-        if (logoutBtn) {
-            logoutBtn.style.display = user ? "block" : "none";
+        // Show logout button only when logged in
+        if (logoutButton) {
+            logoutButton.style.display = user ? "block" : "none";
         }
 
-        // Track Lessons per Course
+        // Track lesson completion for each course
         if (user) {
             const courseContainers = document.querySelectorAll(".course-container");
+
             for (const container of courseContainers) {
                 const lessonList = container.querySelector(".lessonList");
                 const courseId = container.getAttribute("data-course-id");
 
                 if (lessonList) {
                     const lessons = lessonList.querySelectorAll("li");
-                    const userRef = doc(db, "users", user.uid);
-                    const userSnap = await getDoc(userRef);
-                    const userData = userSnap.exists() ? userSnap.data() : {};
-                    let completedSet = new Set(userData[courseId] || []);
 
-                    lessons.forEach((lesson, index) => {
-                        if (completedSet.has(index)) {
-                            lesson.classList.add("completed");
-                        }
-                        lesson.addEventListener("click", async () => {
-                            lesson.classList.toggle("completed");
-                            if (lesson.classList.contains("completed")) {
-                                completedSet.add(index);
-                            } else {
-                                completedSet.delete(index);
+                    try {
+                        const userRef = doc(db, "users", user.uid);
+                        const userSnap = await getDoc(userRef);
+                        const userData = userSnap.exists() ? userSnap.data() : {};
+                        let completedLessons = new Set(userData[courseId] || []);
+
+                        lessons.forEach((lesson, index) => {
+                            if (completedLessons.has(index)) {
+                                lesson.classList.add("completed");
                             }
-                            await setDoc(userRef, {
-                                ...userData,
-                                [courseId]: Array.from(completedSet)
+
+                            lesson.addEventListener("click", async () => {
+                                lesson.classList.toggle("completed");
+
+                                if (lesson.classList.contains("completed")) {
+                                    completedLessons.add(index);
+                                } else {
+                                    completedLessons.delete(index);
+                                }
+
+                                try {
+                                    await setDoc(userRef, {
+                                        ...userData,
+                                        [courseId]: Array.from(completedLessons)
+                                    });
+                                    if (currentPage === "course.html") {
+                                        await updateProgress(user.uid);
+                                    }
+                                } catch (err) {
+                                    console.error("Error saving lesson progress:", err);
+                                }
                             });
-                            if (currentPage === "course.html") {
-                                await updateProgress(user.uid);
-                            }
                         });
-                    });
+                    } catch (err) {
+                        console.error("Error loading lesson progress:", err);
+                    }
                 }
             }
         }
     });
 
-    // ----- Logout -----
-    if (logoutBtn) {
-        logoutBtn.addEventListener("click", () => signOut(auth));
+    // -------------------------------------
+    // LOGOUT FUNCTIONALITY
+    // -------------------------------------
+    if (logoutButton) {
+        logoutButton.addEventListener("click", () => signOut(auth));
     }
 
-    // ----- Show/Hide Content Buttons -----
-    document.querySelectorAll(".toggle-btn").forEach(btn => {
-        const target = document.getElementById(btn.dataset.target);
-        if (target) {
-            target.style.display = "none";
-            btn.innerHTML = "<strong>Show More Content</strong>";
-            btn.addEventListener("click", () => {
-                const isHidden = target.style.display === "none";
-                target.style.display = isHidden ? "block" : "none";
-                btn.innerHTML = `<strong>${isHidden ? "Show Less" : "Show More"} Content</strong>`;
-                btn.setAttribute("aria-expanded", !isHidden);
+    // -------------------------------------
+    // SHOW/HIDE CONTENT BUTTONS
+    // -------------------------------------
+    document.querySelectorAll(".toggle-btn").forEach(button => {
+        const targetElement = document.getElementById(button.dataset.target);
+
+        if (targetElement) {
+            targetElement.style.display = "none";
+            button.innerHTML = "<strong>Show More Content</strong>";
+
+            button.addEventListener("click", () => {
+                const isHidden = targetElement.style.display === "none";
+                targetElement.style.display = isHidden ? "block" : "none";
+                button.innerHTML = `<strong>${isHidden ? "Show Less" : "Show More"} Content</strong>`;
+                button.setAttribute("aria-expanded", !isHidden);
             });
         }
     });
 
-    // ----- Update Progress -----
+    // -------------------------------------
+    // UPDATE COURSE PROGRESS BARS
+    // -------------------------------------
     async function updateProgress(uid) {
-        const combinedBar = document.getElementById("combinedProgressBar");
-        const progressText = document.getElementById("progressText");
+        const combinedProgressBar = document.getElementById("combinedProgressBar");
+        const totalProgressText = document.getElementById("progressText");
 
-        const courseKeys = ["beginnerCourse", "technicalCourse", "advanceCourse"];
-        const courseNameMap = {
-            beginnerCourse: "Beginner",
-            technicalCourse: "Technical",
-            advanceCourse: "Advance"
-        };
+        const courseIds = ["beginnerCourse", "technicalCourse", "advanceCourse"];
 
         try {
             const userRef = doc(db, "users", uid);
             const userSnap = await getDoc(userRef);
             const userData = userSnap.exists() ? userSnap.data() : {};
 
-            let totalCompleted = 0;
-            let totalLessons = 0;
+            let totalLessonsCompleted = 0;
+            let totalLessonsAvailable = 0;
 
-            courseKeys.forEach(key => {
-                const container = document.querySelector(`.course-container[data-course-id="${key}"] .lessonList`);
-                const lessonCount = container ? container.querySelectorAll("li").length : 0;
-                const completedCount = (userData[key] || []).length;
+            courseIds.forEach(courseId => {
+                const courseContainer = document.querySelector(`.course-container[data-course-id="${courseId}"] .lessonList`);
+                const lessonCount = courseContainer ? courseContainer.querySelectorAll("li").length : 0;
+                const completedCount = (userData[courseId] || []).length;
 
-                totalCompleted += completedCount;
-                totalLessons += lessonCount;
+                totalLessonsCompleted += completedCount;
+                totalLessonsAvailable += lessonCount;
 
-                // Update individual progress bars
-                const bar = document.getElementById(`${key}ProgressBar`);
-                const text = document.getElementById(`${key}ProgressText`);
+                // Update individual progress bar
+                const bar = document.getElementById(`${courseId}ProgressBar`);
+                const text = document.getElementById(`${courseId}ProgressText`);
+
                 if (bar && text) {
                     const percent = lessonCount > 0 ? Math.round((completedCount / lessonCount) * 100) : 0;
                     bar.style.width = percent + "%";
@@ -290,13 +349,17 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             // Update combined progress bar
-            const combinedPercent = totalLessons > 0 ? Math.round((totalCompleted / totalLessons) * 100) : 0;
-            if (combinedBar) {
-                combinedBar.style.width = combinedPercent + "%";
-                combinedBar.textContent = combinedPercent + "%";
+            const combinedPercent = totalLessonsAvailable > 0
+                ? Math.round((totalLessonsCompleted / totalLessonsAvailable) * 100)
+                : 0;
+
+            if (combinedProgressBar) {
+                combinedProgressBar.style.width = combinedPercent + "%";
+                combinedProgressBar.textContent = combinedPercent + "%";
             }
-            if (progressText) {
-                progressText.textContent = `Total lessons completed: ${totalCompleted} / ${totalLessons}`;
+
+            if (totalProgressText) {
+                totalProgressText.textContent = `Total lessons completed: ${totalLessonsCompleted} / ${totalLessonsAvailable}`;
             }
         } catch (err) {
             console.error("Error updating progress:", err);
