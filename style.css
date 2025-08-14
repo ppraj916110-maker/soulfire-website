@@ -518,17 +518,25 @@ body.dark-mode .logout-btn {
 body.dark-mode .logout-btn:hover {
     background-color: #a12630;
 }
+/* --- Styles for the Progress Bar and its text --- */
+.progress-container {
+    background-color: var(--light-border);
+    border-radius: 15px;
+    height: 25px;
+    margin: 10px 0;
+    overflow: hidden;
+}
 
 .progress-bar {
-    width: 0%;
-    height: 10px;
-    background-color:#c6fbaf;
-    border-radius: 100px;
-}
-.lessonList li.completed {
-    text-decoration: none;
-    color: #0000CC;
-    background-color: none;
+    background-color: var(--light-accent);
+    color: var(--light-bg);
+    height: 100%;
+    text-align: center;
+    line-height: 25px;
+    font-size: 0.8rem;
+    transition: width 0.5s ease-in-out;
+    width: 0%; /* Initial state for animation */
+    border-radius: 15px;
 }
 .course-lock-icon {
     font-size: 20px;
