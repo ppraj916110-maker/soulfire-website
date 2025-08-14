@@ -227,49 +227,46 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     });
+// ===== Update Progress (FIXED) =====
+async function updateProgress(uid) {
+    try {
+        const combinedBar = document.getElementById("combinedProgressBar");
+        const progressText = document.getElementById("progressText");
+        const courseContainers = document.querySelectorAll("[data-course-id]");
+        let totalCompleted = 0, totalLessons = 0;
+        const userRef = doc(db, "users", uid);
+        const userSnap = await getDoc(userRef);
+        const userData = userSnap.exists() ? userSnap.data() : {};
 
-    // ===== Update Progress =====
-    async function updateProgress(uid) {
-        try {
-            const combinedBar = document.getElementById("combinedProgressBar");
-            const progressText = document.getElementById("progressText");
+        courseContainers.forEach(container => {
+            const courseId = container.getAttribute("data-course-id");
+            // Get total lessons from the new data attribute
+            const lessonCount = parseInt(container.getAttribute("data-total-lessons"), 10);
+            const completedCount = (userData[courseId] || []).length;
 
-            const courseContainers = document.querySelectorAll(".course-container");
-            let totalCompleted = 0, totalLessons = 0;
+            totalLessons += lessonCount;
+            totalCompleted += completedCount;
 
-            const userRef = doc(db, "users", uid);
-            const userSnap = await getDoc(userRef);
-            const userData = userSnap.exists() ? userSnap.data() : {};
-
-            courseContainers.forEach(container => {
-                const courseId = container.getAttribute("data-course-id");
-                const lessons = container.querySelectorAll(".lessonList li");
-                const lessonCount = lessons.length;
-                const completedCount = (userData[courseId] || []).length;
-
-                totalLessons += lessonCount;
-                totalCompleted += completedCount;
-
-                const bar = document.getElementById(`${courseId}ProgressBar`);
-                const text = document.getElementById(`${courseId}ProgressText`);
-                if (bar && text) {
-                    const percent = lessonCount > 0 ? Math.round((completedCount / lessonCount) * 100) : 0;
-                    bar.style.width = percent + "%";
-                    bar.textContent = percent + "%";
-                    text.textContent = `Completed: ${completedCount} / ${lessonCount}`;
-                }
-            });
-
-            const combinedPercent = totalLessons > 0 ? Math.round((totalCompleted / totalLessons) * 100) : 0;
-            if (combinedBar) {
-                combinedBar.style.width = combinedPercent + "%";
-                combinedBar.textContent = combinedPercent + "%";
+            const bar = document.getElementById(`${courseId}ProgressBar`);
+            const text = document.getElementById(`${courseId}ProgressText`);
+            if (bar && text) {
+                const percent = lessonCount > 0 ? Math.round((completedCount / lessonCount) * 100) : 0;
+                bar.style.width = percent + "%";
+                bar.textContent = percent + "%";
+                text.textContent = `Completed: ${completedCount} / ${lessonCount}`;
             }
-            if (progressText) {
-                progressText.textContent = `Total lessons completed: ${totalCompleted} / ${totalLessons}`;
-            }
-        } catch (err) {
-            console.error("Error updating progress:", err);
+        });
+
+        const combinedPercent = totalLessons > 0 ? Math.round((totalCompleted / totalLessons) * 100) : 0;
+        if (combinedBar) {
+            combinedBar.style.width = combinedPercent + "%";
+            combinedBar.textContent = combinedPercent + "%";
         }
+        if (progressText) {
+            progressText.textContent = `Total lessons completed: ${totalCompleted} / ${totalLessons}`;
+        }
+    } catch (err) {
+        console.error("Error updating progress:", err);
     }
+}
 });
