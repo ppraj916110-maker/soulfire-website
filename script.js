@@ -160,45 +160,56 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (logoutBtn) logoutBtn.style.display = user ? "block" : "none";
 
-        if (user) {
-            const courseContainers = document.querySelectorAll(".course-container");
+       if (user) {
+            // Updated logic to find course containers and handle checkboxes
+            const courseContainers = document.querySelectorAll("[data-course-id]");
+            
             for (const container of courseContainers) {
-                const lessonList = container.querySelector(".lessonList");
                 const courseId = container.getAttribute("data-course-id");
+                const userRef = doc(db, "users", user.uid);
+                const userSnap = await getDoc(userRef);
+                const userData = userSnap.exists() ? userSnap.data() : {};
+                let completedSet = new Set(userData[courseId] || []);
+                
+                // Get all checkboxes within the current course container
+                const checkboxes = container.querySelectorAll(".lesson-complete");
 
-                if (lessonList) {
-                    const lessons = lessonList.querySelectorAll("li");
-                    const userRef = doc(db, "users", user.uid);
-                    const userSnap = await getDoc(userRef);
-                    const userData = userSnap.exists() ? userSnap.data() : {};
-                    let completedSet = new Set(userData[courseId] || []);
-
-                    lessons.forEach((lesson, index) => {
-                        if (completedSet.has(index.toString())) {
-                            lesson.classList.add("completed");
+                checkboxes.forEach(checkbox => {
+                    const lessonIndex = checkbox.closest('[data-lesson-index]').getAttribute('data-lesson-index');
+                    
+                    // Set initial checkbox state based on saved data
+                    if (completedSet.has(lessonIndex)) {
+                        checkbox.checked = true;
+                    }
+                    
+                    // Add event listener to the checkbox
+                    checkbox.addEventListener("change", async () => {
+                        if (checkbox.checked) {
+                            completedSet.add(lessonIndex);
+                        } else {
+                            completedSet.delete(lessonIndex);
                         }
-                        lesson.addEventListener("click", async () => {
-                            lesson.classList.toggle("completed");
-                            if (lesson.classList.contains("completed")) {
-                                completedSet.add(index.toString());
-                            } else {
-                                completedSet.delete(index.toString());
-                            }
-                            await setDoc(userRef, { ...userData, [courseId]: Array.from(completedSet) });
-                            if (currentPage === "course.html") {
-                                await updateProgress(user.uid);
-                            }
-                        });
+
+                        // Use merge: true to avoid overwriting other user data
+                        await setDoc(userRef, {
+                            ...userData,
+                            [courseId]: Array.from(completedSet)
+                        }, { merge: true });
+
+                        // Update the progress bars on the course.html page immediately after a change
+                        if (window.location.pathname.includes("course.html")) {
+                            await updateProgress(user.uid);
+                        }
                     });
-                }
+                });
             }
 
+            // Initial progress update for the course.html page
             if (currentPage === "course.html") {
                 await updateProgress(user.uid);
             }
         }
     });
-
     // ===== Logout =====
     if (logoutBtn) logoutBtn.addEventListener("click", () => signOut(auth));
 
