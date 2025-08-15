@@ -1,8 +1,8 @@
 // ===== Firebase imports - CORRECTED PATHS =====
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
-import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-analytics.js";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, setPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     // ===== 1. Cache All UI Elements for Performance =====
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         projectId: "tradingekmission",
         storageBucket: "tradingekmission.firebasestorage.app",
         messagingSenderId: "301971513060",
-        appId: "1:301971513060:web:a6027176e12af4b227d6f1", // FIXED: Corrected appId
+        appId: "1:301971513060:web:a6027176e12af4b227d6f1",
         measurementId: "G-C0W3J8LNSE"
     };
     const app = initializeApp(firebaseConfig);
@@ -255,6 +255,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             try {
+                // ADDED: Set session persistence to SESSION before creating a new user
+                await setPersistence(auth, browserSessionPersistence);
                 await createUserWithEmailAndPassword(auth, email, password);
                 formMessage.textContent = "✅ Signup successful! Redirecting...";
                 submitBtn.innerHTML = "Success!";
@@ -280,6 +282,8 @@ document.addEventListener("DOMContentLoaded", () => {
             submitBtn.innerHTML = "Logging in...";
 
             try {
+                // ADDED: Set session persistence to SESSION before logging in
+                await setPersistence(auth, browserSessionPersistence);
                 await signInWithEmailAndPassword(auth, email, password);
                 formMessage.textContent = "✅ Login successful! Redirecting...";
                 submitBtn.innerHTML = "Success!";
@@ -362,18 +366,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Logout and Auto-Logout
+    // Logout
     if (logoutBtn) logoutBtn.addEventListener("click", () => signOut(auth));
-
-    window.addEventListener('beforeunload', async () => {
-        const user = auth.currentUser;
-        if (user) {
-            try {
-                await signOut(auth);
-                console.log("User signed out automatically on tab close.");
-            } catch (error) {
-                console.error("Error signing out during beforeunload:", error);
-            }
-        }
-    });
 });
