@@ -312,6 +312,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 icon.classList.toggle("unlocked", !!user);
             });
         }
+        
 
         if (logoutBtn) logoutBtn.style.display = user ? "block" : "none";
 
@@ -366,6 +367,83 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Logout
-    if (logoutBtn) logoutBtn.addEventListener("click", () => signOut(auth));
+    // ===== Pages where Auto Logout is Disabled =====
+const authPages = ["login.html", "signup.html"];
+const currentPage = window.location.pathname.split("/").pop();
+
+// ===== Idle Timeout Settings =====
+const AUTO_LOGOUT_IDLE_TIME = 15 * 60 * 1000; // 15 minutes
+const WARNING_TIME = 60 * 1000; // 1 minute before logout
+let idleTimer, warningTimer;
+let autoLogoutListener;
+
+// ===== Function to Reset Idle Timer =====
+function resetIdleTimer() {
+    clearTimeout(idleTimer);
+    clearTimeout(warningTimer);
+
+    // Show warning 1 minute before actual logout
+    warningTimer = setTimeout(() => {
+        const stay = confirm("You will be logged out in 1 minute due to inactivity. Click OK to stay logged in.");
+        if (stay) {
+            resetIdleTimer(); // Reset timer if user chooses to stay
+        }
+    }, AUTO_LOGOUT_IDLE_TIME - WARNING_TIME);
+
+    // Actual logout after full idle time
+    idleTimer = setTimeout(() => {
+        if (auth.currentUser) {
+            signOut(auth).then(() => {
+                alert("You have been logged out due to inactivity.");
+                window.location.href = "login.html";
+            }).catch(console.error);
+        }
+    }, AUTO_LOGOUT_IDLE_TIME);
+}
+
+// ===== Auto Logout When Leaving the Site (Exclude Refresh & Login Pages) =====
+if (!authPages.includes(currentPage)) {
+    autoLogoutListener = () => {
+        const nextURL = document.activeElement?.href || "";
+
+        // Detect if it's a refresh
+        const isRefresh = performance.getEntriesByType("navigation")[0]?.type === "reload";
+        if (isRefresh) return; // Skip logout on refresh
+
+        const isTabClose = !nextURL;
+        const isExternal = nextURL && !nextURL.includes(window.location.hostname);
+
+        if (auth.currentUser && (isTabClose || isExternal)) {
+            signOut(auth).catch(console.error);
+        }
+    };
+    window.addEventListener("beforeunload", autoLogoutListener);
+
+    // ===== Start Idle Timer on Any Activity =====
+    ["mousemove", "keydown", "click", "scroll", "touchstart"].forEach(event => {
+        document.addEventListener(event, resetIdleTimer);
+    });
+
+    // Start the timer if logged in
+    onAuthStateChanged(auth, user => {
+        if (user) {
+            resetIdleTimer();
+        } else {
+            clearTimeout(idleTimer);
+            clearTimeout(warningTimer);
+        }
+    });
+}
+
+// ===== Manual Logout Button (Clears Auto Logout & Idle Timer) =====
+if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+        if (autoLogoutListener) {
+            window.removeEventListener("beforeunload", autoLogoutListener);
+        }
+        clearTimeout(idleTimer);
+        clearTimeout(warningTimer);
+        signOut(auth).catch(console.error);
+    });
+}
 });
