@@ -1,11 +1,11 @@
 // ===== Firebase imports =====
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-analytics.js";
 import {
     getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword,
     signOut, setPersistence, browserSessionPersistence
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     // ===== Cache UI elements =====
@@ -20,9 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const logoutBtn = document.getElementById("logout-btn");
     const formMessage = document.getElementById("form-message");
     const passwordToggles = document.querySelectorAll(".password-toggle");
-    const toggleButtons = document.querySelectorAll(".toggle-btn");
     const courseContainers = document.querySelectorAll("[data-course-id]");
     const courseLockIcons = document.querySelectorAll(".course-lock-icon");
+    const combinedBar = document.getElementById("combinedProgressBar");
+    const progressText = document.getElementById("progressText");
 
     // ===== Firebase Config =====
     const firebaseConfig = {
@@ -34,15 +35,17 @@ document.addEventListener("DOMContentLoaded", () => {
         appId: "1:301971513060:web:a6027176e12af4b227d6f1",
         measurementId: "G-C0W3J8LNSE"
     };
+
+    // ===== Initialize Firebase =====
     const app = initializeApp(firebaseConfig);
     getAnalytics(app);
     const auth = getAuth(app);
     const db = getFirestore(app);
 
+    // ===== Helper Variables and Functions =====
     const currentPage = window.location.pathname.split("/").pop();
-    const authPages = ["login.html", "signup.html"];
+    const protectedPages = ["beginner.html", "technical.html", "advance.html", "course.html"];
 
-    // ===== Helper function for Firebase errors =====
     const getFirebaseErrorMessage = (error) => {
         if (!error || !error.code) return "An unknown error occurred. Please try again.";
         switch (error.code) {
@@ -63,6 +66,35 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!formMessage) return;
         formMessage.textContent = message;
         formMessage.style.color = isError ? "var(--accent-color)" : "var(--primary-color)";
+    };
+
+    // ===== Auto Sign-out on Inactivity =====
+    let inactivityTimer;
+    const INACTIVITY_TIMEOUT_MS = 600000; // 10 minutes in milliseconds
+
+    const resetInactivityTimer = () => {
+        clearTimeout(inactivityTimer);
+        inactivityTimer = setTimeout(async () => {
+            if (auth.currentUser) {
+                console.log("User has been inactive, signing out...");
+                await signOut(auth);
+                alert("You have been signed out due to inactivity.");
+            }
+        }, INACTIVITY_TIMEOUT_MS);
+    };
+
+    const setupInactivityListeners = () => {
+        ['mousemove', 'mousedown', 'keypress', 'scroll', 'touchstart'].forEach(eventName => {
+            document.addEventListener(eventName, resetInactivityTimer, true);
+        });
+        resetInactivityTimer();
+    };
+
+    const removeInactivityListeners = () => {
+        ['mousemove', 'mousedown', 'keypress', 'scroll', 'touchstart'].forEach(eventName => {
+            document.removeEventListener(eventName, resetInactivityTimer, true);
+        });
+        clearTimeout(inactivityTimer);
     };
 
     // ===== Menu Toggle =====
@@ -148,15 +180,12 @@ document.addEventListener("DOMContentLoaded", () => {
             if (password !== confirmPassword) {
                 return showFormFeedback("❌ Passwords do not match!");
             }
-            if (password.length < 8) {
-                return showFormFeedback("⚠️ Password must be at least 8 characters.");
-            }
-            if (!/[!@#$%^&*]/.test(password)) {
-                return showFormFeedback("⚠️ Password must contain a special character (!@#$%^&*).");
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+            if (!passwordRegex.test(password)) {
+                return showFormFeedback("⚠️ Password must be at least 8 characters and contain at least one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*).");
             }
 
             try {
-                // Set session persistence to SESSION before creating a new user
                 await setPersistence(auth, browserSessionPersistence);
                 await createUserWithEmailAndPassword(auth, email, password);
                 showFormFeedback("✅ Signup successful! Redirecting...", false);
@@ -175,7 +204,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const password = document.getElementById("password").value.trim();
 
             try {
-                // Set session persistence to SESSION before logging in
                 await setPersistence(auth, browserSessionPersistence);
                 await signInWithEmailAndPassword(auth, email, password);
                 showFormFeedback("✅ Login successful! Redirecting...", false);
@@ -186,38 +214,21 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ===== Auth State =====
-    onAuthStateChanged(auth, async user => {
-        const protectedPages = ["beginner.html", "technical.html", "advance.html", "course.html"];
-        if (!user && protectedPages.includes(currentPage)) {
-            window.location.href = "login.html";
-            return;
-        }
-
-        if (currentPage === "course.html") {
-            courseLockIcons.forEach(icon => {
-                icon.classList.toggle("fa-lock", !user);
-                icon.classList.toggle("locked", !user);
-                icon.classList.toggle("fa-unlock", !!user);
-                icon.classList.toggle("unlocked", !!user);
-            });
-        }
-
-        if (logoutBtn) {
-            logoutBtn.style.display = user ? "block" : "none";
-            logoutBtn.addEventListener("click", () => signOut(auth));
-        }
-
-        if (user && currentPage === "course.html") {
-            await updateProgress(user.uid);
-        }
-    });
+    // ===== Logout Button Listener (Added once) =====
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", async () => {
+            try {
+                await signOut(auth);
+            } catch (error) {
+                console.error("Logout failed:", error);
+                alert("An error occurred during logout. Please try again.");
+            }
+        });
+    }
 
     // ===== Progress Meter =====
     async function updateProgress(uid) {
         try {
-            const combinedBar = document.getElementById("combinedProgressBar");
-            const progressText = document.getElementById("progressText");
             let totalCompleted = 0, totalLessons = 0;
             const userRef = doc(db, "users", uid);
             const userSnap = await getDoc(userRef);
@@ -253,4 +264,35 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Error updating progress:", err);
         }
     }
+
+    // ===== Auth State Listener =====
+    onAuthStateChanged(auth, async user => {
+        if (!user) {
+            removeInactivityListeners();
+            if (protectedPages.includes(currentPage)) {
+                window.location.href = "login.html";
+            }
+        } else {
+            setupInactivityListeners();
+        }
+        
+        if (currentPage === "course.html") {
+            courseLockIcons.forEach(icon => {
+                icon.classList.toggle("fa-lock", !user);
+                icon.classList.toggle("locked", !user);
+                icon.classList.toggle("fa-unlock", !!user);
+                icon.classList.toggle("unlocked", !!user);
+            });
+
+            if (user) {
+                await updateProgress(user.uid);
+            }
+        }
+
+        if (logoutBtn) {
+            logoutBtn.style.display = user ? "block" : "none";
+        }
+    });
 });
+
+This video provides a tutorial on signing out users with Firebase authentication.
