@@ -1,11 +1,11 @@
 // ===== Firebase imports =====
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-analytics.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
 import {
     getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword,
     signOut, setPersistence, browserSessionPersistence
-} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     // ===== Cache UI elements =====
@@ -41,6 +41,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const currentPage = window.location.pathname.split("/").pop();
     const authPages = ["login.html", "signup.html"];
+
+    // ===== Helper function for Firebase errors =====
+    const getFirebaseErrorMessage = (error) => {
+        if (!error || !error.code) return "An unknown error occurred. Please try again.";
+        switch (error.code) {
+            case "auth/email-already-in-use": return "❌ The email address is already in use.";
+            case "auth/invalid-email": return "❌ The email address is not valid.";
+            case "auth/operation-not-allowed": return "❌ Email/password accounts are not enabled. Contact support.";
+            case "auth/weak-password": return "⚠️ Password is too weak. Please use a stronger password.";
+            case "auth/user-not-found":
+            case "auth/wrong-password": return "❌ Invalid email or password.";
+            case "auth/network-request-failed": return "❌ Network error. Please check your internet connection.";
+            default:
+                console.error("Firebase Auth Error:", error);
+                return `❌ An error occurred: ${error.message}`;
+        }
+    };
+
+    const showFormFeedback = (message, isError = true) => {
+        if (!formMessage) return;
+        formMessage.textContent = message;
+        formMessage.style.color = isError ? "var(--accent-color)" : "var(--primary-color)";
+    };
 
     // ===== Menu Toggle =====
     if (menuToggle && menu) {
@@ -119,22 +142,27 @@ document.addEventListener("DOMContentLoaded", () => {
             const password = document.getElementById("password").value.trim();
             const confirmPassword = document.getElementById("confirm-password").value.trim();
 
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-                return formMessage.textContent = "❌ Please enter a valid email.";
-            if (password !== confirmPassword)
-                return formMessage.textContent = "❌ Passwords do not match!";
-            if (password.length < 8)
-                return formMessage.textContent = "⚠️ Password must be at least 8 characters.";
-            if (!/[!@#$%^&*]/.test(password))
-                return formMessage.textContent = "⚠️ Password must contain a special character (!@#$%^&*).";
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                return showFormFeedback("❌ Please enter a valid email.");
+            }
+            if (password !== confirmPassword) {
+                return showFormFeedback("❌ Passwords do not match!");
+            }
+            if (password.length < 8) {
+                return showFormFeedback("⚠️ Password must be at least 8 characters.");
+            }
+            if (!/[!@#$%^&*]/.test(password)) {
+                return showFormFeedback("⚠️ Password must contain a special character (!@#$%^&*).");
+            }
 
             try {
+                // Set session persistence to SESSION before creating a new user
                 await setPersistence(auth, browserSessionPersistence);
                 await createUserWithEmailAndPassword(auth, email, password);
-                formMessage.textContent = "✅ Signup successful! Redirecting...";
+                showFormFeedback("✅ Signup successful! Redirecting...", false);
                 setTimeout(() => window.location.href = "login.html", 1500);
             } catch (error) {
-                formMessage.textContent = `❌ ${error.message}`;
+                showFormFeedback(getFirebaseErrorMessage(error));
             }
         });
     }
@@ -147,12 +175,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const password = document.getElementById("password").value.trim();
 
             try {
+                // Set session persistence to SESSION before logging in
                 await setPersistence(auth, browserSessionPersistence);
                 await signInWithEmailAndPassword(auth, email, password);
-                formMessage.textContent = "✅ Login successful! Redirecting...";
+                showFormFeedback("✅ Login successful! Redirecting...", false);
                 setTimeout(() => window.location.href = "course.html", 1500);
             } catch (error) {
-                formMessage.textContent = `❌ ${error.message}`;
+                showFormFeedback(getFirebaseErrorMessage(error));
             }
         });
     }
@@ -174,7 +203,10 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        if (logoutBtn) logoutBtn.style.display = user ? "block" : "none";
+        if (logoutBtn) {
+            logoutBtn.style.display = user ? "block" : "none";
+            logoutBtn.addEventListener("click", () => signOut(auth));
+        }
 
         if (user && currentPage === "course.html") {
             await updateProgress(user.uid);
@@ -220,84 +252,5 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (err) {
             console.error("Error updating progress:", err);
         }
-    }
-
-    // ===== Auto Logout (Idle + Tab Close) =====
-    const AUTO_LOGOUT_IDLE_TIME = 15 * 60 * 1000;
-    const WARNING_TIME = 60 * 1000;
-    let idleTimer, warningTimer;
-
-    function resetIdleTimer() {
-        clearTimeout(idleTimer);
-        clearTimeout(warningTimer);
-        warningTimer = setTimeout(showIdleModal, AUTO_LOGOUT_IDLE_TIME - WARNING_TIME);
-        idleTimer = setTimeout(() => {
-            if (auth.currentUser) {
-                signOut(auth).then(() => {
-                    alert("You have been logged out due to inactivity.");
-                    window.location.href = "login.html";
-                });
-            }
-        }, AUTO_LOGOUT_IDLE_TIME);
-    }
-
-    function createIdleWarningModal() {
-        if (document.getElementById("idleWarningModal")) return;
-        const modalHTML = `
-            <div id="idleWarningModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;justify-content:center;align-items:center;">
-                <div id="idleModalBox" style="padding:20px;border-radius:12px;max-width:400px;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,0.3);background:#fff;">
-                    <h3>Session Expiring</h3>
-                    <p>You will be logged out in 1 minute due to inactivity.</p>
-                    <div style="margin-top:15px;">
-                        <button id="stayLoggedInBtn" style="padding:8px 14px;background:#4caf50;color:white;border:none;border-radius:6px;margin-right:8px;">Stay Logged In</button>
-                        <button id="logoutNowBtn" style="padding:8px 14px;background:#f44336;color:white;border:none;border-radius:6px;">Logout Now</button>
-                    </div>
-                </div>
-            </div>
-        `;
-        document.body.insertAdjacentHTML("beforeend", modalHTML);
-        document.getElementById("stayLoggedInBtn").addEventListener("click", () => {
-            hideIdleModal();
-            resetIdleTimer();
-        });
-        document.getElementById("logoutNowBtn").addEventListener("click", () => {
-            hideIdleModal();
-            signOut(auth);
-        });
-    }
-
-    function showIdleModal() {
-        createIdleWarningModal();
-        document.getElementById("idleWarningModal").style.display = "flex";
-    }
-
-    function hideIdleModal() {
-        document.getElementById("idleWarningModal").style.display = "none";
-    }
-
-    if (!authPages.includes(currentPage)) {
-        window.addEventListener("beforeunload", (e) => {
-            if (auth.currentUser && performance.getEntriesByType("navigation")[0]?.type !== "reload") {
-                signOut(auth);
-            }
-        });
-        ["mousemove", "keydown", "click", "scroll", "touchstart"].forEach(event => {
-            document.addEventListener(event, resetIdleTimer);
-        });
-        onAuthStateChanged(auth, user => {
-            if (user) resetIdleTimer();
-            else {
-                clearTimeout(idleTimer);
-                clearTimeout(warningTimer);
-            }
-        });
-    }
-
-    if (logoutBtn) {
-        logoutBtn.addEventListener("click", () => {
-            clearTimeout(idleTimer);
-            clearTimeout(warningTimer);
-            signOut(auth);
-        });
     }
 });
