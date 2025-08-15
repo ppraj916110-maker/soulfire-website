@@ -1,14 +1,11 @@
 // ===== Firebase imports =====
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-analytics.js";
-import {
-    getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-    signOut, setPersistence, browserSessionPersistence
-} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-    // ===== Cache UI elements =====
+    // ===== UI Elements =====
     const menuToggle = document.getElementById("menu-toggle");
     const menu = document.getElementById("menu");
     const closeMenuBtn = document.getElementById("close-menu-btn");
@@ -19,83 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("login-form");
     const logoutBtn = document.getElementById("logout-btn");
     const formMessage = document.getElementById("form-message");
-    const passwordToggles = document.querySelectorAll(".password-toggle");
-    const courseContainers = document.querySelectorAll("[data-course-id]");
-    const courseLockIcons = document.querySelectorAll(".course-lock-icon");
-    const combinedBar = document.getElementById("combinedProgressBar");
-    const progressText = document.getElementById("progressText");
-
-    // ===== Firebase Config =====
-    const firebaseConfig = {
-        apiKey: "AIzaSyDa5EPtNbmugtaIMiIaYmVtapYsvU7biMc",
-        authDomain: "tradingekmission.firebaseapp.com",
-        projectId: "tradingekmission",
-        storageBucket: "tradingekmission.firebasestorage.app",
-        messagingSenderId: "301971513060",
-        appId: "1:301971513060:web:a6027176e12af4b227d6f1",
-        measurementId: "G-C0W3J8LNSE"
-    };
-
-    // ===== Initialize Firebase =====
-    const app = initializeApp(firebaseConfig);
-    getAnalytics(app);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    // ===== Helper Variables and Functions =====
-    const currentPage = window.location.pathname.split("/").pop();
-    const protectedPages = ["beginner.html", "technical.html", "advance.html", "course.html"];
-
-    const getFirebaseErrorMessage = (error) => {
-        if (!error || !error.code) return "An unknown error occurred. Please try again.";
-        switch (error.code) {
-            case "auth/email-already-in-use": return "❌ The email address is already in use.";
-            case "auth/invalid-email": return "❌ The email address is not valid.";
-            case "auth/operation-not-allowed": return "❌ Email/password accounts are not enabled. Contact support.";
-            case "auth/weak-password": return "⚠️ Password is too weak. Please use a stronger password.";
-            case "auth/user-not-found":
-            case "auth/wrong-password": return "❌ Invalid email or password.";
-            case "auth/network-request-failed": return "❌ Network error. Please check your internet connection.";
-            default:
-                console.error("Firebase Auth Error:", error);
-                return `❌ An error occurred: ${error.message}`;
-        }
-    };
-
-    const showFormFeedback = (message, isError = true) => {
-        if (!formMessage) return;
-        formMessage.textContent = message;
-        formMessage.style.color = isError ? "var(--accent-color)" : "var(--primary-color)";
-    };
-
-    // ===== Auto Sign-out on Inactivity =====
-    let inactivityTimer;
-    const INACTIVITY_TIMEOUT_MS = 600000; // 10 minutes in milliseconds
-
-    const resetInactivityTimer = () => {
-        clearTimeout(inactivityTimer);
-        inactivityTimer = setTimeout(async () => {
-            if (auth.currentUser) {
-                console.log("User has been inactive, signing out...");
-                await signOut(auth);
-                alert("You have been signed out due to inactivity.");
-            }
-        }, INACTIVITY_TIMEOUT_MS);
-    };
-
-    const setupInactivityListeners = () => {
-        ['mousemove', 'mousedown', 'keypress', 'scroll', 'touchstart'].forEach(eventName => {
-            document.addEventListener(eventName, resetInactivityTimer, true);
-        });
-        resetInactivityTimer();
-    };
-
-    const removeInactivityListeners = () => {
-        ['mousemove', 'mousedown', 'keypress', 'scroll', 'touchstart'].forEach(eventName => {
-            document.removeEventListener(eventName, resetInactivityTimer, true);
-        });
-        clearTimeout(inactivityTimer);
-    };
 
     // ===== Menu Toggle =====
     if (menuToggle && menu) {
@@ -125,15 +45,20 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // ===== AOS Animation =====
+    if (typeof AOS !== "undefined") {
+        AOS.init({ duration: 1000, once: true });
+    }
+
     // ===== Rotating Quotes =====
+    const quotes = [
+        "Every expert was once a beginner — start your journey today.",
+        "Small consistent steps build big trading success.",
+        "In trading, patience is not just a virtue — it’s a profit strategy.",
+        "A disciplined trader turns losses into lessons."
+    ];
+    let quoteIndex = 0;
     if (quoteEl) {
-        const quotes = [
-            "Every expert was once a beginner — start your journey today.",
-            "Small consistent steps build big trading success.",
-            "In trading, patience is not just a virtue — it’s a profit strategy.",
-            "A disciplined trader turns losses into lessons."
-        ];
-        let quoteIndex = 0;
         const showQuote = () => {
             quoteEl.style.opacity = 0;
             setTimeout(() => {
@@ -154,8 +79,25 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // ===== Show/Hide Password =====
-    passwordToggles.forEach(toggle => {
+    // ===== Firebase Config =====
+    const firebaseConfig = {
+        apiKey: "AIzaSyDa5EPtNbmugtaIMiIaYmVtapYsvU7biMc",
+        authDomain: "tradingekmission.firebaseapp.com",
+        projectId: "tradingekmission",
+        storageBucket: "tradingekmission.firebasestorage.app",
+        messagingSenderId: "301971513060",
+        appId: "1:301971513060:web:a6027176e12af4b227d6f1",
+        measurementId: "G-C0W3J8LNSE"
+    };
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const currentPage = window.location.pathname.split("/").pop();
+
+    // ===== Show/Hide Password Toggle =====
+    document.querySelectorAll(".password-toggle").forEach(toggle => {
         toggle.addEventListener("click", () => {
             const input = document.getElementById(toggle.dataset.target);
             if (input) {
@@ -165,7 +107,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
-
     // ===== Signup =====
     if (currentPage === "signup.html" && signupForm) {
         signupForm.addEventListener("submit", async e => {
@@ -174,24 +115,21 @@ document.addEventListener("DOMContentLoaded", () => {
             const password = document.getElementById("password").value.trim();
             const confirmPassword = document.getElementById("confirm-password").value.trim();
 
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                return showFormFeedback("❌ Please enter a valid email.");
-            }
-            if (password !== confirmPassword) {
-                return showFormFeedback("❌ Passwords do not match!");
-            }
-            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
-            if (!passwordRegex.test(password)) {
-                return showFormFeedback("⚠️ Password must be at least 8 characters and contain at least one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*).");
-            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+                return formMessage.textContent = "❌ Please enter a valid email.";
+            if (password !== confirmPassword)
+                return formMessage.textContent = "❌ Passwords do not match!";
+            if (password.length < 8)
+                return formMessage.textContent = "⚠️ Password must be at least 8 characters.";
+            if (!/[!@#$%^&*]/.test(password))
+                return formMessage.textContent = "⚠️ Password must contain a special character (!@#$%^&*).";
 
             try {
-                await setPersistence(auth, browserSessionPersistence);
                 await createUserWithEmailAndPassword(auth, email, password);
-                showFormFeedback("✅ Signup successful! Redirecting...", false);
+                formMessage.textContent = "✅ Signup successful! Redirecting...";
                 setTimeout(() => window.location.href = "login.html", 1500);
             } catch (error) {
-                showFormFeedback(getFirebaseErrorMessage(error));
+                formMessage.textContent = `❌ ${error.message}`;
             }
         });
     }
@@ -204,95 +142,142 @@ document.addEventListener("DOMContentLoaded", () => {
             const password = document.getElementById("password").value.trim();
 
             try {
-                await setPersistence(auth, browserSessionPersistence);
                 await signInWithEmailAndPassword(auth, email, password);
-                showFormFeedback("✅ Login successful! Redirecting...", false);
+                formMessage.textContent = "✅ Login successful! Redirecting...";
                 setTimeout(() => window.location.href = "course.html", 1500);
             } catch (error) {
-                showFormFeedback(getFirebaseErrorMessage(error));
+                formMessage.textContent = `❌ ${error.message}`;
             }
         });
     }
 
-    // ===== Logout Button Listener (Added once) =====
-    if (logoutBtn) {
-        logoutBtn.addEventListener("click", async () => {
-            try {
-                await signOut(auth);
-            } catch (error) {
-                console.error("Logout failed:", error);
-                alert("An error occurred during logout. Please try again.");
-            }
-        });
-    }
-
-    // ===== Progress Meter =====
-    async function updateProgress(uid) {
-        try {
-            let totalCompleted = 0, totalLessons = 0;
-            const userRef = doc(db, "users", uid);
-            const userSnap = await getDoc(userRef);
-            const userData = userSnap.exists() ? userSnap.data() : {};
-
-            courseContainers.forEach(container => {
-                const courseId = container.getAttribute("data-course-id");
-                const lessonCount = parseInt(container.getAttribute("data-total-lessons"), 10);
-                const completedCount = (userData[courseId] || []).length;
-
-                totalLessons += lessonCount;
-                totalCompleted += completedCount;
-
-                const bar = document.getElementById(`${courseId}ProgressBar`);
-                const text = document.getElementById(`${courseId}ProgressText`);
-                if (bar && text) {
-                    const percent = lessonCount > 0 ? Math.round((completedCount / lessonCount) * 100) : 0;
-                    bar.style.width = percent + "%";
-                    bar.textContent = percent + "%";
-                    text.textContent = `Completed: ${completedCount} / ${lessonCount}`;
-                }
-            });
-
-            const combinedPercent = totalLessons > 0 ? Math.round((totalCompleted / totalLessons) * 100) : 0;
-            if (combinedBar) {
-                combinedBar.style.width = combinedPercent + "%";
-                combinedBar.textContent = combinedPercent + "%";
-            }
-            if (progressText) {
-                progressText.textContent = `Total lessons completed: ${totalCompleted} / ${totalLessons}`;
-            }
-        } catch (err) {
-            console.error("Error updating progress:", err);
-        }
-    }
-
-    // ===== Auth State Listener =====
+    // ===== Auth State =====
     onAuthStateChanged(auth, async user => {
-        if (!user) {
-            removeInactivityListeners();
-            if (protectedPages.includes(currentPage)) {
-                window.location.href = "login.html";
-            }
-        } else {
-            setupInactivityListeners();
+        const protectedPages = ["beginner.html", "technical.html", "advance.html"];
+        if (!user && protectedPages.includes(currentPage)) {
+            window.location.href = "login.html";
+            return;
         }
-        
+
+        // Lock/Unlock course icons
         if (currentPage === "course.html") {
-            courseLockIcons.forEach(icon => {
+            document.querySelectorAll(".course-lock-icon").forEach(icon => {
                 icon.classList.toggle("fa-lock", !user);
                 icon.classList.toggle("locked", !user);
                 icon.classList.toggle("fa-unlock", !!user);
                 icon.classList.toggle("unlocked", !!user);
             });
+        }
 
-            if (user) {
+        if (logoutBtn) logoutBtn.style.display = user ? "block" : "none";
+
+       if (user) {
+            // Updated logic to find course containers and handle checkboxes
+            const courseContainers = document.querySelectorAll("[data-course-id]");
+            
+            for (const container of courseContainers) {
+                const courseId = container.getAttribute("data-course-id");
+                const userRef = doc(db, "users", user.uid);
+                const userSnap = await getDoc(userRef);
+                const userData = userSnap.exists() ? userSnap.data() : {};
+                let completedSet = new Set(userData[courseId] || []);
+                
+                // Get all checkboxes within the current course container
+                const checkboxes = container.querySelectorAll(".lesson-complete");
+
+                checkboxes.forEach(checkbox => {
+                    const lessonIndex = checkbox.closest('[data-lesson-index]').getAttribute('data-lesson-index');
+                    
+                    // Set initial checkbox state based on saved data
+                    if (completedSet.has(lessonIndex)) {
+                        checkbox.checked = true;
+                    }
+                    
+                    // Add event listener to the checkbox
+                    checkbox.addEventListener("change", async () => {
+                        if (checkbox.checked) {
+                            completedSet.add(lessonIndex);
+                        } else {
+                            completedSet.delete(lessonIndex);
+                        }
+
+                        // Use merge: true to avoid overwriting other user data
+                        await setDoc(userRef, {
+                            ...userData,
+                            [courseId]: Array.from(completedSet)
+                        }, { merge: true });
+
+                        // Update the progress bars on the course.html page immediately after a change
+                        if (window.location.pathname.includes("course.html")) {
+                            await updateProgress(user.uid);
+                        }
+                    });
+                });
+            }
+
+            // Initial progress update for the course.html page
+            if (currentPage === "course.html") {
                 await updateProgress(user.uid);
             }
         }
+    });
+    // ===== Logout =====
+    if (logoutBtn) logoutBtn.addEventListener("click", () => signOut(auth));
 
-        if (logoutBtn) {
-            logoutBtn.style.display = user ? "block" : "none";
+    // ===== Toggle Buttons =====
+    document.querySelectorAll(".toggle-btn").forEach(btn => {
+        const target = document.getElementById(btn.dataset.target);
+        if (target) {
+            target.style.display = "none";
+            btn.innerHTML = "<strong>Show More Content</strong>";
+            btn.addEventListener("click", () => {
+                const isHidden = target.style.display === "none";
+                target.style.display = isHidden ? "block" : "none";
+                btn.innerHTML = `<strong>${isHidden ? "Show Less" : "Show More"} Content</strong>`;
+                btn.setAttribute("aria-expanded", !isHidden);
+            });
         }
     });
-});
+// ===== Update Progress (FIXED) =====
+async function updateProgress(uid) {
+    try {
+        const combinedBar = document.getElementById("combinedProgressBar");
+        const progressText = document.getElementById("progressText");
+        const courseContainers = document.querySelectorAll("[data-course-id]");
+        let totalCompleted = 0, totalLessons = 0;
+        const userRef = doc(db, "users", uid);
+        const userSnap = await getDoc(userRef);
+        const userData = userSnap.exists() ? userSnap.data() : {};
 
-This video provides a tutorial on signing out users with Firebase authentication.
+        courseContainers.forEach(container => {
+            const courseId = container.getAttribute("data-course-id");
+            // Get total lessons from the new data attribute
+            const lessonCount = parseInt(container.getAttribute("data-total-lessons"), 10);
+            const completedCount = (userData[courseId] || []).length;
+
+            totalLessons += lessonCount;
+            totalCompleted += completedCount;
+
+            const bar = document.getElementById(`${courseId}ProgressBar`);
+            const text = document.getElementById(`${courseId}ProgressText`);
+            if (bar && text) {
+                const percent = lessonCount > 0 ? Math.round((completedCount / lessonCount) * 100) : 0;
+                bar.style.width = percent + "%";
+                bar.textContent = percent + "%";
+                text.textContent = `Completed: ${completedCount} / ${lessonCount}`;
+            }
+        });
+
+        const combinedPercent = totalLessons > 0 ? Math.round((totalCompleted / totalLessons) * 100) : 0;
+        if (combinedBar) {
+            combinedBar.style.width = combinedPercent + "%";
+            combinedBar.textContent = combinedPercent + "%";
+        }
+        if (progressText) {
+            progressText.textContent = `Total lessons completed: ${totalCompleted} / ${totalLessons}`;
+        }
+    } catch (err) {
+        console.error("Error updating progress:", err);
+    }
+}
+});
