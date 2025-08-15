@@ -107,7 +107,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
-
     // ===== Signup =====
     if (currentPage === "signup.html" && signupForm) {
         signupForm.addEventListener("submit", async e => {
@@ -168,57 +167,117 @@ document.addEventListener("DOMContentLoaded", () => {
                 icon.classList.toggle("fa-unlock", !!user);
                 icon.classList.toggle("unlocked", !!user);
             });
-            if (user) {
-                // Run read-only progress update
-                await updateProgressReadOnly(user.uid);
-            }
         }
 
         if (logoutBtn) logoutBtn.style.display = user ? "block" : "none";
-    });
 
+       if (user) {
+            // Updated logic to find course containers and handle checkboxes
+            const courseContainers = document.querySelectorAll("[data-course-id]");
+            
+            for (const container of courseContainers) {
+                const courseId = container.getAttribute("data-course-id");
+                const userRef = doc(db, "users", user.uid);
+                const userSnap = await getDoc(userRef);
+                const userData = userSnap.exists() ? userSnap.data() : {};
+                let completedSet = new Set(userData[courseId] || []);
+                
+                // Get all checkboxes within the current course container
+                const checkboxes = container.querySelectorAll(".lesson-complete");
+
+                checkboxes.forEach(checkbox => {
+                    const lessonIndex = checkbox.closest('[data-lesson-index]').getAttribute('data-lesson-index');
+                    
+                    // Set initial checkbox state based on saved data
+                    if (completedSet.has(lessonIndex)) {
+                        checkbox.checked = true;
+                    }
+                    
+                    // Add event listener to the checkbox
+                    checkbox.addEventListener("change", async () => {
+                        if (checkbox.checked) {
+                            completedSet.add(lessonIndex);
+                        } else {
+                            completedSet.delete(lessonIndex);
+                        }
+
+                        // Use merge: true to avoid overwriting other user data
+                        await setDoc(userRef, {
+                            ...userData,
+                            [courseId]: Array.from(completedSet)
+                        }, { merge: true });
+
+                        // Update the progress bars on the course.html page immediately after a change
+                        if (window.location.pathname.includes("course.html")) {
+                            await updateProgress(user.uid);
+                        }
+                    });
+                });
+            }
+
+            // Initial progress update for the course.html page
+            if (currentPage === "course.html") {
+                await updateProgress(user.uid);
+            }
+        }
+    });
     // ===== Logout =====
     if (logoutBtn) logoutBtn.addEventListener("click", () => signOut(auth));
 
-    // ===== Read-Only Progress Update for course.html =====
-    async function updateProgressReadOnly(uid) {
-        try {
-            const combinedBar = document.getElementById("combinedProgressBar");
-            const progressText = document.getElementById("progressText");
-            const courseContainers = document.querySelectorAll("[data-course-id]");
-            let totalCompleted = 0, totalLessons = 0;
-            const userRef = doc(db, "users", uid);
-            const userSnap = await getDoc(userRef);
-            const userData = userSnap.exists() ? userSnap.data() : {};
-
-            courseContainers.forEach(container => {
-                const courseId = container.getAttribute("data-course-id");
-                const lessonCount = parseInt(container.getAttribute("data-total-lessons"), 10);
-                const completedCount = (userData[courseId] || []).length;
-
-                totalLessons += lessonCount;
-                totalCompleted += completedCount;
-
-                const bar = document.getElementById(`${courseId}ProgressBar`);
-                const text = document.getElementById(`${courseId}ProgressText`);
-                if (bar && text) {
-                    const percent = lessonCount > 0 ? Math.round((completedCount / lessonCount) * 100) : 0;
-                    bar.style.width = percent + "%";
-                    bar.textContent = percent + "%";
-                    text.textContent = `Completed: ${completedCount} / ${lessonCount}`;
-                }
+    // ===== Toggle Buttons =====
+    document.querySelectorAll(".toggle-btn").forEach(btn => {
+        const target = document.getElementById(btn.dataset.target);
+        if (target) {
+            target.style.display = "none";
+            btn.innerHTML = "<strong>Show More Content</strong>";
+            btn.addEventListener("click", () => {
+                const isHidden = target.style.display === "none";
+                target.style.display = isHidden ? "block" : "none";
+                btn.innerHTML = `<strong>${isHidden ? "Show Less" : "Show More"} Content</strong>`;
+                btn.setAttribute("aria-expanded", !isHidden);
             });
-
-            const combinedPercent = totalLessons > 0 ? Math.round((totalCompleted / totalLessons) * 100) : 0;
-            if (combinedBar) {
-                combinedBar.style.width = combinedPercent + "%";
-                combinedBar.textContent = combinedPercent + "%";
-            }
-            if (progressText) {
-                progressText.textContent = `Total lessons completed: ${totalCompleted} / ${totalLessons}`;
-            }
-        } catch (err) {
-            console.error("Error updating progress:", err);
         }
+    });
+// ===== Update Progress (FIXED) =====
+async function updateProgress(uid) {
+    try {
+        const combinedBar = document.getElementById("combinedProgressBar");
+        const progressText = document.getElementById("progressText");
+        const courseContainers = document.querySelectorAll("[data-course-id]");
+        let totalCompleted = 0, totalLessons = 0;
+        const userRef = doc(db, "users", uid);
+        const userSnap = await getDoc(userRef);
+        const userData = userSnap.exists() ? userSnap.data() : {};
+
+        courseContainers.forEach(container => {
+            const courseId = container.getAttribute("data-course-id");
+            // Get total lessons from the new data attribute
+            const lessonCount = parseInt(container.getAttribute("data-total-lessons"), 10);
+            const completedCount = (userData[courseId] || []).length;
+
+            totalLessons += lessonCount;
+            totalCompleted += completedCount;
+
+            const bar = document.getElementById(`${courseId}ProgressBar`);
+            const text = document.getElementById(`${courseId}ProgressText`);
+            if (bar && text) {
+                const percent = lessonCount > 0 ? Math.round((completedCount / lessonCount) * 100) : 0;
+                bar.style.width = percent + "%";
+                bar.textContent = percent + "%";
+                text.textContent = `Completed: ${completedCount} / ${lessonCount}`;
+            }
+        });
+
+        const combinedPercent = totalLessons > 0 ? Math.round((totalCompleted / totalLessons) * 100) : 0;
+        if (combinedBar) {
+            combinedBar.style.width = combinedPercent + "%";
+            combinedBar.textContent = combinedPercent + "%";
+        }
+        if (progressText) {
+            progressText.textContent = `Total lessons completed: ${totalCompleted} / ${totalLessons}`;
+        }
+    } catch (err) {
+        console.error("Error updating progress:", err);
     }
+}
 });
