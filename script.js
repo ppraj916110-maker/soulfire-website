@@ -1,11 +1,11 @@
-// ===== Firebase imports =====
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-analytics.js";
-import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+// ===== Firebase imports - CORRECTED PATHS =====
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-    // ===== UI Elements =====
+    // ===== 1. Cache All UI Elements for Performance =====
     const menuToggle = document.getElementById("menu-toggle");
     const menu = document.getElementById("menu");
     const closeMenuBtn = document.getElementById("close-menu-btn");
@@ -16,55 +16,77 @@ document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("login-form");
     const logoutBtn = document.getElementById("logout-btn");
     const formMessage = document.getElementById("form-message");
+    const passwordToggles = document.querySelectorAll(".password-toggle");
+    const toggleButtons = document.querySelectorAll(".toggle-btn");
+    const courseContainers = document.querySelectorAll("[data-course-id]");
+    const courseLockIcons = document.querySelectorAll(".course-lock-icon");
 
-    // ===== Menu Toggle =====
-    if (menuToggle && menu) {
-        menuToggle.setAttribute('role', 'button'); // NEW: Accessibility
-        menuToggle.setAttribute('aria-label', 'Toggle navigation menu'); // NEW: Accessibility
-        menuToggle.setAttribute('aria-expanded', 'false'); // NEW: Accessibility
-        
+    // ===== 2. Firebase Config and Initialization =====
+    const firebaseConfig = {
+        apiKey: "AIzaSyDa5EPtNbmugtaIMiIaYmVtapYsvU7biMc",
+        authDomain: "tradingekmission.firebaseapp.com",
+        projectId: "tradingekmission",
+        storageBucket: "tradingekmission.firebasestorage.app",
+        messagingSenderId: "301971513060",
+        appId: "1:301971513060:web:a6027176e12af4b227d6f1", // FIXED: Corrected appId
+        measurementId: "G-C0W3J8LNSE"
+    };
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const currentPage = window.location.pathname.split("/").pop();
+
+    // ===== 3. Modularity - Setup Functions =====
+    const setupMenuToggle = () => {
+        if (!menuToggle || !menu) return;
+
+        menuToggle.setAttribute('role', 'button');
+        menuToggle.setAttribute('aria-label', 'Toggle navigation menu');
+        menuToggle.setAttribute('aria-expanded', 'false');
+
         menuToggle.addEventListener("click", () => {
             const isExpanded = menu.classList.toggle("active");
             menuToggle.classList.toggle("open", isExpanded);
-            menuToggle.setAttribute('aria-expanded', isExpanded); // NEW: Update aria-expanded
+            menuToggle.setAttribute('aria-expanded', isExpanded);
         });
-    }
-    if (closeMenuBtn && menu) {
-        closeMenuBtn.addEventListener("click", () => {
-            menu.classList.remove("active");
-            menuToggle.classList.remove("open");
-            if(menuToggle) menuToggle.setAttribute('aria-expanded', 'false'); // NEW: Update aria-expanded
-        });
-    }
 
-    // ===== Dark Mode =====
-    if (localStorage.getItem("theme") === "dark") {
-        body.classList.add("dark-mode");
-        if (darkToggle) darkToggle.textContent = "☀️";
-    }
-    if (darkToggle) {
+        if (closeMenuBtn) {
+            closeMenuBtn.addEventListener("click", () => {
+                menu.classList.remove("active");
+                menuToggle.classList.remove("open");
+                menuToggle.setAttribute('aria-expanded', 'false');
+            });
+        }
+    };
+
+    const setupDarkMode = () => {
+        if (!darkToggle) return;
+
+        if (localStorage.getItem("theme") === "dark") {
+            body.classList.add("dark-mode");
+            darkToggle.textContent = "☀️";
+        }
+
         darkToggle.addEventListener("click", () => {
             body.classList.toggle("dark-mode");
             const isDark = body.classList.contains("dark-mode");
             localStorage.setItem("theme", isDark ? "dark" : "light");
             darkToggle.textContent = isDark ? "☀️" : "🌙";
         });
-    }
+    };
 
-    // ===== AOS Animation =====
-    if (typeof AOS !== "undefined") {
-        AOS.init({ duration: 1000, once: true });
-    }
+    const setupRotatingQuotes = () => {
+        if (!quoteEl) return;
 
-    // ===== Rotating Quotes =====
-    const quotes = [
-        "Every expert was once a beginner — start your journey today.",
-        "Small consistent steps build big trading success.",
-        "In trading, patience is not just a virtue — it’s a profit strategy.",
-        "A disciplined trader turns losses into lessons."
-    ];
-    let quoteIndex = 0;
-    if (quoteEl) {
+        const quotes = [
+            "Every expert was once a beginner — start your journey today.",
+            "Small consistent steps build big trading success.",
+            "In trading, patience is not just a virtue — it’s a profit strategy.",
+            "A disciplined trader turns losses into lessons."
+        ];
+        let quoteIndex = 0;
+
         const showQuote = () => {
             quoteEl.style.opacity = 0;
             setTimeout(() => {
@@ -75,9 +97,124 @@ document.addEventListener("DOMContentLoaded", () => {
         };
         showQuote();
         setInterval(showQuote, 5000);
+    };
+
+    const setupPasswordToggles = () => {
+        passwordToggles.forEach(toggle => {
+            const input = document.getElementById(toggle.dataset.target);
+            if (!input) return;
+
+            toggle.setAttribute('role', 'button');
+            toggle.setAttribute('aria-label', input.type === "password" ? "Show password" : "Hide password");
+
+            toggle.addEventListener("click", () => {
+                const isPassword = input.type === "password";
+                input.type = isPassword ? "text" : "password";
+                toggle.textContent = isPassword ? "🙈" : "👁️";
+                toggle.setAttribute('aria-label', isPassword ? "Hide password" : "Show password");
+            });
+        });
+    };
+
+    const setupContentToggles = () => {
+        toggleButtons.forEach(btn => {
+            const target = document.getElementById(btn.dataset.target);
+            if (!target) return;
+            
+            target.style.display = "none";
+            btn.innerHTML = "<strong>Show More Content</strong>";
+            btn.setAttribute("aria-expanded", "false");
+            btn.addEventListener("click", () => {
+                const isHidden = target.style.display === "none";
+                target.style.display = isHidden ? "block" : "none";
+                btn.innerHTML = `<strong>${isHidden ? "Show Less" : "Show More"} Content</strong>`;
+                btn.setAttribute("aria-expanded", !isHidden);
+            });
+        });
+    };
+
+    // ===== 4. Helper Functions =====
+    const getFirebaseErrorMessage = (error) => {
+        if (!error || !error.code) return "An unknown error occurred. Please try again.";
+        switch (error.code) {
+            case "auth/email-already-in-use": return "❌ The email address is already in use.";
+            case "auth/invalid-email": return "❌ The email address is not valid.";
+            case "auth/operation-not-allowed": return "❌ Email/password accounts are not enabled. Contact support.";
+            case "auth/weak-password": return "⚠️ Password is too weak. Please use a stronger password.";
+            case "auth/user-not-found":
+            case "auth/wrong-password": return "❌ Invalid email or password.";
+            case "auth/network-request-failed": return "❌ Network error. Please check your internet connection.";
+            default:
+                console.error("Firebase Auth Error:", error);
+                return `❌ An error occurred: ${error.message}`;
+        }
+    };
+
+    const showFormFeedback = (form, message, isError = true) => {
+        const messageEl = form.querySelector("#form-message");
+        const submitBtn = form.querySelector("button[type='submit']");
+        
+        if (!messageEl || !submitBtn) return;
+
+        messageEl.textContent = message;
+        messageEl.style.color = isError ? "var(--accent-color)" : "var(--primary-color)";
+        submitBtn.disabled = false;
+        if(isError) {
+            submitBtn.innerHTML = "Submit";
+        }
+    };
+
+    async function updateProgress(uid) {
+        try {
+            const combinedBar = document.getElementById("combinedProgressBar");
+            const progressText = document.getElementById("progressText");
+            let totalCompleted = 0, totalLessons = 0;
+            const userRef = doc(db, "users", uid);
+            const userSnap = await getDoc(userRef);
+            const userData = userSnap.exists() ? userSnap.data() : {};
+
+            courseContainers.forEach(container => {
+                const courseId = container.getAttribute("data-course-id");
+                const lessonCount = parseInt(container.getAttribute("data-total-lessons"), 10);
+                const completedCount = (userData[courseId] || []).length;
+
+                totalLessons += lessonCount;
+                totalCompleted += completedCount;
+
+                const bar = document.getElementById(`${courseId}ProgressBar`);
+                const text = document.getElementById(`${courseId}ProgressText`);
+                if (bar && text) {
+                    const percent = lessonCount > 0 ? Math.round((completedCount / lessonCount) * 100) : 0;
+                    bar.style.width = percent + "%";
+                    bar.textContent = percent + "%";
+                    text.textContent = `Completed: ${completedCount} / ${lessonCount}`;
+                }
+            });
+
+            const combinedPercent = totalLessons > 0 ? Math.round((totalCompleted / totalLessons) * 100) : 0;
+            if (combinedBar) {
+                combinedBar.style.width = combinedPercent + "%";
+                combinedBar.textContent = combinedPercent + "%";
+            }
+            if (progressText) {
+                progressText.textContent = `Total lessons completed: ${totalCompleted} / ${totalLessons}`;
+            }
+        } catch (err) {
+            console.error("Error updating progress:", err);
+        }
     }
 
-    // ===== Disable Right Click + Copy =====
+    // ===== 5. Initial Setup and Event Listeners =====
+    setupMenuToggle();
+    setupDarkMode();
+    setupRotatingQuotes();
+    if (typeof AOS !== "undefined") {
+        AOS.init({ duration: 1000, once: true });
+    }
+    setupPasswordToggles();
+    setupContentToggles();
+
+    // Disable Right Click + Copy
     document.addEventListener("contextmenu", e => e.preventDefault());
     document.addEventListener("keydown", e => {
         if ((e.ctrlKey && ["c", "u", "s"].includes(e.key.toLowerCase())) || e.key === "PrintScreen") {
@@ -85,85 +222,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // ===== Firebase Config =====
-    const firebaseConfig = {
-        apiKey: "AIzaSyDa5EPtNbmugtaIMiIaYmVtapYsvU7biMc",
-        authDomain: "tradingekmission.firebaseapp.com",
-        projectId: "tradingekmission",
-        storageBucket: "tradingekmission.firebasestorage.app",
-        messagingSenderId: "301971513060",
-        appId: "1:301971513060:web:a6027176e12af4b227d6f1",
-        measurementId: "G-C0W3J8LNSE"
-    };
-    const app = initializeApp(firebaseConfig);
-    getAnalytics(app);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    const currentPage = window.location.pathname.split("/").pop();
-
-    // NEW: Accessibility for form messages
+    // New: Accessibility for form messages
     if (formMessage) {
         formMessage.setAttribute('role', 'status');
         formMessage.setAttribute('aria-live', 'polite');
     }
 
-    // ===== Enhanced Error Handling Function =====
-    const getFirebaseErrorMessage = (error) => {
-        if (!error || !error.code) return "An unknown error occurred. Please try again.";
-        
-        switch (error.code) {
-            case "auth/email-already-in-use":
-                return "❌ The email address is already in use.";
-            case "auth/invalid-email":
-                return "❌ The email address is not valid.";
-            case "auth/operation-not-allowed":
-                return "❌ Email/password accounts are not enabled. Please contact support.";
-            case "auth/weak-password":
-                return "⚠️ Password is too weak. Please use a stronger password.";
-            case "auth/user-not-found":
-            case "auth/wrong-password":
-                return "❌ Invalid email or password.";
-            case "auth/network-request-failed":
-                return "❌ Network error. Please check your internet connection.";
-            default:
-                console.error("Firebase Auth Error:", error);
-                return `❌ An error occurred: ${error.message}`;
-        }
-    };
-
-    // ===== NEW: Enhanced Form Feedback Function =====
-    const showFormFeedback = (form, message, isError = true) => {
-        const messageEl = form.querySelector("#form-message");
-        const submitBtn = form.querySelector("button[type='submit']");
-        
-        messageEl.textContent = message;
-        messageEl.style.color = isError ? "var(--accent-color)" : "var(--primary-color)";
-        submitBtn.disabled = false; // Re-enable button
-        if(isError) {
-            submitBtn.innerHTML = "Submit";
-        }
-    };
-    
-    // ===== Show/Hide Password Toggle =====
-    document.querySelectorAll(".password-toggle").forEach(toggle => {
-        const input = document.getElementById(toggle.dataset.target);
-        if (input) {
-            toggle.setAttribute('role', 'button'); // NEW: Accessibility
-            toggle.setAttribute('aria-label', input.type === "password" ? "Show password" : "Hide password"); // NEW: Accessibility
-        }
-        
-        toggle.addEventListener("click", () => {
-            if (input) {
-                const isPassword = input.type === "password";
-                input.type = isPassword ? "text" : "password";
-                toggle.textContent = isPassword ? "🙈" : "👁️";
-                toggle.setAttribute('aria-label', isPassword ? "Hide password" : "Show password"); // NEW: Update aria-label
-            }
-        });
-    });
-    
-    // ===== Signup =====
+    // Signup Form Handler
     if (currentPage === "signup.html" && signupForm) {
         signupForm.addEventListener("submit", async e => {
             e.preventDefault();
@@ -172,7 +237,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const confirmPassword = document.getElementById("confirm-password").value.trim();
             const submitBtn = signupForm.querySelector("button[type='submit']");
 
-            // Clear previous message and disable button
             formMessage.textContent = "";
             submitBtn.disabled = true;
             submitBtn.innerHTML = "Signing up...";
@@ -203,7 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ===== Login =====
+    // Login Form Handler
     if (currentPage === "login.html" && loginForm) {
         loginForm.addEventListener("submit", async e => {
             e.preventDefault();
@@ -211,7 +275,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const password = document.getElementById("password").value.trim();
             const submitBtn = loginForm.querySelector("button[type='submit']");
 
-            // Clear previous message and disable button
             formMessage.textContent = "";
             submitBtn.disabled = true;
             submitBtn.innerHTML = "Logging in...";
@@ -229,7 +292,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ===== Auth State =====
+    // Auth State and Firestore Logic
     onAuthStateChanged(auth, async user => {
         const protectedPages = ["beginner.html", "technical.html", "advance.html"];
         if (!user && protectedPages.includes(currentPage)) {
@@ -237,9 +300,8 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Lock/Unlock course icons
-        if (currentPage === "course.html") {
-            document.querySelectorAll(".course-lock-icon").forEach(icon => {
+        if (currentPage === "course.html" && courseLockIcons) {
+            courseLockIcons.forEach(icon => {
                 icon.classList.toggle("fa-lock", !user);
                 icon.classList.toggle("locked", !user);
                 icon.classList.toggle("fa-unlock", !!user);
@@ -250,8 +312,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (logoutBtn) logoutBtn.style.display = user ? "block" : "none";
 
        if (user) {
-            const courseContainers = document.querySelectorAll("[data-course-id]");
-            
             for (const container of courseContainers) {
                 const courseId = container.getAttribute("data-course-id");
                 
@@ -288,7 +348,6 @@ document.addEventListener("DOMContentLoaded", () => {
                                 }
                             } catch (firestoreError) {
                                 console.error("Error saving progress to Firestore:", firestoreError);
-                                // You could add a user-facing message here
                             }
                         });
                     });
@@ -303,10 +362,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // ===== Logout =====
+    // Logout and Auto-Logout
     if (logoutBtn) logoutBtn.addEventListener("click", () => signOut(auth));
 
-    // ===== Auto Logout on Tab Close =====
     window.addEventListener('beforeunload', async () => {
         const user = auth.currentUser;
         if (user) {
@@ -318,61 +376,4 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     });
-
-    // ===== Toggle Buttons =====
-    document.querySelectorAll(".toggle-btn").forEach(btn => {
-        const target = document.getElementById(btn.dataset.target);
-        if (target) {
-            target.style.display = "none";
-            btn.innerHTML = "<strong>Show More Content</strong>";
-            btn.setAttribute("aria-expanded", "false"); // NEW: Initial state
-            btn.addEventListener("click", () => {
-                const isHidden = target.style.display === "none";
-                target.style.display = isHidden ? "block" : "none";
-                btn.innerHTML = `<strong>${isHidden ? "Show Less" : "Show More"} Content</strong>`;
-                btn.setAttribute("aria-expanded", !isHidden); // NEW: Update state
-            });
-        }
-    });
-// ===== Update Progress (FIXED) =====
-async function updateProgress(uid) {
-    try {
-        const combinedBar = document.getElementById("combinedProgressBar");
-        const progressText = document.getElementById("progressText");
-        const courseContainers = document.querySelectorAll("[data-course-id]");
-        let totalCompleted = 0, totalLessons = 0;
-        const userRef = doc(db, "users", uid);
-        const userSnap = await getDoc(userRef);
-        const userData = userSnap.exists() ? userSnap.data() : {};
-
-        courseContainers.forEach(container => {
-            const courseId = container.getAttribute("data-course-id");
-            const lessonCount = parseInt(container.getAttribute("data-total-lessons"), 10);
-            const completedCount = (userData[courseId] || []).length;
-
-            totalLessons += lessonCount;
-            totalCompleted += completedCount;
-
-            const bar = document.getElementById(`${courseId}ProgressBar`);
-            const text = document.getElementById(`${courseId}ProgressText`);
-            if (bar && text) {
-                const percent = lessonCount > 0 ? Math.round((completedCount / lessonCount) * 100) : 0;
-                bar.style.width = percent + "%";
-                bar.textContent = percent + "%";
-                text.textContent = `Completed: ${completedCount} / ${lessonCount}`;
-            }
-        });
-
-        const combinedPercent = totalLessons > 0 ? Math.round((totalCompleted / totalLessons) * 100) : 0;
-        if (combinedBar) {
-            combinedBar.style.width = combinedPercent + "%";
-            combinedBar.textContent = combinedPercent + "%";
-        }
-        if (progressText) {
-            progressText.textContent = `Total lessons completed: ${totalCompleted} / ${totalLessons}`;
-        }
-    } catch (err) {
-        console.error("Error updating progress:", err);
-    }
-}
 });
