@@ -1,22 +1,11 @@
-// ===== Firebase Imports =====
+// ===== Firebase imports =====
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
-import {
-    getAuth,
-    onAuthStateChanged,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-import {
-    getFirestore,
-    doc,
-    setDoc,
-    getDoc
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-    // ===== Elements =====
+    // ===== UI Elements =====
     const menuToggle = document.getElementById("menu-toggle");
     const menu = document.getElementById("menu");
     const closeMenuBtn = document.getElementById("close-menu-btn");
@@ -35,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
             menuToggle.classList.toggle("open", menu.classList.contains("active"));
         });
     }
-    if (closeMenuBtn) {
+    if (closeMenuBtn && menu) {
         closeMenuBtn.addEventListener("click", () => {
             menu.classList.remove("active");
             menuToggle.classList.remove("open");
@@ -56,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ===== AOS =====
+    // ===== AOS Animation =====
     if (typeof AOS !== "undefined") {
         AOS.init({ duration: 1000, once: true });
     }
@@ -107,18 +96,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const currentPage = window.location.pathname.split("/").pop();
 
-    // ===== Show/Hide Password =====
-    document.querySelectorAll(".toggle-password").forEach(toggle => {
+    // ===== Show/Hide Password Toggle =====
+    document.querySelectorAll(".password-toggle").forEach(toggle => {
         toggle.addEventListener("click", () => {
-            const targetInput = document.getElementById(toggle.dataset.target);
-            if (targetInput) {
-                if (targetInput.type === "password") {
-                    targetInput.type = "text";
-                    toggle.textContent = "🙈";
-                } else {
-                    targetInput.type = "password";
-                    toggle.textContent = "👁️";
-                }
+            const input = document.getElementById(toggle.dataset.target);
+            if (input) {
+                const isPassword = input.type === "password";
+                input.type = isPassword ? "text" : "password";
+                toggle.textContent = isPassword ? "🙈" : "👁️";
             }
         });
     });
@@ -127,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (currentPage === "signup.html" && signupForm) {
         signupForm.addEventListener("submit", async e => {
             e.preventDefault();
-            const email = document.getElementById("email").value.trim().toLowerCase();
+            const email = document.getElementById("email").value.trim();
             const password = document.getElementById("password").value.trim();
             const confirmPassword = document.getElementById("confirm-password").value.trim();
 
@@ -154,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (currentPage === "login.html" && loginForm) {
         loginForm.addEventListener("submit", async e => {
             e.preventDefault();
-            const email = document.getElementById("email").value.trim().toLowerCase();
+            const email = document.getElementById("email").value.trim();
             const password = document.getElementById("password").value.trim();
 
             try {
@@ -175,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Course lock/unlock
+        // Lock/Unlock course icons
         if (currentPage === "course.html") {
             document.querySelectorAll(".course-lock-icon").forEach(icon => {
                 icon.classList.toggle("fa-lock", !user);
@@ -183,83 +168,32 @@ document.addEventListener("DOMContentLoaded", () => {
                 icon.classList.toggle("fa-unlock", !!user);
                 icon.classList.toggle("unlocked", !!user);
             });
+            if (user) {
+                // Run read-only progress update
+                await updateProgressReadOnly(user.uid);
+            }
         }
 
         if (logoutBtn) logoutBtn.style.display = user ? "block" : "none";
-
-        if (user) {
-            const courseContainers = document.querySelectorAll("[data-course-id]");
-
-            for (const container of courseContainers) {
-                const courseId = container.getAttribute("data-course-id");
-                const userRef = doc(db, "users", user.uid);
-                const userSnap = await getDoc(userRef);
-                const userData = userSnap.exists() ? userSnap.data() : {};
-                let completedSet = new Set(userData[courseId] || []);
-
-                const checkboxes = container.querySelectorAll(".lesson-complete");
-                checkboxes.forEach(checkbox => {
-                    const lessonIndex = checkbox.closest("[data-lesson-index]").getAttribute("data-lesson-index");
-
-                    // Set initial state
-                    checkbox.checked = completedSet.has(lessonIndex);
-
-                    // Update on change
-                    checkbox.addEventListener("change", async () => {
-                        if (checkbox.checked) completedSet.add(lessonIndex);
-                        else completedSet.delete(lessonIndex);
-
-                        await setDoc(userRef, {
-                            ...userData,
-                            [courseId]: Array.from(completedSet)
-                        }, { merge: true });
-
-                        if (currentPage === "course.html") {
-                            await updateProgress(user.uid);
-                        }
-                    });
-                });
-            }
-
-            if (currentPage === "course.html") {
-                await updateProgress(user.uid);
-            }
-        }
     });
 
     // ===== Logout =====
     if (logoutBtn) logoutBtn.addEventListener("click", () => signOut(auth));
 
-    // ===== Toggle Sections =====
-    document.querySelectorAll(".toggle-btn").forEach(btn => {
-        const target = document.getElementById(btn.dataset.target);
-        if (target) {
-            target.style.display = "none";
-            btn.innerHTML = "<strong>Show More Content</strong>";
-            btn.addEventListener("click", () => {
-                const isHidden = target.style.display === "none";
-                target.style.display = isHidden ? "block" : "none";
-                btn.innerHTML = `<strong>${isHidden ? "Show Less" : "Show More"} Content</strong>`;
-                btn.setAttribute("aria-expanded", !isHidden);
-            });
-        }
-    });
-
-    // ===== Update Progress =====
-    async function updateProgress(uid) {
+    // ===== Read-Only Progress Update for course.html =====
+    async function updateProgressReadOnly(uid) {
         try {
             const combinedBar = document.getElementById("combinedProgressBar");
             const progressText = document.getElementById("progressText");
             const courseContainers = document.querySelectorAll("[data-course-id]");
             let totalCompleted = 0, totalLessons = 0;
-
             const userRef = doc(db, "users", uid);
             const userSnap = await getDoc(userRef);
             const userData = userSnap.exists() ? userSnap.data() : {};
 
             courseContainers.forEach(container => {
                 const courseId = container.getAttribute("data-course-id");
-                const lessonCount = parseInt(container.getAttribute("data-total-lessons"), 10) || 0;
+                const lessonCount = parseInt(container.getAttribute("data-total-lessons"), 10);
                 const completedCount = (userData[courseId] || []).length;
 
                 totalLessons += lessonCount;
