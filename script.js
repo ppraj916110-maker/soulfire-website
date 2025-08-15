@@ -1,11 +1,22 @@
-// ===== Firebase imports =====
+// ===== Firebase Imports =====
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
-import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import {
+    getAuth,
+    onAuthStateChanged,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import {
+    getFirestore,
+    doc,
+    setDoc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-    // ===== UI Elements =====
+    // ===== Elements =====
     const menuToggle = document.getElementById("menu-toggle");
     const menu = document.getElementById("menu");
     const closeMenuBtn = document.getElementById("close-menu-btn");
@@ -24,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
             menuToggle.classList.toggle("open", menu.classList.contains("active"));
         });
     }
-    if (closeMenuBtn && menu) {
+    if (closeMenuBtn) {
         closeMenuBtn.addEventListener("click", () => {
             menu.classList.remove("active");
             menuToggle.classList.remove("open");
@@ -45,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ===== AOS Animation =====
+    // ===== AOS =====
     if (typeof AOS !== "undefined") {
         AOS.init({ duration: 1000, once: true });
     }
@@ -96,11 +107,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const currentPage = window.location.pathname.split("/").pop();
 
+    // ===== Show/Hide Password =====
+    document.querySelectorAll(".toggle-password").forEach(toggle => {
+        toggle.addEventListener("click", () => {
+            const targetInput = document.getElementById(toggle.dataset.target);
+            if (targetInput) {
+                if (targetInput.type === "password") {
+                    targetInput.type = "text";
+                    toggle.textContent = "🙈";
+                } else {
+                    targetInput.type = "password";
+                    toggle.textContent = "👁️";
+                }
+            }
+        });
+    });
+
     // ===== Signup =====
     if (currentPage === "signup.html" && signupForm) {
         signupForm.addEventListener("submit", async e => {
             e.preventDefault();
-            const email = document.getElementById("email").value.trim();
+            const email = document.getElementById("email").value.trim().toLowerCase();
             const password = document.getElementById("password").value.trim();
             const confirmPassword = document.getElementById("confirm-password").value.trim();
 
@@ -127,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (currentPage === "login.html" && loginForm) {
         loginForm.addEventListener("submit", async e => {
             e.preventDefault();
-            const email = document.getElementById("email").value.trim();
+            const email = document.getElementById("email").value.trim().toLowerCase();
             const password = document.getElementById("password").value.trim();
 
             try {
@@ -148,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Lock/Unlock course icons
+        // Course lock/unlock
         if (currentPage === "course.html") {
             document.querySelectorAll(".course-lock-icon").forEach(icon => {
                 icon.classList.toggle("fa-lock", !user);
@@ -160,60 +187,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (logoutBtn) logoutBtn.style.display = user ? "block" : "none";
 
-       if (user) {
-            // Updated logic to find course containers and handle checkboxes
+        if (user) {
             const courseContainers = document.querySelectorAll("[data-course-id]");
-            
+
             for (const container of courseContainers) {
                 const courseId = container.getAttribute("data-course-id");
                 const userRef = doc(db, "users", user.uid);
                 const userSnap = await getDoc(userRef);
                 const userData = userSnap.exists() ? userSnap.data() : {};
                 let completedSet = new Set(userData[courseId] || []);
-                
-                // Get all checkboxes within the current course container
+
                 const checkboxes = container.querySelectorAll(".lesson-complete");
-
                 checkboxes.forEach(checkbox => {
-                    const lessonIndex = checkbox.closest('[data-lesson-index]').getAttribute('data-lesson-index');
-                    
-                    // Set initial checkbox state based on saved data
-                    if (completedSet.has(lessonIndex)) {
-                        checkbox.checked = true;
-                    }
-                    
-                    // Add event listener to the checkbox
-                    checkbox.addEventListener("change", async () => {
-                        if (checkbox.checked) {
-                            completedSet.add(lessonIndex);
-                        } else {
-                            completedSet.delete(lessonIndex);
-                        }
+                    const lessonIndex = checkbox.closest("[data-lesson-index]").getAttribute("data-lesson-index");
 
-                        // Use merge: true to avoid overwriting other user data
+                    // Set initial state
+                    checkbox.checked = completedSet.has(lessonIndex);
+
+                    // Update on change
+                    checkbox.addEventListener("change", async () => {
+                        if (checkbox.checked) completedSet.add(lessonIndex);
+                        else completedSet.delete(lessonIndex);
+
                         await setDoc(userRef, {
                             ...userData,
                             [courseId]: Array.from(completedSet)
                         }, { merge: true });
 
-                        // Update the progress bars on the course.html page immediately after a change
-                        if (window.location.pathname.includes("course.html")) {
+                        if (currentPage === "course.html") {
                             await updateProgress(user.uid);
                         }
                     });
                 });
             }
 
-            // Initial progress update for the course.html page
             if (currentPage === "course.html") {
                 await updateProgress(user.uid);
             }
         }
     });
+
     // ===== Logout =====
     if (logoutBtn) logoutBtn.addEventListener("click", () => signOut(auth));
 
-    // ===== Toggle Buttons =====
+    // ===== Toggle Sections =====
     document.querySelectorAll(".toggle-btn").forEach(btn => {
         const target = document.getElementById(btn.dataset.target);
         if (target) {
@@ -227,46 +244,47 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     });
-// ===== Update Progress (FIXED) =====
-async function updateProgress(uid) {
-    try {
-        const combinedBar = document.getElementById("combinedProgressBar");
-        const progressText = document.getElementById("progressText");
-        const courseContainers = document.querySelectorAll("[data-course-id]");
-        let totalCompleted = 0, totalLessons = 0;
-        const userRef = doc(db, "users", uid);
-        const userSnap = await getDoc(userRef);
-        const userData = userSnap.exists() ? userSnap.data() : {};
 
-        courseContainers.forEach(container => {
-            const courseId = container.getAttribute("data-course-id");
-            // Get total lessons from the new data attribute
-            const lessonCount = parseInt(container.getAttribute("data-total-lessons"), 10);
-            const completedCount = (userData[courseId] || []).length;
+    // ===== Update Progress =====
+    async function updateProgress(uid) {
+        try {
+            const combinedBar = document.getElementById("combinedProgressBar");
+            const progressText = document.getElementById("progressText");
+            const courseContainers = document.querySelectorAll("[data-course-id]");
+            let totalCompleted = 0, totalLessons = 0;
 
-            totalLessons += lessonCount;
-            totalCompleted += completedCount;
+            const userRef = doc(db, "users", uid);
+            const userSnap = await getDoc(userRef);
+            const userData = userSnap.exists() ? userSnap.data() : {};
 
-            const bar = document.getElementById(`${courseId}ProgressBar`);
-            const text = document.getElementById(`${courseId}ProgressText`);
-            if (bar && text) {
-                const percent = lessonCount > 0 ? Math.round((completedCount / lessonCount) * 100) : 0;
-                bar.style.width = percent + "%";
-                bar.textContent = percent + "%";
-                text.textContent = `Completed: ${completedCount} / ${lessonCount}`;
+            courseContainers.forEach(container => {
+                const courseId = container.getAttribute("data-course-id");
+                const lessonCount = parseInt(container.getAttribute("data-total-lessons"), 10) || 0;
+                const completedCount = (userData[courseId] || []).length;
+
+                totalLessons += lessonCount;
+                totalCompleted += completedCount;
+
+                const bar = document.getElementById(`${courseId}ProgressBar`);
+                const text = document.getElementById(`${courseId}ProgressText`);
+                if (bar && text) {
+                    const percent = lessonCount > 0 ? Math.round((completedCount / lessonCount) * 100) : 0;
+                    bar.style.width = percent + "%";
+                    bar.textContent = percent + "%";
+                    text.textContent = `Completed: ${completedCount} / ${lessonCount}`;
+                }
+            });
+
+            const combinedPercent = totalLessons > 0 ? Math.round((totalCompleted / totalLessons) * 100) : 0;
+            if (combinedBar) {
+                combinedBar.style.width = combinedPercent + "%";
+                combinedBar.textContent = combinedPercent + "%";
             }
-        });
-
-        const combinedPercent = totalLessons > 0 ? Math.round((totalCompleted / totalLessons) * 100) : 0;
-        if (combinedBar) {
-            combinedBar.style.width = combinedPercent + "%";
-            combinedBar.textContent = combinedPercent + "%";
+            if (progressText) {
+                progressText.textContent = `Total lessons completed: ${totalCompleted} / ${totalLessons}`;
+            }
+        } catch (err) {
+            console.error("Error updating progress:", err);
         }
-        if (progressText) {
-            progressText.textContent = `Total lessons completed: ${totalCompleted} / ${totalLessons}`;
-        }
-    } catch (err) {
-        console.error("Error updating progress:", err);
     }
-}
 });
