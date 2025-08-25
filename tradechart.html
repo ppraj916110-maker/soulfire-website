@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Charting Tool</title>
+    <link rel="stylesheet" href="chartstyle.css">
+</head>
+<body>
+    <div class="card">
+        <div class="chart-header">
+            <div class="stock-search-container">
+                <input type="text" id="stock-search" placeholder="Search for a Nifty 50 stock...">
+                <ul id="search-results" class="search-results"></ul>
+            </div>
+            <div class="stock-info-container">
+                <h2 id="stock-name">Tata Consultancy Services</h2>
+                <span id="current-price" class="price-value">--.--</span>
+                <span id="price-change" class="price-change">--.-- (--%)</span>
+            </div>
+            <div class="chart-controls">
+                <div class="time-frame-buttons">
+                    <button id="daily-btn" class="active">Daily</button>
+                    <button id="weekly-btn">Weekly</button>
+                    <button id="monthly-btn">Monthly</button>
+                </div>
+                <div class="chart-type-buttons">
+                    <button id="line-chart-btn" class="active">Line</button>
+                    <button id="candlestick-chart-btn">Candlestick</button>
+                </div>
+                <div class="indicator-buttons">
+                    <button id="sma-btn">SMA (50)</button>
+                    <button id="rsi-btn">RSI (14)</button>
+                </div>
+                <button id="landscape-btn">[ ]</button>
+            </div>
+        </div>
+        <div class="chart-container">
+            <div id="chart"></div>
+        </div>
+        <div class="tooltip" id="tooltip"></div>
+    </div>
+    
+    <script src="chart.js"></script>
+</body>
+</html>

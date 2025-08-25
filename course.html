@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Learn stock trading with expert-led courses. Join Trading Ek Mission.">
+  <title>Courses - Trading Ek Mission</title>
+  
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script defer src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script type="module" src="script.js"></script>
+</head>
+
+<body>
+  <header class="main-header">
+    <button id="dark-toggle" class="dark-toggle">🌙</button>
+    <div class="logo">
+      <img src="logo.png" alt="Trading Ek Mission Logo" width="100" />
+    </div>
+
+    <button class="menu-toggle" id="menu-toggle"><span>Menu</span></button>
+    
+    <nav class="menu" id="menu">
+      <button class="close-btn" id="close-menu-btn">&times;</button>
+      <ul>
+         <li><a href="index.html">🏠 Home</a></li>
+         <li><a href="course.html">📘 Courses</a></li>
+         <li><a href="blog.html">📝 Blog</a></li>
+         <li><a href="contact.html">📞 Contact Us</a></li>
+         <li><a href="about.html">ℹ️ About Us</a></li>
+         <li><a href="https://zerodha.com/open-account?c=JJR916" target="_blank"><strong>💸 Refer&Earn</strong></a></li>
+         <li><div id="google_translate_element"></div></li>
+         <li><button id="logout-btn" class="logout-btn" style="display: none;">Logout</button></li>
+      </ul>
+      <div class="social-icons slide-menu-icons">
+        <a href="https://www.instagram.com/cre_ative_art00" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+        <a href="https://youtube.com/@tradingekmission.online" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+        <a href="https://whatsapp.com/channel/0029Va9GrLEEwEjuAt29a83b" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </div>
+    </nav>
+  </header>
+  
+  <main>
+    <section data-aos="fade-up">
+      <h2>Explore Our Trading Courses</h2>
+      <p>Gain in-depth knowledge and hands-on experience with our expert-designed stock trading courses.</p>
+
+      <div class="progress-container">
+        <div class="progress-bar" id="combinedProgressBar">0%</div>
+      </div>
+      <p id="progressText">Total lessons completed: 0/0</p>
+
+      <section class="course-container" data-course-id="beginner" data-total-lessons="6">
+        <div class="course-card" data-aos="fade-right">
+          <h3>
+            <a href="beginner.html">
+              <u>Beginner: Stock Market Basics</u>
+              <span class="course-lock-icon fa-solid fa-lock"></span>
+            </a>
+          </h3>
+          <p>Learn the basics of stock trading, market structure, and essential terminology to get started.</p>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar" id="beginnerProgressBar">0%</div>
+        </div>
+        <p id="beginnerProgressText">Completed: 0/6</p>
+      </section>
+      
+      <section class="course-container" data-course-id="technical" data-total-lessons="16">
+        <div class="course-card" data-aos="fade-left">
+          <h3>
+            <a href="technical.html">
+              <u>Intermediate: Technical Analysis Mastery</u>
+              <span class="course-lock-icon fa-solid fa-lock"></span>
+            </a>
+          </h3>
+          <p>Master the art of technical analysis using charts, indicators, and price action strategies.</p>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar" id="technicalProgressBar">0%</div>
+        </div>
+        <p id="technicalProgressText">Completed: 0/16</p>
+      </section>
+
+      <section class="course-container" data-course-id="advance" data-total-lessons="6">
+        <div class="course-card" data-aos="zoom-in">
+          <h3>
+            <a href="advance.html">
+              <u>Advance: Risk Management & Execution Skills</u>
+              <span class="course-lock-icon fa-solid fa-lock"></span>
+            </a>
+          </h3>
+          <p>Develop high-level intraday strategies, risk management, and live market execution skills.</p>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar" id="advanceProgressBar">0%</div>
+        </div>
+        <p id="advanceProgressText">Completed: 0/6</p>
+      </section>
+      <section>
+        <div class="course-card" data-aos="zoom-out">
+        <h3>
+       <a href="virtualtrade.html"><u>Let's Dive into the Advanced Chart Practice</u></a></h3>
+        </div>
+      </section>
+    </section>
+  </main>
+  <footer class="main-footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Trading Ek Mission. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
