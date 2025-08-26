@@ -3,44 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Charting Tool</title>
-    <link rel="stylesheet" href="chartstyle.css">
+    <title>Dynamic Historical Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial@0.1.0/dist/chartjs-chart-financial.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .controls {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .controls button {
+            padding: 10px 15px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .controls button:hover {
+            background-color: #e2e2e2;
+        }
+        #chartContainer {
+            max-width: 900px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
-    <div class="card">
-        <div class="chart-header">
-            <div class="stock-search-container">
-                <input type="text" id="stock-search" placeholder="Search for a Nifty 50 stock...">
-                <ul id="search-results" class="search-results"></ul>
-            </div>
-            <div class="stock-info-container">
-                <h2 id="stock-name">Tata Consultancy Services</h2>
-                <span id="current-price" class="price-value">--.--</span>
-                <span id="price-change" class="price-change">--.-- (--%)</span>
-            </div>
-            <div class="chart-controls">
-                <div class="time-frame-buttons">
-                    <button id="daily-btn" class="active">Daily</button>
-                    <button id="weekly-btn">Weekly</button>
-                    <button id="monthly-btn">Monthly</button>
-                </div>
-                <div class="chart-type-buttons">
-                    <button id="line-chart-btn" class="active">Line</button>
-                    <button id="candlestick-chart-btn">Candlestick</button>
-                </div>
-                <div class="indicator-buttons">
-                    <button id="sma-btn">SMA (50)</button>
-                    <button id="rsi-btn">RSI (14)</button>
-                </div>
-                <button id="landscape-btn">[ ]</button>
-            </div>
-        </div>
-        <div class="chart-container">
-            <div id="chart"></div>
-        </div>
-        <div class="tooltip" id="tooltip"></div>
+
+    <div class="controls">
+        <button id="dailyBtn">Daily</button>
+        <button id="weeklyBtn">Weekly</button>
+        <button id="monthlyBtn">Monthly</button>
     </div>
-    
-    <script src="chart.js"></script>
+
+    <div id="chartContainer">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script src="app.js"></script>
+
 </body>
 </html>
