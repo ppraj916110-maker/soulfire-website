@@ -1,7 +1,7 @@
 // app.js
 
 // IMPORTANT: Replace this with the URL you get after publishing your Google Sheet to the web as a CSV.
-const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1fGxnJfI-Rt_SFqUeN59PV73950wTqVvih0Rqj81MESQ/edit?usp=drivesdk';
+const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRaGfnoIqxQzeAcV8nKOnvy8uaP7N5fD9g6KS4aOkGti6iA3RfyTCehl7fU1BSabydarIYEleBOHj_e/pub?output=csv';
 
 let dailyData = [];
 let myChart;
