@@ -251,12 +251,12 @@ pre {
   font-family: monospace;
 }
 
-/* === Sections === */
-.odd-section {
+/* === Section Background Colors === */
+section:nth-of-type(odd) {
   background: var(--section-odd-bg);
 }
 
-.even-section {
+section:nth-of-type(even) {
   background: var(--section-even-bg);
 }
 
