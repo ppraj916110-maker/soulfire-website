@@ -1,375 +1,332 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Theme Customizer with Draggable Toggle</title>
+  <meta charset="UTF-8">
+  <title>Trading Ek Mission</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
-      --bg-color: #ffffff;
-      --text-color: #222222;
-
-      --section-odd-bg: #f7f7f7;
-      --section-even-bg: #e9ecef;
-
-      --header-bg: #ffffffcc;
-      --card-bg: #ffffff;
-      --form-bg: #f9f9f9;
-
-      --link-color: #1a73e8;
-      --link-hover-color: #0c47a1;
-
-      --primary-gradient-start: #ff6a00;
-      --primary-gradient-end: #ee0979;
-      --primary-gradient: linear-gradient(
-        45deg,
-        var(--primary-gradient-start),
-        var(--primary-gradient-end)
-      );
-
-      --h1-start: #ff512f;
-      --h1-end: #dd2476;
-      --h1-gradient: linear-gradient(45deg, var(--h1-start), var(--h1-end));
-
-      --h2-start: #2193b0;
-      --h2-end: #6dd5ed;
-      --h2-gradient: linear-gradient(45deg, var(--h2-start), var(--h2-end));
-
-      --h3-start: #a18cd1;
-      --h3-end: #fbc2eb;
-      --h3-gradient: linear-gradient(45deg, var(--h3-start), var(--h3-end));
-
-      --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      --bg-color: #f9f9f9;
+      --text-color: #333;
+      --link-color: #007bff;
+      --primary-gradient: linear-gradient(45deg, #ff6a00, #ee0979);
+      --secondary-gradient: linear-gradient(45deg, #36d1dc, #5b86e5);
+      --section-odd-bg: #ffffff;
+      --section-even-bg: #f3f3f3;
+      --card-bg: #fff;
+      --form-bg: #fff;
     }
 
     body {
+      margin: 0;
+      font-family: Arial, sans-serif;
       background: var(--bg-color);
       color: var(--text-color);
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
     }
 
-    section:nth-child(odd) {
-      background: var(--section-odd-bg);
-      padding: 2rem;
+    header {
+      padding: 20px;
+      text-align: center;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-    section:nth-child(even) {
-      background: var(--section-even-bg);
-      padding: 2rem;
-    }
+    header h1 { margin: 0; }
+    nav a { margin: 0 8px; color: var(--link-color); text-decoration: none; }
 
-    h1 {
-      background: var(--h1-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    h2 {
-      background: var(--h2-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    h3 {
-      background: var(--h3-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+    section { padding: 50px 20px; }
+    .odd-section { background: var(--section-odd-bg); }
+    .even-section { background: var(--section-even-bg); }
 
-    a {
-      color: var(--link-color);
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-    a:hover {
-      color: var(--link-hover-color);
-    }
+    h1,h2,h3 { margin-top: 0; }
 
     .btn {
       display: inline-block;
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      background: var(--primary-gradient);
+      color: #fff;
       border: none;
       cursor: pointer;
-      background: var(--primary-gradient);
-      color: #fff;
-      box-shadow: var(--shadow);
-      transition: opacity 0.3s;
-    }
-    .btn:hover {
-      opacity: 0.9;
     }
 
-    /* Toggle button */
+    .card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    /* Floating Button */
     #customizerToggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      border: none;
-      background: var(--primary-gradient);
-      color: #fff;
-      font-size: 1.4rem;
-      cursor: grab;
-      box-shadow: var(--shadow);
-      z-index: 5000;
-    }
-    #customizerToggle:active {
-      cursor: grabbing;
+      position: fixed; bottom: 20px; right: 20px;
+      width: 50px; height: 50px;
+      border-radius: 50%; border: none;
+      background: var(--secondary-gradient);
+      color: #fff; font-size: 20px;
+      cursor: pointer; z-index: 1000;
     }
 
-    /* Theme Customizer Panel */
+    /* Panel */
     #themeCustomizer {
       position: fixed;
-      top: 80px;
-      right: -280px; /* hidden off-screen */
-      width: 260px;
-      background: var(--card-bg);
-      border-radius: 12px 0 0 12px;
-      box-shadow: var(--shadow);
-      padding: 1rem;
-      z-index: 4000;
-      font-size: 0.9rem;
-      max-height: 90vh;
-      overflow-y: auto;
-      transition: right 0.4s ease;
+      top: 50%; right: -280px;
+      transform: translateY(-50%);
+      width: 260px; background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      padding: 20px;
+      transition: right 0.3s;
+      z-index: 999;
     }
-    #themeCustomizer.open {
-      right: 10px;
-    }
+    #themeCustomizer.open { right: 20px; }
+    #themeCustomizer h3 { text-align: center; margin-bottom: 16px; }
 
-    #themeCustomizer h3 {
-      text-align: center;
-      margin-bottom: 1rem;
-      font-size: 1rem;
-      font-weight: 600;
-    }
-    #themeCustomizer h4 {
-      margin-top: 1rem;
-      font-size: 0.9rem;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 0.3rem;
-    }
-    #themeCustomizer label {
+    .color-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.6rem;
+      margin-bottom: 12px;
     }
-    #themeCustomizer input[type="color"] {
-      border: none;
-      width: 40px;
-      height: 25px;
-      cursor: pointer;
+
+    .color-row button {
+      background: #eee; border: 1px solid #ccc;
+      border-radius: 6px; cursor: pointer;
+      padding: 6px 10px;
     }
-    #themeCustomizer button {
+
+    .reset-btn {
       width: 100%;
-      margin-top: 1rem;
-      background: var(--primary-gradient);
-      border: none;
-      padding: 0.6rem;
+      background: #e53935;
       color: #fff;
-      border-radius: 6px;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
       cursor: pointer;
+    }
+
+    /* Popup */
+    .popup-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+    .popup {
+      background: #fff;
+      padding: 20px;
+      border-radius: 16px;
+      width: 90%; max-width: 360px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+    .popup h2 { text-align: center; margin-bottom: 16px; }
+    .popup input[type="color"] {
+      width: 100%;
+      height: 50px;
+      border: none;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+    .popup-actions {
+      display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px;
+    }
+    .popup-actions .btn { padding: 8px 16px; border-radius: 8px; }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #222;
+      color: #fff;
     }
   </style>
 </head>
 <body>
-  <header style="background: var(--header-bg); padding:1rem; text-align:center;">
-    <h1>Trading Ek Mission</h1>
-    <p><a href="#">Home</a> | <a href="#">Courses</a> | <a href="#">Blog</a></p>
-  </header>
 
-  <section>
-    <h2>Welcome</h2>
-    <p>This is a customizable theme demo. Try changing colors in the panel.</p>
-    <button class="btn">Click Me</button>
-  </section>
+<header>
+  <h1>Trading Ek Mission</h1>
+  <nav>
+    <a href="#home">Home</a> |
+    <a href="#journey">Our Journey</a> |
+    <a href="#courses">Courses</a> |
+    <a href="#blog">Blog</a> |
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
 
-  <section>
-    <h3>Another Section</h3>
-    <p>Links adapt: <a href="#">Example Link</a></p>
-  </section>
-
-  <!-- Toggle Button -->
-  <button id="customizerToggle">⚙️</button>
-
-  <!-- Theme Customizer Panel -->
-  <div id="themeCustomizer">
-    <h3>🎨 Theme Customizer</h3>
-
-    <h4>General</h4>
-    <label>Background <input type="color" id="bgColor"></label>
-    <label>Text Color <input type="color" id="textColor"></label>
-
-    <h4>Sections</h4>
-    <label>Odd Section <input type="color" id="sectionOdd"></label>
-    <label>Even Section <input type="color" id="sectionEven"></label>
-
-    <h4>Layout</h4>
-    <label>Header BG <input type="color" id="headerBg"></label>
-    <label>Card BG <input type="color" id="cardBg"></label>
-    <label>Form BG <input type="color" id="formBg"></label>
-
-    <h4>Links</h4>
-    <label>Link Color <input type="color" id="linkColor"></label>
-    <label>Hover Color <input type="color" id="linkHover"></label>
-
-    <h4>Buttons</h4>
-    <label>Gradient Start <input type="color" id="btnStart"></label>
-    <label>Gradient End <input type="color" id="btnEnd"></label>
-
-    <h4>Headings</h4>
-    <label>H1 Start <input type="color" id="h1Start"></label>
-    <label>H1 End <input type="color" id="h1End"></label>
-    <label>H2 Start <input type="color" id="h2Start"></label>
-    <label>H2 End <input type="color" id="h2End"></label>
-    <label>H3 Start <input type="color" id="h3Start"></label>
-    <label>H3 End <input type="color" id="h3End"></label>
-
-    <button id="resetTheme">Reset Theme</button>
-  </div>
 <main>
-  <!-- Odd Section -->
-  <section class="odd-section">
-    <h1>Welcome to Trading Ek Mission</h1>
-    <p>
-      This is a sample paragraph to test <a href="#">links</a>, 
-      <strong>strong text</strong>, and <em>emphasis</em>.
-    </p>
-    <button class="btn">Primary Button</button>
+  <!-- Home -->
+  <section id="home" class="odd-section">
+    <h1>Welcome to Trading Ek Mission 🚀</h1>
+    <p>Our mission is to empower individuals with the knowledge and tools to navigate the stock market confidently. Whether you're a beginner or an advanced trader, this is your hub for learning and growing.</p>
+    <button class="btn">Get Started</button>
   </section>
 
-  <!-- Even Section -->
-  <section class="even-section">
-    <h2>Our Courses</h2>
+  <!-- Journey -->
+  <section id="journey" class="even-section">
+    <h2>📈 Our Journey</h2>
+    <div class="card">
+      <h3>2021 – The Beginning</h3>
+      <p>We started with a small group of learners determined to crack the stock market code.</p>
+    </div>
+    <div class="card">
+      <h3>2022 – Growth Phase</h3>
+      <p>Launched our first structured course with 500+ students enrolling in 3 months.</p>
+    </div>
+    <div class="card">
+      <h3>2023 – Expansion</h3>
+      <p>Introduced advanced trading strategies and built a vibrant trading community.</p>
+    </div>
+  </section>
+
+  <!-- Courses -->
+  <section id="courses" class="odd-section">
+    <h2>🎓 Our Courses</h2>
     <div class="card">
       <h3>Beginner Trading</h3>
-      <p>Learn the basics of stock market trading in easy steps.</p>
-      <a href="#" class="btn">Enroll Now</a>
+      <p>Learn the basics of stock market, candlesticks, and risk management.</p>
+      <button class="btn">Enroll Now</button>
+    </div>
+    <div class="card">
+      <h3>Intermediate Trading</h3>
+      <p>Dive into technical indicators, chart patterns, and swing trading techniques.</p>
+      <button class="btn">Enroll Now</button>
     </div>
     <div class="card">
       <h3>Advanced Trading</h3>
-      <p>Master technical analysis and advanced strategies.</p>
-      <a href="#" class="btn">Learn More</a>
+      <p>Master derivatives, algorithmic strategies, and portfolio management.</p>
+      <button class="btn">Enroll Now</button>
     </div>
   </section>
 
-  <!-- Odd Section -->
-  <section class="odd-section">
-    <h2>Contact Us</h2>
-    <form class="contact-form">
-      <input type="text" placeholder="Your Name">
-      <input type="email" placeholder="Your Email">
-      <textarea rows="4" placeholder="Your Message"></textarea>
-      <button type="submit">Send Message</button>
+  <!-- Blog -->
+  <section id="blog" class="even-section">
+    <h2>📰 Latest Blog Posts</h2>
+    <div class="card">
+      <h3>Top 5 Mistakes Beginner Traders Make</h3>
+      <p>A guide to avoid common pitfalls and protect your capital.</p>
+      <a href="#" class="btn">Read More</a>
+    </div>
+    <div class="card">
+      <h3>How to Read Candlestick Patterns</h3>
+      <p>Decode market sentiment and predict price moves effectively.</p>
+      <a href="#" class="btn">Read More</a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="odd-section">
+    <h2>📬 Contact Us</h2>
+    <form style="background:var(--form-bg);padding:20px;border-radius:10px;max-width:400px;margin:auto;">
+      <label>Name</label><br>
+      <input type="text" style="width:100%;margin-bottom:10px;"><br>
+      <label>Email</label><br>
+      <input type="email" style="width:100%;margin-bottom:10px;"><br>
+      <label>Message</label><br>
+      <textarea style="width:100%;height:100px;margin-bottom:10px;"></textarea><br>
+      <button type="submit" class="btn">Send</button>
     </form>
   </section>
 </main>
 
-  <script>
-    const colorMap = {
-      bgColor: "--bg-color",
-      textColor: "--text-color",
-      sectionOdd: "--section-odd-bg",
-      sectionEven: "--section-even-bg",
-      headerBg: "--header-bg",
-      cardBg: "--card-bg",
-      formBg: "--form-bg",
-      linkColor: "--link-color",
-      linkHover: "--link-hover-color",
-      btnStart: "--primary-gradient-start",
-      btnEnd: "--primary-gradient-end",
-      h1Start: "--h1-start",
-      h1End: "--h1-end",
-      h2Start: "--h2-start",
-      h2End: "--h2-end",
-      h3Start: "--h3-start",
-      h3End: "--h3-end"
-    };
+<footer>
+  <p>© 2025 Trading Ek Mission. All rights reserved.</p>
+</footer>
 
-    function setColor(pickerId, variable) {
-      const picker = document.getElementById(pickerId);
-      const saved = localStorage.getItem(pickerId);
-      if (saved) {
-        document.documentElement.style.setProperty(variable, saved);
-        picker.value = saved;
+<!-- Floating Gear -->
+<button id="customizerToggle">⚙️</button>
+
+<!-- Customizer -->
+<div id="themeCustomizer">
+  <h3>🎨 Theme Customizer</h3>
+  <div class="color-row">
+    <span>Background</span>
+    <button onclick="openPopup('bg-color')">Choose</button>
+  </div>
+  <div class="color-row">
+    <span>Text</span>
+    <button onclick="openPopup('text-color')">Choose</button>
+  </div>
+  <div class="color-row">
+    <span>Links</span>
+    <button onclick="openPopup('link-color')">Choose</button>
+  </div>
+  <div class="color-row">
+    <span>Primary Gradient</span>
+    <button onclick="openPopup('primary-gradient', true)">Choose</button>
+  </div>
+  <button class="reset-btn" onclick="resetTheme()">Reset Theme</button>
+</div>
+
+<!-- Popup -->
+<div id="colorPopup" class="popup-overlay">
+  <div class="popup">
+    <h2>Select Colour</h2>
+    <input type="color" id="spectrumPicker1">
+    <input type="color" id="spectrumPicker2" style="display:none;">
+    <div class="popup-actions">
+      <button class="btn cancel" onclick="closePopup()">Cancel</button>
+      <button class="btn set" onclick="setColor()">Set</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const toggleBtn = document.getElementById('customizerToggle');
+  const panel = document.getElementById('themeCustomizer');
+  toggleBtn.onclick = () => panel.classList.toggle('open');
+
+  let currentVar = null;
+  let isGradient = false;
+
+  function openPopup(cssVar, gradient=false) {
+    currentVar = cssVar;
+    isGradient = gradient;
+    document.getElementById('colorPopup').style.display = 'flex';
+    document.getElementById('spectrumPicker2').style.display = gradient ? 'block' : 'none';
+  }
+  function closePopup() {
+    document.getElementById('colorPopup').style.display = 'none';
+  }
+  function setColor() {
+    const color1 = document.getElementById('spectrumPicker1').value;
+    const color2 = document.getElementById('spectrumPicker2').value;
+    if (color1 && currentVar) {
+      if (isGradient) {
+        document.documentElement.style.setProperty(`--${currentVar}`, `linear-gradient(45deg, ${color1}, ${color2||color1})`);
+        localStorage.setItem(currentVar, `${color1},${color2||color1}`);
+      } else {
+        document.documentElement.style.setProperty(`--${currentVar}`, color1);
+        localStorage.setItem(currentVar, color1);
       }
-      picker.addEventListener("input", function () {
-        document.documentElement.style.setProperty(variable, this.value);
-        localStorage.setItem(pickerId, this.value);
-      });
     }
+    closePopup();
+  }
+  function resetTheme() {
+    localStorage.clear();
+    location.reload();
+  }
 
-    for (const [id, variable] of Object.entries(colorMap)) {
-      setColor(id, variable);
-    }
-
-    // Reset
-    document.getElementById("resetTheme").addEventListener("click", () => {
-      localStorage.clear();
-      location.reload();
+  // Load saved theme
+  window.onload = () => {
+    Object.keys(localStorage).forEach(key => {
+      const val = localStorage.getItem(key);
+      if (key.includes("gradient")) {
+        const [c1,c2] = val.split(",");
+        document.documentElement.style.setProperty(`--${key}`, `linear-gradient(45deg, ${c1}, ${c2})`);
+      } else {
+        document.documentElement.style.setProperty(`--${key}`, val);
+      }
     });
-
-    // Toggle open/close
-    const toggleBtn = document.getElementById("customizerToggle");
-    const panel = document.getElementById("themeCustomizer");
-    toggleBtn.addEventListener("click", () => {
-      panel.classList.toggle("open");
-    });
-
-    // === Draggable toggle button with position persistence ===
-    let isDragging = false, offsetX, offsetY;
-
-    // Load saved position
-    const savedX = localStorage.getItem("toggleX");
-    const savedY = localStorage.getItem("toggleY");
-    if (savedX && savedY) {
-      toggleBtn.style.left = savedX + "px";
-      toggleBtn.style.top = savedY + "px";
-      toggleBtn.style.right = "auto";
-    }
-
-    toggleBtn.addEventListener("mousedown", startDrag);
-    toggleBtn.addEventListener("touchstart", startDrag);
-
-    function startDrag(e) {
-      isDragging = true;
-      const rect = toggleBtn.getBoundingClientRect();
-      offsetX = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-      offsetY = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-
-      document.addEventListener("mousemove", drag);
-      document.addEventListener("mouseup", stopDrag);
-      document.addEventListener("touchmove", drag);
-      document.addEventListener("touchend", stopDrag);
-    }
-
-    function drag(e) {
-      if (!isDragging) return;
-      e.preventDefault();
-      const x = (e.touches ? e.touches[0].clientX : e.clientX) - offsetX;
-      const y = (e.touches ? e.touches[0].clientY : e.clientY) - offsetY;
-
-      toggleBtn.style.left = x + "px";
-      toggleBtn.style.top = y + "px";
-      toggleBtn.style.right = "auto";
-    }
-
-    function stopDrag() {
-      isDragging = false;
-      // Save position
-      const rect = toggleBtn.getBoundingClientRect();
-      localStorage.setItem("toggleX", rect.left);
-      localStorage.setItem("toggleY", rect.top);
-
-      document.removeEventListener("mousemove", drag);
-      document.removeEventListener("mouseup", stopDrag);
-      document.removeEventListener("touchmove", drag);
-      document.removeEventListener("touchend", stopDrag);
-    }
-  </script>
+  };
+</script>
 </body>
 </html>
