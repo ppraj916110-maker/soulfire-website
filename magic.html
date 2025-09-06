@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Theme Customizer with Draggable Toggle</title>
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #222222;
+
+      --section-odd-bg: #f7f7f7;
+      --section-even-bg: #e9ecef;
+
+      --header-bg: #ffffffcc;
+      --card-bg: #ffffff;
+      --form-bg: #f9f9f9;
+
+      --link-color: #1a73e8;
+      --link-hover-color: #0c47a1;
+
+      --primary-gradient-start: #ff6a00;
+      --primary-gradient-end: #ee0979;
+      --primary-gradient: linear-gradient(
+        45deg,
+        var(--primary-gradient-start),
+        var(--primary-gradient-end)
+      );
+
+      --h1-start: #ff512f;
+      --h1-end: #dd2476;
+      --h1-gradient: linear-gradient(45deg, var(--h1-start), var(--h1-end));
+
+      --h2-start: #2193b0;
+      --h2-end: #6dd5ed;
+      --h2-gradient: linear-gradient(45deg, var(--h2-start), var(--h2-end));
+
+      --h3-start: #a18cd1;
+      --h3-end: #fbc2eb;
+      --h3-gradient: linear-gradient(45deg, var(--h3-start), var(--h3-end));
+
+      --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      background: var(--bg-color);
+      color: var(--text-color);
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    section:nth-child(odd) {
+      background: var(--section-odd-bg);
+      padding: 2rem;
+    }
+    section:nth-child(even) {
+      background: var(--section-even-bg);
+      padding: 2rem;
+    }
+
+    h1 {
+      background: var(--h1-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    h2 {
+      background: var(--h2-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    h3 {
+      background: var(--h3-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    a:hover {
+      color: var(--link-hover-color);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      background: var(--primary-gradient);
+      color: #fff;
+      box-shadow: var(--shadow);
+      transition: opacity 0.3s;
+    }
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    /* Toggle button */
+    #customizerToggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      border: none;
+      background: var(--primary-gradient);
+      color: #fff;
+      font-size: 1.4rem;
+      cursor: grab;
+      box-shadow: var(--shadow);
+      z-index: 5000;
+    }
+    #customizerToggle:active {
+      cursor: grabbing;
+    }
+
+    /* Theme Customizer Panel */
+    #themeCustomizer {
+      position: fixed;
+      top: 80px;
+      right: -280px; /* hidden off-screen */
+      width: 260px;
+      background: var(--card-bg);
+      border-radius: 12px 0 0 12px;
+      box-shadow: var(--shadow);
+      padding: 1rem;
+      z-index: 4000;
+      font-size: 0.9rem;
+      max-height: 90vh;
+      overflow-y: auto;
+      transition: right 0.4s ease;
+    }
+    #themeCustomizer.open {
+      right: 10px;
+    }
+
+    #themeCustomizer h3 {
+      text-align: center;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    #themeCustomizer h4 {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.3rem;
+    }
+    #themeCustomizer label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+    }
+    #themeCustomizer input[type="color"] {
+      border: none;
+      width: 40px;
+      height: 25px;
+      cursor: pointer;
+    }
+    #themeCustomizer button {
+      width: 100%;
+      margin-top: 1rem;
+      background: var(--primary-gradient);
+      border: none;
+      padding: 0.6rem;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header style="background: var(--header-bg); padding:1rem; text-align:center;">
+    <h1>Trading Ek Mission</h1>
+    <p><a href="#">Home</a> | <a href="#">Courses</a> | <a href="#">Blog</a></p>
+  </header>
+
+  <section>
+    <h2>Welcome</h2>
+    <p>This is a customizable theme demo. Try changing colors in the panel.</p>
+    <button class="btn">Click Me</button>
+  </section>
+
+  <section>
+    <h3>Another Section</h3>
+    <p>Links adapt: <a href="#">Example Link</a></p>
+  </section>
+
+  <!-- Toggle Button -->
+  <button id="customizerToggle">⚙️</button>
+
+  <!-- Theme Customizer Panel -->
+  <div id="themeCustomizer">
+    <h3>🎨 Theme Customizer</h3>
+
+    <h4>General</h4>
+    <label>Background <input type="color" id="bgColor"></label>
+    <label>Text Color <input type="color" id="textColor"></label>
+
+    <h4>Sections</h4>
+    <label>Odd Section <input type="color" id="sectionOdd"></label>
+    <label>Even Section <input type="color" id="sectionEven"></label>
+
+    <h4>Layout</h4>
+    <label>Header BG <input type="color" id="headerBg"></label>
+    <label>Card BG <input type="color" id="cardBg"></label>
+    <label>Form BG <input type="color" id="formBg"></label>
+
+    <h4>Links</h4>
+    <label>Link Color <input type="color" id="linkColor"></label>
+    <label>Hover Color <input type="color" id="linkHover"></label>
+
+    <h4>Buttons</h4>
+    <label>Gradient Start <input type="color" id="btnStart"></label>
+    <label>Gradient End <input type="color" id="btnEnd"></label>
+
+    <h4>Headings</h4>
+    <label>H1 Start <input type="color" id="h1Start"></label>
+    <label>H1 End <input type="color" id="h1End"></label>
+    <label>H2 Start <input type="color" id="h2Start"></label>
+    <label>H2 End <input type="color" id="h2End"></label>
+    <label>H3 Start <input type="color" id="h3Start"></label>
+    <label>H3 End <input type="color" id="h3End"></label>
+
+    <button id="resetTheme">Reset Theme</button>
+  </div>
+<main>
+  <!-- Odd Section -->
+  <section class="odd-section">
+    <h1>Welcome to Trading Ek Mission</h1>
+    <p>
+      This is a sample paragraph to test <a href="#">links</a>, 
+      <strong>strong text</strong>, and <em>emphasis</em>.
+    </p>
+    <button class="btn">Primary Button</button>
+  </section>
+
+  <!-- Even Section -->
+  <section class="even-section">
+    <h2>Our Courses</h2>
+    <div class="card">
+      <h3>Beginner Trading</h3>
+      <p>Learn the basics of stock market trading in easy steps.</p>
+      <a href="#" class="btn">Enroll Now</a>
+    </div>
+    <div class="card">
+      <h3>Advanced Trading</h3>
+      <p>Master technical analysis and advanced strategies.</p>
+      <a href="#" class="btn">Learn More</a>
+    </div>
+  </section>
+
+  <!-- Odd Section -->
+  <section class="odd-section">
+    <h2>Contact Us</h2>
+    <form class="contact-form">
+      <input type="text" placeholder="Your Name">
+      <input type="email" placeholder="Your Email">
+      <textarea rows="4" placeholder="Your Message"></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+</main>
+
+  <script>
+    const colorMap = {
+      bgColor: "--bg-color",
+      textColor: "--text-color",
+      sectionOdd: "--section-odd-bg",
+      sectionEven: "--section-even-bg",
+      headerBg: "--header-bg",
+      cardBg: "--card-bg",
+      formBg: "--form-bg",
+      linkColor: "--link-color",
+      linkHover: "--link-hover-color",
+      btnStart: "--primary-gradient-start",
+      btnEnd: "--primary-gradient-end",
+      h1Start: "--h1-start",
+      h1End: "--h1-end",
+      h2Start: "--h2-start",
+      h2End: "--h2-end",
+      h3Start: "--h3-start",
+      h3End: "--h3-end"
+    };
+
+    function setColor(pickerId, variable) {
+      const picker = document.getElementById(pickerId);
+      const saved = localStorage.getItem(pickerId);
+      if (saved) {
+        document.documentElement.style.setProperty(variable, saved);
+        picker.value = saved;
+      }
+      picker.addEventListener("input", function () {
+        document.documentElement.style.setProperty(variable, this.value);
+        localStorage.setItem(pickerId, this.value);
+      });
+    }
+
+    for (const [id, variable] of Object.entries(colorMap)) {
+      setColor(id, variable);
+    }
+
+    // Reset
+    document.getElementById("resetTheme").addEventListener("click", () => {
+      localStorage.clear();
+      location.reload();
+    });
+
+    // Toggle open/close
+    const toggleBtn = document.getElementById("customizerToggle");
+    const panel = document.getElementById("themeCustomizer");
+    toggleBtn.addEventListener("click", () => {
+      panel.classList.toggle("open");
+    });
+
+    // === Draggable toggle button with position persistence ===
+    let isDragging = false, offsetX, offsetY;
+
+    // Load saved position
+    const savedX = localStorage.getItem("toggleX");
+    const savedY = localStorage.getItem("toggleY");
+    if (savedX && savedY) {
+      toggleBtn.style.left = savedX + "px";
+      toggleBtn.style.top = savedY + "px";
+      toggleBtn.style.right = "auto";
+    }
+
+    toggleBtn.addEventListener("mousedown", startDrag);
+    toggleBtn.addEventListener("touchstart", startDrag);
+
+    function startDrag(e) {
+      isDragging = true;
+      const rect = toggleBtn.getBoundingClientRect();
+      offsetX = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+      offsetY = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+
+      document.addEventListener("mousemove", drag);
+      document.addEventListener("mouseup", stopDrag);
+      document.addEventListener("touchmove", drag);
+      document.addEventListener("touchend", stopDrag);
+    }
+
+    function drag(e) {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = (e.touches ? e.touches[0].clientX : e.clientX) - offsetX;
+      const y = (e.touches ? e.touches[0].clientY : e.clientY) - offsetY;
+
+      toggleBtn.style.left = x + "px";
+      toggleBtn.style.top = y + "px";
+      toggleBtn.style.right = "auto";
+    }
+
+    function stopDrag() {
+      isDragging = false;
+      // Save position
+      const rect = toggleBtn.getBoundingClientRect();
+      localStorage.setItem("toggleX", rect.left);
+      localStorage.setItem("toggleY", rect.top);
+
+      document.removeEventListener("mousemove", drag);
+      document.removeEventListener("mouseup", stopDrag);
+      document.removeEventListener("touchmove", drag);
+      document.removeEventListener("touchend", stopDrag);
+    }
+  </script>
+</body>
+</html>
