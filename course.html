@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Explore our expert-led stock trading courses for all levels. Learn beginner basics, advanced technical analysis, and risk management with Trading Ek Mission.">
+  <title>Courses - Trading Ek Mission</title>
+  
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script defer src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script type="module" src="script.js"></script>
+</head>
+
+<body>
+  <header class="main-header">
+    <button id="dark-toggle" class="dark-toggle">🌙</button>
+    <div class="logo">
+  Trading Ek Mission
+    </div>
+    <button class="menu-toggle" id="menu-toggle"><span>Menu</span></button>
+    
+    <nav class="menu" id="menu">
+      <button class="close-btn" id="close-menu-btn">&times;</button>
+      <ul>
+         <li><a href="index.html">🏠 Home</a></li>
+         <li><a href="course.html">📘 Courses</a></li>
+         <li><a href="blog.html">📝 Blog</a></li>
+         <li><a href="contact.html">📞 Contact Us</a></li>
+         <li><a href="about.html">ℹ️ About Us</a></li>
+         <li><a href="https://zerodha.com/open-account?c=JJR916" target="_blank"><strong>💸 Refer&Earn</strong></a></li>
+         <li><div id="google_translate_element"></div></li>
+         <li><button id="logout-btn" class="logout-btn" style="display: none;">Logout</button></li>
+      </ul>
+      <div class="social-icons slide-menu-icons">
+        <a href="https://www.instagram.com/cre_ative_art00" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+        <a href="https://youtube.com/@tradingekmission.online" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+        <a href="https://whatsapp.com/channel/0029Va9GrLEEwEjuAt29a83b" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </div>
+    </nav>
+  </header>
+  
+  <main class="course-page-content">
+    <section class="course-intro-section" data-aos="fade-up">
+      <h1>Your Path to Becoming a Confident Trader</h1>
+      <p class="intro-text">Our comprehensive courses are designed to take you from a complete beginner to a skilled trader. Each course builds upon the last, providing you with a clear roadmap to success.</p>
+      
+      <div class="progress-container combined-progress-container">
+        <div class="progress-bar" id="combinedProgressBar">0%</div>
+      </div>
+      <p id="progressText" class="progress-text">Total lessons completed: 0/0</p>
+    </section>
+
+    <div class="courses-grid">
+      <section class="course-container" data-course-id="beginner" data-total-lessons="6" data-aos="fade-right">
+        <div class="course-card">
+          <h3>
+            <a href="beginner.html">
+              <span class="course-level-tag beginner-tag">Level 1</span>
+              Beginner: Stock Market Basics
+              <i class="course-lock-icon fa-solid fa-lock locked"></i>
+            </a>
+          </h3>
+          <p>This is your starting point. You will learn the **foundational knowledge** needed to understand how the stock market works. Perfect for absolute beginners with no prior experience.</p>
+          <ul class="course-features">
+            <li><i class="fa-solid fa-circle-check"></i> What is a stock?</li>
+            <li><i class="fa-solid fa-circle-check"></i> Basic market terminology</li>
+            <li><i class="fa-solid fa-circle-check"></i> How to place your first trade</li>
+          </ul>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar" id="beginnerProgressBar">0%</div>
+        </div>
+        <p id="beginnerProgressText">Completed: 0/6</p>
+      </section>
+      
+      <section class="course-container" data-course-id="technical" data-total-lessons="16" data-aos="fade-left">
+        <div class="course-card">
+          <h3>
+            <a href="technical.html">
+              <span class="course-level-tag intermediate-tag">Level 2</span>
+              Intermediate: Technical Analysis Mastery
+              <i class="course-lock-icon fa-solid fa-lock locked"></i>
+            </a>
+          </h3>
+          <p>Dive deep into **chart analysis** and **market indicators**. This course will teach you to read the market's language and identify high-probability trading opportunities.</p>
+          <ul class="course-features">
+            <li><i class="fa-solid fa-circle-check"></i> Candlestick patterns</li>
+            <li><i class="fa-solid fa-circle-check"></i> Using indicators like RSI & MACD</li>
+            <li><i class="fa-solid fa-circle-check"></i> Support and resistance levels</li>
+          </ul>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar" id="technicalProgressBar">0%</div>
+        </div>
+        <p id="technicalProgressText">Completed: 0/16</p>
+      </section>
+
+      <section class="course-container" data-course-id="advance" data-total-lessons="6" data-aos="zoom-in">
+        <div class="course-card">
+          <h3>
+            <a href="advance.html">
+              <span class="course-level-tag advanced-tag">Level 3</span>
+              Advanced: Risk Management & Live Trading
+              <i class="course-lock-icon fa-solid fa-lock locked"></i>
+            </a>
+          </h3>
+          <p>Move beyond theory with **advanced strategies** and **professional risk management**. Learn to control your emotions and execute trades like a pro in live market conditions.</p>
+          <ul class="course-features">
+            <li><i class="fa-solid fa-circle-check"></i> Position sizing and money management</li>
+            <li><i class="fa-solid fa-circle-check"></i> Intraday trading strategies</li>
+            <li><i class="fa-solid fa-circle-check"></i> Live trading psychology</li>
+          </ul>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar" id="advanceProgressBar">0%</div>
+        </div>
+        <p id="advanceProgressText">Completed: 0/6</p>
+      </section>
+      
+      <section class="virtual-trade-section" data-aos="zoom-out">
+        <div class="course-card virtual-card">
+          <h3>
+            <a href="virtualtrade.html">
+              <i class="fa-solid fa-chart-line"></i>
+              Let's Dive into the Advanced Chart Practice
+            </a>
+          </h3>
+          <p>Apply everything you've learned in a risk-free environment. This virtual trading simulator lets you test your strategies on real historical data.</p>
+        </div>
+      </section>
+    </div>
+
+    <section class="youtube-tips-section" data-aos="fade-up">
+      <h2>Grow Your YouTube Channel with Us</h2>
+      <p class="intro-text">Want to build your own financial or trading channel? We share the same strategies we used to grow our channel to help you succeed.</p>
+      
+      <div class="youtube-tips-container">
+        <div class="tip-card" data-aos="fade-up" data-aos-delay="100">
+          <h3><i class="fa-brands fa-youtube icon"></i> Content Strategy</h3>
+          <ul>
+            <li>Focus on a niche you're passionate about.</li>
+            <li>Create educational, high-quality, and valuable content.</li>
+            <li>Use a consistent posting schedule to build a loyal audience.</li>
+            <li>Experiment with short-form content like YouTube Shorts for quick growth.</li>
+          </ul>
+        </div>
+        <div class="tip-card" data-aos="fade-up" data-aos-delay="200">
+          <h3><i class="fa-solid fa-magnifying-glass icon"></i> SEO & Optimization</h3>
+          <ul>
+            <li>Conduct keyword research to find what your audience is searching for.</li>
+            <li>Optimize video titles, descriptions, and tags with relevant keywords.</li>
+            <li>Create custom, eye-catching thumbnails that stand out.</li>
+            <li>Use cards, end screens, and playlists to increase watch time.</li>
+          </ul>
+        </div>
+        <div class="tip-card" data-aos="fade-up" data-aos-delay="300">
+          <h3><i class="fa-solid fa-sack-dollar icon"></i> Monetization & Engagement</h3>
+          <ul>
+            <li>Understand the YouTube Partner Program requirements (500 subs, 3 public videos, etc.).</li>
+            <li>Engage with your audience by replying to comments and building a community.</li>
+            <li>Collaborate with other creators in your niche.</li>
+            <li>Promote your videos on other social media platforms and your website.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="youtube-link-section">
+          <p>Learn more by watching our content directly on our channel:</p>
+          <a href="https://youtube.com/@tradingekmission.online" target="_blank" class="youtube-cta-button">
+              <i class="fab fa-youtube"></i> Visit Our YouTube Channel
+          </a>
+      </div>
+    </section>
+
+    <section class="cta-section" data-aos="fade-up">
+      <div class="cta-content">
+        <h2>Ready to Master the Market?</h2>
+        <p>Your journey starts here. Sign up today to gain access to all courses and our exclusive community.</p>
+        <a href="signup.html" class="cta-button">Start Your Free Trial</a>
+      </div>
+    </section>
+  </main>
+  
+  <footer class="main-footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Trading Ek Mission. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
