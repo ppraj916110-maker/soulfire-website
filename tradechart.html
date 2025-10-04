@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Trading Ek Mission — US Market Simulator</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+   <link rel="stylesheet" href="style.css" />
+  <script type="module" src="script.js"></script>
+  <style>
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:0;background:#fff;color:#111}
+  .wrap{display:grid;grid-template-columns:1fr 480px;gap:18px;padding:18px;max-width:1400px;margin:0 auto}
+  .left{min-height:80vh}
+  .chart-container{background:#fff;border:1px solid #e6e9ee;border-radius:8px;padding:8px}
+  .controls{display:flex;gap:8px;margin:8px 0;position:relative;flex-wrap:wrap}
+  .controls input, .controls button, .controls select{padding:8px;border-radius:6px;border:1px solid #ccc}
+  .controls button{cursor:pointer}
+  .sim{background:#f7f9fc;border:1px solid #e3e7ee;padding:12px;border-radius:8px}
+  .section{margin-bottom:12px}
+  .pos-table{width:100%;border-collapse:collapse}
+  .pos-table th, .pos-table td{padding:8px;border-bottom:1px solid #e9eef6;text-align:left;font-size:14px}
+  .row{display:flex;justify-content:space-between;align-items:center}
+  .small{font-size:13px;color:#666}
+  .big{font-weight:700;font-size:18px}
+  .green{color: #0b8457}
+  .red{color:#c92b2b}
+  .btn{background:#2563eb;color:#fff;border:none;padding:8px 10px;border-radius:6px;cursor:pointer}
+  .ghost{background:transparent;border:1px solid #ccc}
+  .search-dropdown{position:absolute;top:38px;left:0;width:100%;background:#fff;border:1px solid #ccc;border-radius:6px;max-height:200px;overflow-y:auto;z-index:10}
+  .search-item{padding:6px 10px;cursor:pointer}
+  .search-item:hover{background:#f0f4ff}
+  footer{padding:18px;text-align:center;color:#666;font-size:13px}
+  @media (max-width:980px){.wrap{grid-template-columns:1fr;padding:12px}.sim{position:static}}
+</style>
+</head>
+<body>
+  <header class="main-header">
+    <button id="dark-toggle" class="dark-toggle">
+      🌙
+    </button>
+    <div class="logo">Trading Ek Mission</div>
+    <button class="menu-toggle" id="menu-toggle">
+      <span>Menu</span>
+    </button>
+    <nav class="menu" id="menu">
+      <button class="close-btn" id="close-menu-btn">&times;</button>
+      <ul>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="course.html">📘 Courses</a></li>
+        <li><a href="blog.html">📝 Blog</a></li>
+        <li><a href="contact.html">📞 Contact Us</a></li>
+        <li><a href="about.html">ℹ️ About Us</a></li>
+       <li><a href="community.html">👥️ Community </a></li>
+		  <li><a href="magic.html">🍭 Book-summary</a></li>
+		  <li><a href="https://zerodha.com/open-account?c=JJR916" target="_blank"><strong>💸 Refer&Earn</strong></a></li>
+        <li><div id="google_translate_element"></div></li>
+      </ul>
+      <div class="social-icons slide-menu-icons">
+        <li><a href="https://www.instagram.com/cre_ative_art00" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
+        <li><a href="https://youtube.com/@tradingekmission.online" target="_blank"><i class="fab fa-youtube"></i> YouTube</a></li>
+        <li><a href="https://whatsapp.com/channel/0029Va9GrLEEwEjuAt29a83b" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+      </div>
+    </nav>
+  </header>
+<div class="wrap">
+  <div class="left">
+    <div class="chart-container">
+      <div id="tradingview_main" style="height:520px"></div>
+    </div>
+
+    <div style="margin-top:12px" class="section">
+      <div class="controls">
+        <input id="searchInput" type="text" placeholder="Search US Stock (e.g. AAPL, TSLA)" style="flex:1" />
+        <div id="searchResults" class="search-dropdown"></div>
+        <input id="qtyInput" type="number" placeholder="Qty" min="1" style="width:70px" />
+        <select id="orderType">
+          <option value="market">Market</option>
+          <option value="limit">Limit</option>
+        </select>
+        <input id="limitPriceInput" type="number" placeholder="Limit Price" style="width:90px" />
+        <button id="buyBtn" class="btn">Buy</button>
+        <button id="sellBtn" class="ghost">Sell</button>
+        <button id="addCapitalBtn" class="btn" style="margin-left:auto">Add Capital</button>
+      </div>
+    </div>
+  </div>
+
+  <aside class="sim">
+    <div class="section">
+      <div class="row">
+        <div>
+          <div class="small">Available Cash</div>
+          <div id="cash" class="big">₹ 100,000.00</div>
+        </div>
+        <div>
+          <div class="small">Unrealized P&L</div>
+          <div id="unreal" class="big">₹ 0.00</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="row">
+        <div class="small">Realized P&L</div>
+        <div id="realized" class="big">₹ 0.00</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="small">Positions</div>
+      <table class="pos-table" id="positionsTable">
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>Qty</th>
+            <th>Avg Price</th>
+            <th>Current Price</th>
+            <th>Market Value</th>
+            <th>P&L</th>
+            <th>P&L %</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="small">Orders / Activity</div>
+      <div id="activity" style="height:200px;overflow:auto;border:1px solid #e6e9ee;padding:8px;border-radius:6px;background:#fff"></div>
+    </div>
+
+    <div class="section">
+      <div class="small">Settings</div>
+      <div style="margin-top:6px">
+        <label class="small">Polling interval (sec)
+          <input id="pollInterval" type="number" value="5" min="1" style="width:50px;margin-left:6px" />
+        </label>
+      </div>
+    </div>
+  </aside>
+</div>
+  <footer class="main-footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Trading Ek Mission. All Rights Reserved.</p>
+    <p><em>Demo US Market Simulator — Powered by Finnhub & TradingView</em></p>
+    </div>
+  </footer>
+<script>
+const FINNHUB_KEY = "d2ll6jpr01qr27gjpt1gd2ll6jpr01qr27gjpt20";
+const STORAGE_KEY = 'tem_sim_portfolio_us';
+const DEFAULT_CASH = 100000;
+
+let currentSymbol = "AAPL";
+let tvWidget = null;
+let prevPrices = {};
+
+let state = {
+  cash: DEFAULT_CASH,
+  positions: {},
+  realized: 0,
+  activity: [],
+  prices: {},
+  limitOrders: []
+};
+
+function fmt(v){return '₹ ' + Number(v).toLocaleString('en-IN', {maximumFractionDigits:2});}
+function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+function loadState(){ const raw = localStorage.getItem(STORAGE_KEY); if(raw){try{Object.assign(state,JSON.parse(raw))}catch(e){}} }
+loadState();
+
+const cashEl = document.getElementById('cash');
+const unrealEl = document.getElementById('unreal');
+const realizedEl = document.getElementById('realized');
+const posTbody = document.querySelector('#positionsTable tbody');
+const activityDiv = document.getElementById('activity');
+
+function render(){
+  cashEl.textContent = fmt(state.cash);
+  realizedEl.textContent = fmt(state.realized);
+
+  posTbody.innerHTML = '';
+  let unrealTotal = 0;
+
+  for(const sym of Object.keys(state.positions)){
+    const pos = state.positions[sym];
+    const currentPrice = state.prices[sym] || 0;
+    const marketValue = currentPrice * pos.qty;
+    const pl = marketValue - (pos.avgPrice * pos.qty);
+    const plPercent = pos.avgPrice ? (pl / (pos.avgPrice * pos.qty) * 100) : 0;
+    unrealTotal += pl;
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${sym}</td>
+      <td>${pos.qty}</td>
+      <td>${pos.avgPrice ? fmt(pos.avgPrice) : '-'}</td>
+      <td class="current-price">${currentPrice ? fmt(currentPrice) : '-'}</td>
+      <td class="market-value">${fmt(marketValue)}</td>
+      <td class="pl ${pl>=0?'green':'red'}">${fmt(pl)}</td>
+      <td class="pl-percent ${pl>=0?'green':'red'}">${plPercent.toFixed(2)}%</td>
+    `;
+    posTbody.appendChild(tr);
+
+    // Flash effect for price changes
+    const priceCell = tr.querySelector('.current-price');
+    if(prevPrices[sym] !== undefined){
+      if(currentPrice > prevPrices[sym]){
+        priceCell.style.background = '#d4f8d4'; // green flash
+      } else if(currentPrice < prevPrices[sym]){
+        priceCell.style.background = '#f8d4d4'; // red flash
+      }
+      setTimeout(()=>{ priceCell.style.background = ''; }, 300);
+    }
+    prevPrices[sym] = currentPrice;
+  }
+
+  unrealEl.textContent = fmt(unrealTotal);
+
+  // Activity + pending limit orders
+  activityDiv.innerHTML = state.limitOrders.map(o=>`<div style="padding:4px;border-bottom:1px dashed #f0f0f0"><div class="small">Pending: ${o.side} ${o.qty} ${o.symbol} @ ${fmt(o.price)}</div></div>`).join('') +
+    state.activity.slice().reverse().map(a=>`<div style="padding:6px;border-bottom:1px dashed #eee"><div class="small">${a.time}</div><div>${a.msg}</div></div>`).join('');
+}
+
+function addActivity(msg){ state.activity.push({time:new Date().toLocaleString('en-IN'), msg}); if(state.activity.length>500) state.activity.shift(); saveState(); render(); }
+
+async function getPrice(symbol){ if(state.prices[symbol]) return state.prices[symbol]; return fetchPrice(symbol); }
+async function fetchPrice(symbol){
+  const url=`https://finnhub.io/api/v1/quote?symbol=${encodeURIComponent(symbol)}&token=${FINNHUB_KEY}`;
+  try{ const r=await fetch(url); const data=await r.json(); if(data.c){ state.prices[symbol]=data.c; return data.c;} else return null; }catch(e){console.error(e); return null;}
+}
+
+function buy(symbol, qty, price){
+  qty = Number(qty); if(!qty || qty<=0) return alert('Invalid qty');
+  const cost = qty*price; if(cost > state.cash) return alert('Insufficient cash');
+  const pos = state.positions[symbol] || {qty:0, avgPrice:0};
+  const newQty = pos.qty + qty;
+  const newAvg = pos.qty===0 ? price : ((pos.avgPrice*pos.qty)+cost)/newQty;
+  state.positions[symbol] = {qty:newQty, avgPrice:newAvg};
+  state.cash -= cost;
+  addActivity(`Bought ${qty} ${symbol} @ ${fmt(price)} (cost ${fmt(cost)})`);
+}
+
+function sell(symbol, qty, price){
+  qty = Number(qty); const pos = state.positions[symbol]; if(!pos || pos.qty < qty) return alert('Not enough shares to sell');
+  const value = qty*price; const costBasis = qty*pos.avgPrice; const profit = value-costBasis;
+  pos.qty -= qty; if(pos.qty===0) delete state.positions[symbol];
+  state.cash += value; state.realized += profit;
+  addActivity(`Sold ${qty} ${symbol} @ ${fmt(price)} (value ${fmt(value)}, P/L ${fmt(profit)})`);
+  saveState(); render();
+}
+
+// Place order
+function placeOrder(type, symbol, qty, price, side){
+  qty=Number(qty); if(!qty||qty<=0) return alert('Invalid quantity');
+  if(type==='market'){
+    getPrice(symbol).then((marketPrice)=>{
+      if(!marketPrice) return alert('Price unavailable');
+      side==='buy'? buy(symbol, qty, marketPrice) : sell(symbol, qty, marketPrice);
+    });
+  } else if(type==='limit'){
+    price=Number(price); if(!price||price<=0) return alert('Invalid limit price');
+    state.limitOrders.push({symbol, qty, price, side, time:new Date().toLocaleString('en-IN')});
+    addActivity(`Limit order placed: ${side} ${qty} ${symbol} @ ${fmt(price)}`);
+  }
+  render();
+}
+
+// Button events
+document.getElementById('buyBtn').onclick = ()=>{
+  const sym = currentSymbol; const qty = document.getElementById('qtyInput').value || 1;
+  const orderType = document.getElementById('orderType').value;
+  const limitPrice = document.getElementById('limitPriceInput').value;
+  placeOrder(orderType, sym, qty, limitPrice, 'buy');
+};
+document.getElementById('sellBtn').onclick = ()=>{
+  const sym = currentSymbol; const qty = document.getElementById('qtyInput').value || 1;
+  const orderType = document.getElementById('orderType').value;
+  const limitPrice = document.getElementById('limitPriceInput').value;
+  placeOrder(orderType, sym, qty, limitPrice, 'sell');
+};
+document.getElementById('addCapitalBtn').onclick = ()=>{
+  const amt = prompt('Add capital amount (INR)','50000'); if(!amt) return;
+  const v = Number(amt); if(!v||v<=0) return alert('Invalid amount');
+  state.cash += v; addActivity(`Added capital ${fmt(v)}`);
+};
+
+// Stock search
+const searchInput=document.getElementById('searchInput');
+const searchResults=document.getElementById('searchResults');
+let searchTimer=null;
+searchInput.addEventListener('input',()=>{
+  clearTimeout(searchTimer);
+  const q = searchInput.value.trim(); if(q.length<2){ searchResults.innerHTML=""; return; }
+  searchTimer = setTimeout(async ()=>{
+    const url=`https://finnhub.io/api/v1/search?q=${encodeURIComponent(q)}&token=${FINNHUB_KEY}`;
+    const r = await fetch(url); const data = await r.json();
+    if(data.result){
+      searchResults.innerHTML = data.result.slice(0,5).map(d=>`<div class="search-item" data-sym="${d.symbol}">${d.symbol} — ${d.description}</div>`).join('');
+    }
+  },300);
+});
+searchResults.addEventListener('click', async (e) => {
+  if(e.target.classList.contains('search-item')){
+    const sym = e.target.dataset.sym;
+    currentSymbol = sym; searchInput.value = sym; searchResults.innerHTML = "";
+    await loadTradingView(sym);
+    await fetchPrice(sym); render();
+  }
+});
+
+// Poll prices & execute limit orders
+let pollTimer=null;
+async function pollPrices(){
+  const interval=Math.max(1,Number(document.getElementById('pollInterval').value)||5)*1000;
+  const symbols=new Set([currentSymbol,...Object.keys(state.positions)]);
+  for(const s of symbols){
+    const marketPrice = await fetchPrice(s);
+    state.limitOrders = state.limitOrders.filter(order=>{
+      if(order.symbol!==s) return true;
+      if(order.side==='buy' && marketPrice <= order.price){
+        buy(s, order.qty, marketPrice); addActivity(`Limit Buy executed: ${order.qty} ${s} @ ${fmt(marketPrice)}`); return false;
+      }
+      if(order.side==='sell' && marketPrice >= order.price){
+        sell(s, order.qty, marketPrice); addActivity(`Limit Sell executed: ${order.qty} ${s} @ ${fmt(marketPrice)}`); return false;
+      }
+      return true;
+    });
+    render();
+  }
+  clearTimeout(pollTimer); pollTimer=setTimeout(pollPrices,interval);
+}
+
+// TradingView chart
+function loadTradingView(symbol){
+  const container=document.getElementById('tradingview_main'); container.innerHTML='';
+  return new Promise((resolve)=>{
+    const initWidget = ()=>{
+      if(tvWidget){ try{ tvWidget.remove(); } catch(e){} tvWidget=null; }
+      tvWidget = new TradingView.widget({
+        width:"100%", height:520, symbol:symbol, interval:"D", timezone:"America/New_York",
+        theme:"light", style:"1", locale:"en", toolbar_bg:"#f1f3f6",
+        enable_publishing:false, hide_top_toolbar:false, withdateranges:true,
+        container_id:"tradingview_main", autosize:true
+      });
+      resolve(tvWidget);
+    };
+    if(!window.TradingView){
+      const s=document.createElement('script'); s.src='https://s3.tradingview.com/tv.js'; s.onload=initWidget; document.head.appendChild(s);
+    } else initWidget();
+  });
+}
+
+// Init
+render(); loadTradingView(currentSymbol); pollPrices();
+document.getElementById('pollInterval').addEventListener('change',()=>{ clearTimeout(pollTimer); pollPrices(); });
+</script>
+</body>
+</html>

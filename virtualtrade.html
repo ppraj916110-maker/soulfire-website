@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Trading Ek Mission Demo: Practice virtual trading with NIFTY50 stocks, candlestick charts, and instant P&L tracking.">
+  <meta name="keywords" content="Trading, Virtual Trading, NIFTY50, Candlestick Chart, Stock Market Demo, Buy Sell Simulator">
+  <meta name="author" content="Trading Ek Mission">
+  <title>Trading Ek Mission | Virtual Trading Demo</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8870960298045491" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header class="main-header">
+    <button id="dark-toggle" class="dark-toggle">
+  🌙
+</button>
+    <div class="logo">
+  Trading Ek Mission
+    </div>
+
+    <button class="menu-toggle" id="menu-toggle">
+  <span>Menu</span>
+</button>
+    <nav class="menu" id="menu">
+      <button class="close-btn" id="close-menu-btn">&times;</button>
+      <ul>
+         <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="course.html">📘 Courses</a></li>
+        <li><a href="blog.html">📝 Blog</a></li>
+        <li><a href="contact.html">📞 Contact Us</a></li>
+        <li><a href="about.html">ℹ️ About Us</a></li>
+       <li><a href="https://zerodha.com/open-account?c=JJR916" target="_blank"><strong>💸 Refer&Earn</strong></a></li>
+     <li><div id="google_translate_element"></div></li>
+     <li><a href="https://www.instagram.com/cre_ative_art00" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
+     <li><a href="https://youtube.com/@tradingekmission.online" target="_blank"><i class="fab fa-youtube"></i> YouTube</a></li>
+     <li><a href="https://whatsapp.com/channel/0029Va9GrLEEwEjuAt29a83b" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="tts-controls">
+    <a>🎧 Listen this Page</a>
+    <div class="tts-buttons">
+        <button id="playBtn" class="tts-btn">Play</button>
+        <button id="pauseBtn" class="tts-btn">Pause</button>
+        <button id="resumeBtn" class="tts-btn">Resume</button>
+        <button id="stopBtn" class="tts-btn">Stop</button>
+        <button id="resetBtn" class="tts-btn">Reset Settings</button>
+    </div>
+    <div class="tts-sliders">
+        <div class="slider-group">
+            <label for="voiceTypeSelect">Voice Type:</label>
+            <select id="voiceTypeSelect">
+                <option value="default">Default</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="child">Child</option>
+                <option value="american-english">American English</option>
+                <option value="british-english">British English</option>
+                <option value="indian-english">Indian English</option>
+                <option value="french">French</option>
+                <option value="german">German</option>
+                <option value="spanish">Spanish</option>
+                <option value="hindi">Hindi</option>
+            </select>
+        </div>
+        <div class="slider-group">
+            <label for="voiceSelect">Voice:</label>
+            <select id="voiceSelect"></select>
+        </div>
+        <div class="slider-group">
+            <label for="rateRange">Rate:</label>
+            <input type="range" id="rateRange" min="0.5" max="2" value="1" step="0.1">
+            <span id="rateValue">1</span>
+        </div>
+        <div class="slider-group">
+            <label for="pitchRange">Pitch:</label>
+            <input type="range" id="pitchRange" min="0" max="2" value="1" step="0.1">
+            <span id="pitchValue">1</span>
+        </div>
+    </div>
+  </div>
+  <main class="container">
+    <section data-aos="fade-down">
+    <h1>Trading Ek Mission (Virtual Trading Platforms)</h1>
+    <p>
+      Master the complexities of the stock market without risking a single rupee! Our <em>Virtual Trading Simulator</em> gives you a true-to-life environment to test strategies, build confidence, and learn market dynamics using **real-time NIFTY50 data**. It’s the essential launchpad for every serious trader, turning theory into risk-free practical experience.
+    </p>
+    <a href="tradechart.html" class="cta-button" data-aos="fade-up">Start Trading</a>
+  </section>
+
+    <section data-aos="fade-up">
+      <h2 style="text-align:center;">Features</h2>
+      <div class="features">
+        <div class="card" data-aos="fade-up" data-aos-delay="100">
+          <h3>📊 Real-Time Charts & Indicators</h3>
+          <p>Practice trading with <em>live candlestick simulations</em> for all NIFTY50 stocks. Utilize essential technical tools like moving averages, RSI, and MACD to hone your analysis skills.</p>
+        </div>
+        <div class="card" data-aos="fade-up" data-aos-delay="200">
+          <h3>💹 NIFTY50 Focus & Volatility</h3>
+          <p>Search and trade the top 50 NSE companies with virtual money. Experience <em>true market volatility</em> and learn to manage risk in high-momentum stocks.</p>
+        </div>
+        <div class="card" data-aos="fade-up" data-aos-delay="300">
+          <h3>🧾 Advanced Portfolio Tracking</h3>
+          <p>Track your P&L instantly, manage virtual margin, and analyze your <em>position sizing</em>. Review your trade history to identify profitable patterns and mistakes.</p>
+        </div>
+        <div class="card" data-aos="fade-up" data-aos-delay="400">
+          <h3>⏱ Multi-Timeframe Analysis</h3>
+          <p>Practice different trading styles by switching between <em>5-minute, 15-minute, and 1-day</em> candlestick charts. Master both intraday and positional strategies.</p>
+        </div>
+      </div>
+    </section>
+
+    <section data-aos="fade-up" data-aos-delay="200">
+      <h2 style="text-align:center;">How It Works: 4 Steps to Mastery</h2>
+      <div class="steps">
+        <div class="step" data-aos="fade-up" data-aos-delay="200">
+          <h3>1. Pick a Stock</h3>
+          <p>Search any **NIFTY50 stock** and analyze its real-time chart. Identify key support and resistance levels to form your market view.</p>
+        </div>
+        <div class="step" data-aos="fade-up" data-aos-delay="300">
+          <h3>2. Define Your Strategy</h3>
+          <p>Set up your <em>virtual entry, stop-loss, and target prices</em>. This is where you practice the discipline required for live trading.</p>
+        </div>
+        <div class="step" data-aos="fade-up" data-aos-delay="400">
+          <h3>3. Execute the Trade</h3>
+          <p>Buy or Sell virtual shares. Use <em>market orders or limit orders</em> to simulate trade execution under realistic conditions.</p>
+        </div>
+         <div class="step" data-aos="fade-up" data-aos-delay="500">
+          <h3>4. Track P&L & Review</h3>
+          <p>Monitor your virtual portfolio with <em>instant profit/loss</em> updates. After closing a trade, review your performance to constantly refine your edge.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="call-to-action" data-aos="zoom-in">
+      <div class="cta-content">
+        <h2>Ready to Start Your Chart Practice Journey?</h2>
+        <p>Don't wait to get access our exclusive free start!</p>
+        <a href="tradechart.html" class="cta-button">Try Now</a>
+      </div></section>
+  </main>
+<footer class="main-footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Trading Ek Mission. All Rights Reserved.</p>
+    </div>
+</footer>
+  <script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script type="module" src="script.js"></script>
+</body>
+</html>
