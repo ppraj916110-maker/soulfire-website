@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Getting Started with Algorithmic Trading in India</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      margin: 2em auto;
+      max-width: 820px;
+      background: #fff;
+      color: #222;
+      font-size: 1.08em;
+      line-height: 1.7;
+      padding: 0 16px;
+    }
+    h1, h2, h3 {
+      color: #205081;
+      margin-top: 1.4em;
+      font-weight: 600;
+    }
+    h1 {
+      font-size: 2.2em;
+      text-align: center;
+      margin-bottom: 0.1em;
+    }
+    h2 {
+      font-size: 1.35em;
+      margin-bottom: 0.3em;
+    }
+    .tagline {
+      text-align: center;
+      font-size: 1.18em;
+      margin-bottom: 1.2em;
+      color: #4066a3;
+    }
+    hr {
+      margin: 2.2em 0 1.4em;
+      border: none;
+      border-top: 1.5px solid #ccc;
+    }
+    ul, ol, dl {
+      margin-left: 1.2em;
+      margin-bottom: 1.2em;
+    }
+    li {
+      margin-bottom: 0.37em;
+    }
+    code {
+      background: #e8edf4;
+      color: #1548a2;
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-size: 0.98em;
+    }
+    a {
+      color: #205081;
+      text-decoration: underline;
+    }
+    .resource-list li {
+      margin-bottom: 0.4em;
+    }
+    .callout {
+      background: #f9f7ef;
+      border-left: 5px solid #205081;
+      padding: 1em 1.2em;
+      margin: 1.7em 0;
+      font-size: 1.05em;
+    }
+    .footer {
+      font-size: 0.99em;
+      color: #666;
+      text-align: center;
+      margin: 3em 0 2em;
+      border-top: 1px dashed #ccc;
+      padding-top: 1em;
+    }
+    @media print {
+      body {
+        max-width: none;
+        padding: 0 10px;
+        margin: 0;
+      }
+      a[href]:after {
+        content: " (" attr(href) ")";
+        font-size: 0.95em;
+        color: #444;
+      }
+      .no-print { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Getting Started with Algorithmic Trading in India</h1>
+  <div class="tagline">A beginner’s kickoff guide for aspiring algo traders. Core concepts, strategies, tools, compliance, and resources — Indian context by Trading Ek Mission.</div>
+
+  <div class="callout">
+    Download the latest version at: <b>tradingekmission.online/downloads/AlgoTradingKickoff.pdf</b>
+  </div>
+
+  <h2>About This Guide</h2>
+  <p>
+    This concise introduction is crafted for Indian retail traders, technologists, and students interested in automating stock market strategies. It covers how algorithmic trading works, why it matters, and compliant first steps for the modern Indian trader.
+  </p>
+  <hr>
+
+  <h2>What is Algorithmic Trading?</h2>
+  <p>
+    Algorithmic trading (“algo trading”) means using computer programs to place trades automatically by following a set of rules based on price, time, quantity, or mathematical models. It eliminates emotions, brings speed, and enables trading at scales manual traders cannot match.
+  </p>
+
+  <h2>Why Algorithmic Trading?</h2>
+  <ul>
+    <li>Removes human bias—relies strictly on rules and data</li>
+    <li>Executes trades at lightning speed with improved precision</li>
+    <li>Lets you backtest strategies before risking capital</li>
+    <li>Can monitor and trade multiple instruments 24x7</li>
+    <li>Reduces costs, slippage, and missed opportunities</li>
+  </ul>
+
+  <hr>
+
+  <h2>Popular Algo Trading Strategies</h2>
+  <ul>
+    <li><b>Trend Following</b> — e.g., moving average crossovers</li>
+    <li><b>Arbitrage</b> — exploiting price differences across markets</li>
+    <li><b>Mean Reversion</b> — betting prices return to historical averages</li>
+    <li><b>Momentum</b> — trading on continuation of strong trends</li>
+    <li><b>Index/ETF Rebalancing</b> — automatic periodic adjustment</li>
+  </ul>
+
+  <hr>
+  <h2>First Steps for Beginners</h2>
+  <ol>
+    <li><b>Study the basics.</b> Learn trading, strategies, and finance fundamentals</li>
+    <li><b>Choose your tools.</b> Most Indian beginners use <b>Python</b>, <b>Amibroker</b>, or <b>TradingView Pine Script</b>. For execution: Zerodha Kite Connect, Upstox, Angel One APIs, etc.</li>
+    <li><b>Develop and backtest.</b> Code and test your ideas on past data (e.g., via Python <code>backtrader</code>)</li>
+    <li><b>Paper trade.</b> Run with virtual money/live simulation to build confidence</li>
+    <li><b>Go live carefully.</b> Use your broker’s API, always follow SEBI rules, and start with small capital</li>
+  </ol>
+
+  <h2>Indian Compliance & SEBI Rules</h2>
+  <ul>
+    <li>Only use broker-approved APIs; never unauthorized bots or screen scrapers</li>
+    <li>Comply with <a href="https://www.sebi.gov.in/legal/circulars/jul-2021/algorithmic-trading-by-retail-investors_51347.html">SEBI’s algo trading circular (Jul 2021)</a></li>
+    <li>Factor internet issues and system glitches—always code stop-loss & risk checks</li>
+    <li>Brokers may require whitelisting of algorithms; consult your broker support for details</li>
+  </ul>
+
+  <hr>
+
+  <h2>Recommended Tools & Resources</h2>
+  <ul class="resource-list">
+    <li>
+      <b>Python:</b> <a href="https://www.python.org/">python.org</a> & libraries like <code>backtrader</code>
+    </li>
+    <li>
+      <b>Kite Connect API (Zerodha):</b> <a href="https://kite.trade/docs/connect/v3/">kite.trade/docs</a>
+    </li>
+    <li>
+      <b>TradingView Pine Script:</b> <a href="https://www.tradingview.com/pine-script-docs/en/v5/">Pine Script Docs</a>
+    </li>
+    <li>
+      <b>Algo Trading Cheat Sheet:</b> <a href="AlgorithmicTradingCheatSheet.pdf">AlgorithmicTradingCheatSheet.pdf</a>
+    </li>
+    <li>
+      <b>Further Reading:</b>
+      <ul>
+        <li>
+          <a href="https://www.investopedia.com/articles/active-trading/101014/basics-algorithmic-trading-concepts-and-examples.asp">Investopedia: Algo Trading Basics</a>
+        </li>
+        <li>
+          <a href="https://www.quantinsti.com/algo-trading-ebook">A Beginner’s Guide to Algorithmic Trading (QuantInsti)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <hr>
+  <h2>FAQs for New Algo Traders</h2>
+  <dl>
+    <dt><b>Can I automate all my trades?</b></dt>
+    <dd>Only through your broker’s API, and always as per SEBI’s retail algo compliance. Never use unauthorized solutions.</dd>
+
+    <dt><b>How much coding skill is needed?</b></dt>
+    <dd>Basic automations need little code (TradingView); advanced bots require Python or similar programming.</dd>
+
+    <dt><b>What is backtesting?</b></dt>
+    <dd>Testing your strategy on old market data to ensure it’s viable before risking real money.</dd>
+
+    <dt><b>How risky is algo trading?</b></dt>
+    <dd>Markets are always risky—automation reduces emotion, but technical errors, bugs, or market disruptions can cause losses. Always use risk management.</dd>
+
+    <dt><b>Will I get rich overnight?</b></dt>
+    <dd>There are no guaranteed profits. Algo trading is a skill—start small, manage risk, and keep learning.</dd>
+  </dl>
+
+  <hr>
+  <h2>Next Steps</h2>
+  <ul>
+    <li>
+      <b>Try our virtual trading simulator:</b> Practice risk-free strategies
+    </li>
+    <li>
+      <b>Join mentor-led programs or explore free algo courses at Trading Ek Mission.</b>
+    </li>
+    <li>
+      <b>Always put compliance, security, and continuous education first.</b>
+    </li>
+  </ul>
+
+  <div class="callout">
+    <b>This document is for education only. Trading involves risk. Always follow SEBI and broker compliance.<br />
+      © 2025 Trading Ek Mission. May be shared or adapted for noncommercial educational use with attribution.</b>
+  </div>
+
+  <div class="footer">
+    Download latest: tradingekmission.online/downloads/AlgoTradingKickoff.pdf <br>
+    Sources: QuantInsti, Investopedia, SEBI India, Trading Ek Mission
+  </div>
+</body>
+</html>

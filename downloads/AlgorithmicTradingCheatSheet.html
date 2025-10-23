@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Algorithmic Trading Cheat Sheet</title>
+  <style>
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      margin: 2rem;
+      color: #23272f;
+      background-color: #ffffff;
+    }
+    h1 {
+      text-align: center;
+      color: #34a853;
+      margin-bottom: 1.5rem;
+    }
+    h2 {
+      color: #2a6d34;
+      border-bottom: 2px solid #34a853;
+      padding-bottom: 0.3rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    p, li, dt, dd {
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+    ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    dl dt {
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+    dl dd {
+      margin-left: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .disclaimer {
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 3rem;
+      border-top: 1px solid #ccc;
+      padding-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Algorithmic Trading Cheat Sheet</h1>
+
+  <h2>What is Algorithmic Trading?</h2>
+  <p>Algorithmic trading (Algo trading) uses computer programs and algorithms to automate the process of buying and selling securities based on predefined rules, market data, and timing.</p>
+
+  <h2>Popular Algorithm Types</h2>
+  <ul>
+    <li><strong>Trend Following:</strong> Buy when price trends upward, sell in downtrends.</li>
+    <li><strong>Mean Reversion:</strong> Assumes asset price will return to average price over time.</li>
+    <li><strong>Arbitrage:</strong> Exploits price differences between markets or instruments.</li>
+    <li><strong>Market Making:</strong> Continuously quotes buy and sell prices to capture bid-ask spread.</li>
+  </ul>
+
+  <h2>Common Technical Indicators</h2>
+  <ul>
+    <li><strong>Simple Moving Average (SMA):</strong> Average price over a set period.</li>
+    <li><strong>Exponential Moving Average (EMA):</strong> Weighted moving average giving more weight to recent prices.</li>
+    <li><strong>Relative Strength Index (RSI):</strong> Measures overbought or oversold conditions, on a scale of 0-100.</li>
+    <li><strong>Moving Average Convergence Divergence (MACD):</strong> Shows trend direction and momentum.</li>
+  </ul>
+
+  <h2>Risk Management Techniques</h2>
+  <ul>
+    <li><strong>Position Sizing:</strong> Define how much capital to risk on each trade.</li>
+    <li><strong>Stop-Loss Orders:</strong> Automatically sell to limit losses if price moves unfavorably.</li>
+    <li><strong>Diversification:</strong> Spread investments across assets to reduce risk.</li>
+    <li><strong>Maximum Drawdown Limit:</strong> Set maximum acceptable portfolio loss.</li>
+  </ul>
+
+  <h2>Backtesting Best Practices</h2>
+  <ul>
+    <li>Use quality historical data matching your trading frequency.</li>
+    <li>Test your strategies on out-of-sample data to avoid overfitting.</li>
+    <li>Include transaction costs and slippage to simulate real market conditions.</li>
+    <li>Analyze risk-adjusted returns such as Sharpe and Sortino ratios.</li>
+  </ul>
+
+  <h2>Common Tools and Languages</h2>
+  <ul>
+    <li><strong>Python:</strong> Popular for data analysis and algorithmic trading libraries (Pandas, NumPy, backtrader, Zipline).</li>
+    <li><strong>R:</strong> Useful for statistical modeling and trading systems.</li>
+    <li><strong>C++ / Java:</strong> Preferred for high-frequency trading for speed advantage.</li>
+    <li><strong>Broker APIs:</strong> Interactive Brokers, Alpaca, Zerodha Kite APIs for automated trade execution.</li>
+  </ul>
+
+  <h2>Tips for Developing Successful Strategies</h2>
+  <ul>
+    <li>Start simple and gradually add complexity.</li>
+    <li>Focus on rules that can be automated and thoroughly backtested.</li>
+    <li>Avoid curve-fitting strategies just to past data.</li>
+    <li>Regularly monitor and update strategies as market conditions change.</li>
+    <li>Balance risk and reward carefully in all trades.</li>
+  </ul>
+
+  <h2>Resources for Learning</h2>
+  <ul>
+    <li>Books: <em>Algorithmic Trading</em> by Ernie Chan, <em>Quantitative Trading</em> by Ernest Chan.</li>
+    <li>Online communities: QuantConnect, Quantopian (community).</li>
+    <li>GitHub open-source algo trading repositories.</li>
+  </ul>
+
+  <div class="disclaimer">
+    <strong>Disclaimer:</strong> Algorithmic trading involves significant risk. Always backtest thoroughly and fully understand risks before risking real capital.
+  </div>
+</body>
+</html>
