@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile – Trading Ek Mission</title>
+    <meta name="description" content="View and update your personal information, public handle, and securely change your password." />
+    <meta name="google-adsense-account" content="ca-pub-8870960298045491" />
+    <meta name="robots" content="noindex, nofollow" /> <link rel="canonical" href="https://tradingekmission.online/profile.html" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "User Profile Settings",
+      "description": "User profile management for Trading Ek Mission.",
+      "url": "https://tradingekmission.online/profile.html"
+    }
+    </script>
+    
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+    
+    <script type="module" src="script.js" defer></script>
+</head>
+<body>
+    <header class="main-header">
+        <button id="dark-toggle" class="dark-toggle">🌙</button>
+        <div class="logo">Trading Ek Mission</div>
+        
+        <button class="menu-toggle" id="menu-toggle"><span>Menu</span></button>
+        <nav class="menu" id="menu">
+            <button class="close-btn" id="close-menu-btn">&times;</button>
+            <ul>
+        <li><a href="profile.html">👤 Profile</a></li> <li id="logout-btn" style="display: none;"><a href="#">🚪 Logout</a></li>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="course.html">📘 Courses</a></li>
+        <li><a href="blog.html">📝 Blog</a></li>
+        <li><a href="contact.html">📞 Contact Us</a></li>
+        <li><a href="about.html">ℹ️ About Us</a></li>
+        <li><a href="community.html" class="active">👥️ Community</a></li>
+        <li><a href="magic.html">🍭 Book-summary</a></li>
+        <li><a href="https://zerodha.com/open-account?c=JJR916" target="_blank" rel="nofollow noopener noreferrer"><strong>💸 Refer & Earn</strong></a></li>
+        <li><div id="google_translate_element"></div></li>
+        <li><a href="https://www.instagram.com/cre_ative_art00" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram" aria-hidden="true"></i> Instagram</a></li>
+        <li><a href="https://youtube.com/@tradingekmission.online" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+        <li><a href="https://whatsapp.com/channel/0029Va9GrLEEwEjuAt29a83b" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp</a></li>
+         </ul>
+        </nav>
+    </header>
+
+    <main class="content-area" role="main">
+        <h1>Your Profile Settings</h1>
+        
+        <section class="profile-section">
+            <h2>Personal Information & Handle</h2>
+            <p id="profile-message" class="form-message"></p>
+
+            <form id="profile-form" class="auth-form">
+                
+                <div class="form-group">
+                    <label>Email ID (Read-Only)</label>
+                    <p id="current-email" class="read-only-field"></p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="full-name">Full Name</label>
+                    <input type="text" id="full-name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="handle">Public Handle (Nickname)</label>
+                    <input type="text" id="handle" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mobile-no">Mobile Number</label>
+                    <input type="tel" id="mobile-no">
+                </div>
+                
+                <button type="submit" class="submit-btn primary">Update Profile</button>
+            </form>
+        </section>
+
+        <section class="profile-section" style="margin-top: 40px;">
+            <h2>Change Password</h2>
+            <p id="password-message" class="form-message"></p>
+
+            <form id="password-form" class="auth-form">
+                <div class="form-group">
+                    <label for="current-password">Current Password (Required)</label>
+                    <input type="password" id="current-password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="new-password">New Password</label>
+                    <input type="password" id="new-password" required minlength="8">
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm-new-password">Confirm New Password</label>
+                    <input type="password" id="confirm-new-password" required>
+                </div>
+                
+                <button type="submit" class="submit-btn warning">Change Password</button>
+            </form>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Trading Ek Mission. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        history.pushState(null, null, location.href);
+        window.addEventListener('popstate', function () {
+            history.pushState(null, null, location.href);
+        });
+    </script>
+</body>
+</html>

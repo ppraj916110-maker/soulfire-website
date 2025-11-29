@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Launch the Trading Ek Mission US Market Virtual Trading Simulator. Practice real-time equity trading with live charts, portfolio tracking, and instant P&L calculation."/>
+  <meta name="keywords" content="virtual trading, US stock simulator, paper trading, Finnhub, TradingView, AAPL, TSLA, real-time trading demo"/>
+  <meta name="author" content="Trading Ek Mission Team" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+
+  <!-- Canonical URL for the suggested structure -->
+  <link rel="canonical" href="https://tradingekmission.online/course/tradechart.html" />
+
+  <!-- Open Graph (for social media sharing) -->
+  <meta property="og:title" content="Launch the Virtual Trading Chart Simulator" />
+  <meta property="og:description" content="Practice US stock trading risk-free using live data, professional charts, and instant portfolio feedback." />
+  <meta property="og:image" content="https://tradingekmission.online/tradechart-og-image.jpg" />
+  <meta property="og:url" content="https://tradingekmission.online/course/virtualtrade/tradechart.html" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="US Market Trading Simulator" />
+  <meta name="twitter:description" content="Test your strategies on US equities with real-time data and full trade execution features." />
+  <meta name="twitter:image" content="https://tradingekmission.online/tradechart-twitter-image.jpg" />
+
+  <title>Trading Ek Mission | US Market Simulator & Live Chart Practice</title>
+
+  <!-- Schema Markup for a Software Application (Simulator) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "US Market Virtual Trading Simulator",
+      "description": "A web-based virtual trading platform for practicing equity trading on US stocks with real-time data.",
+      "url": "https://tradingekmission.online/course/virtualtrade/tradechart.html",
+      "applicationCategory": "EducationalSoftware",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR",
+        "availability": "https://schema.org/InStock"
+      }
+    }
+  </script>
+
+  <!-- Favicons and Theme Settings -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+
+  <!-- Stylesheets & Fonts -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Essential layout and component styling for the simulator */
+    body{font-family:'Poppins', system-ui,-apple-system,Segoe UI,Roboto,Arial; margin:0; background:#f7f9fc; color:#111}
+    .wrap{display:grid; grid-template-columns:1fr 480px; gap:18px; padding:18px; max-width:1400px; margin:0 auto;}
+    .left{min-height:80vh;}
+    .chart-container{background:#fff; border:1px solid #e6e9ee; border-radius:8px; padding:8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);}
+    .controls{display:flex; gap:8px; margin:8px 0; position:relative; flex-wrap:wrap; align-items: stretch;}
+    .controls input, .controls button, .controls select{padding:10px 12px; border-radius:8px; border:1px solid #ccc; font-size:14px; transition: all 0.2s;}
+    .controls button{cursor:pointer; font-weight: 600;}
+    .controls button:hover{opacity:0.9;}
+    .sim{background:#ffffff; border:1px solid #e3e7ee; padding:15px; border-radius:8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);}
+    .section{margin-bottom:18px; padding-bottom:10px; border-bottom: 1px solid #f0f0f0;}
+    .pos-table{width:100%; border-collapse:collapse;}
+    .pos-table th, .pos-table td{padding:10px 8px; border-bottom:1px solid #e9eef6; text-align:left; font-size:13px;}
+    .pos-table th{background-color: #f7f9fc;}
+    .row{display:flex; justify-content:space-between; align-items:center; gap: 10px;}
+    .small{font-size:13px; color:#666; margin-bottom: 4px;}
+    .big{font-weight:700; font-size:20px;}
+    .green{color: #0b8457;}
+    .red{color:#c92b2b;}
+    .btn{background:#10b981; color:#fff; border:none;} /* Tailwind Green-500 */
+    .ghost{background:#ef4444; color:#fff; border:none;} /* Tailwind Red-500 */
+    .search-dropdown{position:absolute; top:42px; left:0; width:calc(100% - 100px); background:#fff; border:1px solid #ccc; border-top: none; border-radius:0 0 8px 8px; max-height:240px; overflow-y:auto; z-index:20; box-shadow: 0 8px 10px rgba(0,0,0,0.1);}
+    .search-item{padding:10px 12px; cursor:pointer; font-size: 14px;}
+    .search-item:hover{background:#eef2ff;} /* Tailwind Indigo-50 */
+    .current-price.green-flash{background-color: #d4f8d4 !important; transition: none;}
+    .current-price.red-flash{background-color: #f8d4d4 !important; transition: none;}
+    
+    /* Mobile Responsiveness */
+    @media (max-width:980px){
+        .wrap{grid-template-columns:1fr; padding:12px;}
+        .controls{display:grid; grid-template-columns: repeat(2, 1fr); gap: 10px;}
+        .controls input:first-child{grid-column: 1 / span 2; width: 100% !important;}
+        .controls input[type="number"], .controls select{width: 100% !important;}
+        .controls button{padding:12px;}
+        .controls button:last-child{margin-left:0 !important;}
+        .search-dropdown{top: 52px; width: calc(100% - 24px); left: 12px; right: 12px;}
+        .sim{margin-top: 18px;}
+        .pos-table th, .pos-table td{font-size: 11px; padding: 6px 4px;}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER from course.html -->
+  <header class="main-header" role="banner">
+    <button id="dark-toggle" class="dark-toggle" aria-label="Toggle dark mode" tabindex="0" type="button">🌙</button>
+    <a class="logo" href="index.html" aria-label="Trading Ek Mission Homepage">Trading Ek Mission</a>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Open main menu" aria-expanded="false" aria-controls="menu" tabindex="0" type="button"><span>Menu</span></button>
+
+    <nav class="menu" id="menu" role="navigation" aria-label="Main navigation">
+      <button class="close-btn" id="close-menu-btn" aria-label="Close menu" tabindex="0" type="button">&times;</button>
+      <ul tabindex="-1">
+         <li><a href="index.html">🏠 Home</a></li>
+         <li><a href="course.html">📘 Courses</a></li>
+         <li><a href="blog.html">📝 Blog</a></li>
+         <li><a href="contact.html">📞 Contact Us</a></li>
+         <li><a href="about.html">ℹ️ About Us</a></li>
+         <li><a href="community.html">👥️ Community</a></li>
+         <li><a href="magic.html">🍭 Book-summary</a></li>
+         <li><a href="https://zerodha.com/open-account?c=JJR916" target="_blank" rel="nofollow noopener noreferrer"><strong>💸 Refer & Earn</strong></a></li>
+         <li><div id="google_translate_element"></div></li>
+      </ul>
+      <div class="social-icons slide-menu-icons">
+        <li><a href="https://www.instagram.com/cre_ative_art00" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram" aria-hidden="true"></i> Instagram</a></li>
+        <li><a href="https://youtube.com/@tradingekmission.online" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+        <li><a href="https://whatsapp.com/channel/0029Va9GrLEEwEjuAt29a83b" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp</a></li>
+      </div>
+    </nav>
+  </header>
+<!-- Simulator Main Content -->
+<main class="wrap" role="main">
+  <div class="left">
+    <h1 style="font-size: 1.5rem; margin-top: 0; padding-bottom: 10px; border-bottom: 1px solid #e0e0e0;">Virtual Chart Simulator (US Market Demo)</h1>
+    <div class="chart-container">
+      <div id="tradingview_main" style="height:520px" aria-label="TradingView Chart"></div>
+    </div>
+
+    <div style="margin-top:12px" class="section">
+      <h2 style="font-size: 1.2rem; margin-top: 0; margin-bottom: 10px;">Trade Execution Panel</h2>
+      <div class="controls">
+        <input id="searchInput" type="text" placeholder="Search US Stock (e.g. AAPL, TSLA)" aria-label="Stock Symbol Search" style="flex:1" />
+        <div id="searchResults" class="search-dropdown" role="listbox" aria-live="polite"></div>
+        <input id="qtyInput" type="number" placeholder="Qty" min="1" aria-label="Order Quantity" style="width:70px" />
+        <select id="orderType" aria-label="Order Type Selection">
+          <option value="market">Market</option>
+          <option value="limit">Limit</option>
+        </select>
+        <input id="limitPriceInput" type="number" placeholder="Limit Price" aria-label="Limit Price" style="width:90px" />
+        <button id="buyBtn" class="btn" aria-label="Place Buy Order">Buy</button>
+        <button id="sellBtn" class="ghost" aria-label="Place Sell Order">Sell</button>
+        <button id="addCapitalBtn" class="btn" style="background-color: #2563eb; margin-left:auto;" aria-label="Add Virtual Capital">Add Capital</button>
+      </div>
+    </div>
+  </div>
+
+  <aside class="sim" role="complementary" aria-labelledby="portfolio-summary">
+    <h2 id="portfolio-summary" style="font-size: 1.2rem; margin-top: 0; padding-bottom: 10px; border-bottom: 1px solid #f0f0f0;">Portfolio Summary</h2>
+    
+    <div class="section">
+      <div class="row">
+        <div style="flex: 1;">
+          <div class="small">Available Cash</div>
+          <div id="cash" class="big">₹ 100,000.00</div>
+        </div>
+        <div style="flex: 1; text-align: right;">
+          <div class="small">Unrealized P&L</div>
+          <div id="unreal" class="big">₹ 0.00</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="row">
+        <div class="small">Realized P&L (Booked)</div>
+        <div id="realized" class="big">₹ 0.00</div>
+      </div>
+    </div>
+
+    <div class="section" style="border-bottom: none;">
+      <div class="small">Current Positions</div>
+      <div style="max-height: 250px; overflow-y: auto;">
+        <table class="pos-table" id="positionsTable">
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Qty</th>
+              <th>Avg Price</th>
+              <th>P&L</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Positions will be rendered here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="small">Orders / Activity Log</div>
+      <div id="activity" style="height:200px;overflow:auto;border:1px solid #e6e9ee;padding:8px;border-radius:6px;background:#fff"></div>
+    </div>
+
+    <div class="section">
+      <div class="small">Settings</div>
+      <div style="margin-top:6px">
+        <label class="small">Price update interval (sec)
+          <input id="pollInterval" type="number" value="5" min="1" aria-label="Price Polling Interval in Seconds" style="width:50px;margin-left:6px" />
+        </label>
+      </div>
+    </div>
+  </aside>
+</main>
+  <!-- FOOTER from course.html -->
+  <footer class="main-footer" role="contentinfo">
+    <div class="footer-content">
+      <nav aria-label="Footer navigation">
+        <a href="index.html" aria-label="Home">Home</a> |
+        <a href="about.html" aria-label="About Us">About</a> |
+        <a href="course.html" aria-label="Courses">Courses</a> |
+        <a href="blog.html" aria-label="Blog">Blog</a> |
+        <a href="contact.html" aria-label="Contact Us">Contact</a> |
+        <a href="community.html" aria-label="Community">Community</a> |
+        <a href="virtualtrade.html" aria-label="Virtual Trade">Virtual Trade</a> |
+        <a href="privacy.html" aria-label="Privacy Policy">Privacy</a> |
+        <a href="terms.html" aria-label="Terms and Conditions">Terms & Conditions</a>
+      </nav>
+      <p>&copy; 2025 Trading Ek Mission. All Rights Reserved.</p>
+      <p style="margin-top: 5px;"><em>Demo US Market Simulator — Powered by Finnhub & TradingView</em></p>
+    </div>
+  </footer>
+
+<script>
+// --- SIMULATION LOGIC ---
+// Note: Using a dummy key as a placeholder. Replace with a valid key for actual use.
+const FINNHUB_KEY = "d2ll6jpr01qr27gjpt1gd2ll6jpr01qr27gjpt20"; 
+const STORAGE_KEY = 'tem_sim_portfolio_us';
+const DEFAULT_CASH = 100000;
+
+let currentSymbol = "AAPL";
+let tvWidget = null;
+let prevPrices = {};
+
+let state = {
+  cash: DEFAULT_CASH,
+  positions: {},
+  realized: 0,
+  activity: [],
+  prices: {},
+  limitOrders: []
+};
+
+// DOM Elements
+const cashEl = document.getElementById('cash');
+const unrealEl = document.getElementById('unreal');
+const realizedEl = document.getElementById('realized');
+const posTbody = document.querySelector('#positionsTable tbody');
+const activityDiv = document.getElementById('activity');
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+
+// Utility Functions
+function fmt(v){
+    // Format to INR currency with 2 decimal places
+    const formatted = Number(v).toLocaleString('en-IN', {maximumFractionDigits:2, minimumFractionDigits:2});
+    return '₹ ' + formatted;
+}
+function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+function loadState(){ 
+    const raw = localStorage.getItem(STORAGE_KEY); 
+    if(raw){
+        try{
+            // Load and merge the stored state
+            Object.assign(state, JSON.parse(raw));
+            // Ensure prices object is fresh on load to fetch current data
+            state.prices = {}; 
+        }catch(e){
+            console.error("Error loading state from localStorage:", e);
+        }
+    }
+}
+loadState();
+
+function render(){
+  // Update Cash and Realized P&L
+  cashEl.textContent = fmt(state.cash);
+  realizedEl.textContent = fmt(state.realized);
+
+  posTbody.innerHTML = '';
+  let unrealTotal = 0;
+
+  // Render Positions
+  for(const sym of Object.keys(state.positions)){
+    const pos = state.positions[sym];
+    // Skip rendering if quantity is zero (should be handled by sell, but extra check)
+    if (pos.qty === 0) continue; 
+    
+    const currentPrice = state.prices[sym] || 0;
+    const marketValue = currentPrice * pos.qty;
+    const pl = marketValue - (pos.avgPrice * pos.qty);
+    const plPercent = pos.avgPrice ? (pl / (pos.avgPrice * pos.qty) * 100) : 0;
+    unrealTotal += pl;
+
+    const plClass = pl >= 0 ? 'green' : 'red';
+    
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${sym}</td>
+      <td>${pos.qty}</td>
+      <td>${pos.avgPrice ? fmt(pos.avgPrice / pos.qty) : '-'}</td>
+      <td class="${plClass}">${fmt(pl)} (${plPercent.toFixed(2)}%)</td>
+    `;
+    posTbody.appendChild(tr);
+
+    // Flash effect for price changes (simulated)
+    if(prevPrices[sym] !== undefined && currentPrice !== prevPrices[sym]){
+        // Note: The main table simplified to only show Symbol, Qty, Avg Price, and P&L for better mobile view.
+        // We will add a temporary row/indicator for flashing if required in a more complex setup, 
+        // but for now, the P&L value will naturally update.
+    }
+    prevPrices[sym] = currentPrice;
+  }
+
+  unrealEl.textContent = fmt(unrealTotal);
+  unrealEl.className = `big ${unrealTotal >= 0 ? 'green' : 'red'}`;
+
+  // Render Activity Log + Pending Orders
+  // Pending Orders are listed first
+  const pendingHtml = state.limitOrders.map(o=>`<div style="padding:4px;border-bottom:1px dashed #f0f0f0"><div class="small">Pending: ${o.side} ${o.qty} ${o.symbol} @ ${fmt(o.price)}</div></div>`).join('');
+  
+  // Activity Log (reversed for newest first)
+  const activityHtml = state.activity.slice().reverse().map(a=>`<div style="padding:6px;border-bottom:1px dashed #eee"><div class="small">${a.time}</div><div>${a.msg}</div></div>`).join('');
+  
+  activityDiv.innerHTML = pendingHtml + activityHtml;
+}
+
+function addActivity(msg){ 
+    state.activity.push({time:new Date().toLocaleString('en-IN'), msg}); 
+    if(state.activity.length > 500) state.activity.shift(); // Keep log tidy
+    saveState(); 
+    render(); 
+}
+
+// Finnhub API interaction
+async function fetchPrice(symbol){
+  const url = `https://finnhub.io/api/v1/quote?symbol=${encodeURIComponent(symbol)}&token=${FINNHUB_KEY}`;
+  try{ 
+    const r = await fetch(url); 
+    const data = await r.json(); 
+    if(data.c && data.c > 0){ 
+      state.prices[symbol] = data.c; 
+      return data.c;
+    } else {
+      return null;
+    }
+  }catch(e){
+    console.error(`Error fetching price for ${symbol}:`, e); 
+    return null;
+  }
+}
+
+// Trading Functions
+function buy(symbol, qty, price){
+  qty = Number(qty); 
+  const cost = qty * price; 
+  if(cost > state.cash){
+    alert('Error: Insufficient cash for this trade.');
+    return;
+  }
+  
+  // Ensure the position object exists
+  const pos = state.positions[symbol] || {qty:0, totalCost:0};
+  
+  const newQty = pos.qty + qty;
+  const newTotalCost = pos.totalCost + cost;
+  
+  // Calculate new average price
+  const newAvgPrice = newTotalCost / newQty; 
+  
+  state.positions[symbol] = {qty:newQty, avgPrice:newAvgPrice, totalCost: newTotalCost};
+  state.cash -= cost;
+  
+  addActivity(`Bought ${qty} ${symbol} @ ${price.toFixed(2)} (cost ${fmt(cost)})`);
+}
+
+function sell(symbol, qty, price){
+  qty = Number(qty); 
+  const pos = state.positions[symbol]; 
+  
+  if(!pos || pos.qty < qty){
+    alert('Error: Not enough shares to sell.');
+    return;
+  }
+  
+  const value = qty * price; 
+  
+  // Calculate P&L for the sold shares based on average price
+  const avgPricePerShare = pos.totalCost / pos.qty;
+  const costBasis = qty * avgPricePerShare; 
+  const profit = value - costBasis;
+  
+  // Update position
+  const remainingQty = pos.qty - qty;
+  
+  if(remainingQty === 0){
+    delete state.positions[symbol];
+  } else {
+    // Recalculate total cost for remaining shares
+    const remainingCost = pos.totalCost - costBasis;
+    state.positions[symbol] = {
+        qty: remainingQty, 
+        avgPrice: remainingCost / remainingQty,
+        totalCost: remainingCost
+    };
+  }
+  
+  state.cash += value; 
+  state.realized += profit;
+  
+  addActivity(`Sold ${qty} ${symbol} @ ${price.toFixed(2)} (value ${fmt(value)}, P/L ${fmt(profit)})`);
+}
+
+// Order Handling
+function placeOrder(type, symbol, qty, price, side){
+  qty=Number(qty); 
+  if(!qty || qty<=0){
+    alert('Please enter a valid quantity.');
+    return;
+  }
+  
+  if(type==='market'){
+    fetchPrice(symbol).then((marketPrice)=>{
+      if(!marketPrice){
+        alert('Error: Could not get current market price.');
+        return;
+      }
+      side==='buy'? buy(symbol, qty, marketPrice) : sell(symbol, qty, marketPrice);
+    });
+  } else if(type==='limit'){
+    price=Number(price); 
+    if(!price || price<=0){
+        alert('Please enter a valid limit price.');
+        return;
+    }
+    state.limitOrders.push({symbol, qty, price, side, time:new Date().toLocaleString('en-IN')});
+    addActivity(`Limit order placed: ${side} ${qty} ${symbol} @ ${price.toFixed(2)}`);
+  }
+  saveState();
+  render();
+}
+
+// Event Listeners
+document.getElementById('buyBtn').onclick = ()=>{
+  const sym = currentSymbol; 
+  const qty = document.getElementById('qtyInput').value || 1;
+  const orderType = document.getElementById('orderType').value;
+  const limitPrice = document.getElementById('limitPriceInput').value;
+  placeOrder(orderType, sym, qty, limitPrice, 'buy');
+};
+document.getElementById('sellBtn').onclick = ()=>{
+  const sym = currentSymbol; 
+  const qty = document.getElementById('qtyInput').value || 1;
+  const orderType = document.getElementById('orderType').value;
+  const limitPrice = document.getElementById('limitPriceInput').value;
+  placeOrder(orderType, sym, qty, limitPrice, 'sell');
+};
+document.getElementById('addCapitalBtn').onclick = ()=>{
+  // Using custom modal/input instead of prompt, as prompt is often restricted in environments
+  const amt = window.prompt('Enter capital amount to add (INR)','50000'); 
+  if(!amt) return;
+  const v = Number(amt); 
+  if(!v || v<=0){
+    alert('Invalid amount entered.');
+    return;
+  }
+  state.cash += v; 
+  addActivity(`Added capital ${fmt(v)}`);
+  saveState();
+  render();
+};
+
+document.getElementById('orderType').addEventListener('change', (e) => {
+    const isLimit = e.target.value === 'limit';
+    document.getElementById('limitPriceInput').style.display = isLimit ? 'inline-block' : 'none';
+    if (!isLimit) {
+        document.getElementById('limitPriceInput').value = '';
+    }
+});
+document.getElementById('orderType').dispatchEvent(new Event('change')); // Initialize visibility
+
+// Stock Search
+let searchTimer = null;
+searchInput.addEventListener('input', () => {
+  clearTimeout(searchTimer);
+  const q = searchInput.value.trim(); 
+  if(q.length < 2){ 
+    searchResults.innerHTML = ""; 
+    searchResults.style.display = 'none';
+    return; 
+  }
+  searchResults.style.display = 'block';
+  
+  searchTimer = setTimeout(async () => {
+    const url = `https://finnhub.io/api/v1/search?q=${encodeURIComponent(q)}&token=${FINNHUB_KEY}`;
+    try {
+        const r = await fetch(url); 
+        const data = await r.json();
+        if(data.result){
+          searchResults.innerHTML = data.result
+            .filter(d => d.type === 'Common Stock' || d.type === 'ADR')
+            .slice(0, 5)
+            .map(d => `<div class="search-item" data-sym="${d.symbol}" role="option">${d.symbol} — ${d.description}</div>`).join('');
+          if(data.result.length === 0) searchResults.innerHTML = '<div class="search-item" style="cursor: default;">No results found.</div>';
+        }
+    } catch (e) {
+        console.error("Search API failed:", e);
+        searchResults.innerHTML = '<div class="search-item" style="color: red; cursor: default;">Search failed.</div>';
+    }
+  }, 300);
+});
+
+searchResults.addEventListener('click', async (e) => {
+  if(e.target.classList.contains('search-item') && e.target.dataset.sym){
+    const sym = e.target.dataset.sym;
+    currentSymbol = sym; 
+    searchInput.value = sym; 
+    searchResults.innerHTML = ""; 
+    searchResults.style.display = 'none';
+    
+    // Update chart and fetch price immediately
+    await loadTradingView(sym);
+    await fetchPrice(sym); 
+    render();
+  }
+});
+
+// Price Polling & Limit Order Execution
+let pollTimer = null;
+async function pollPrices(){
+  const interval = Math.max(1, Number(document.getElementById('pollInterval').value) || 5) * 1000;
+  
+  // Collect all unique symbols currently being watched
+  const symbols = new Set([currentSymbol, ...Object.keys(state.positions), ...state.limitOrders.map(o => o.symbol)]);
+  
+  for(const s of symbols){
+    const marketPrice = await fetchPrice(s);
+    if (!marketPrice) continue;
+    
+    // Execute Limit Orders
+    state.limitOrders = state.limitOrders.filter(order => {
+      if(order.symbol !== s) return true;
+      
+      let executed = false;
+      if(order.side === 'buy' && marketPrice <= order.price){
+        buy(s, order.qty, marketPrice); 
+        addActivity(`Limit Buy executed: ${order.qty} ${s} @ ${marketPrice.toFixed(2)}`); 
+        executed = true;
+      } else if(order.side === 'sell' && marketPrice >= order.price){
+        // Ensure user still holds shares before executing sell limit
+        if (state.positions[s] && state.positions[s].qty >= order.qty) {
+            sell(s, order.qty, marketPrice); 
+            addActivity(`Limit Sell executed: ${order.qty} ${s} @ ${marketPrice.toFixed(2)}`);
+            executed = true;
+        } else {
+            // Cancel sell order if inventory is insufficient
+            addActivity(`Limit Sell cancelled (Qty insufficient): ${order.qty} ${s} @ ${marketPrice.toFixed(2)}`);
+            executed = true; // Remove from pending list
+        }
+      }
+      return !executed; // Keep orders that haven't been executed
+    });
+    
+    render();
+  }
+  
+  clearTimeout(pollTimer); 
+  pollTimer = setTimeout(pollPrices, interval);
+}
+
+// TradingView Chart Integration
+function loadTradingView(symbol){
+  const container=document.getElementById('tradingview_main'); 
+  // TradingView requires a script load, which may be slow. Use a promise to ensure it's loaded before initializing the widget.
+  return new Promise((resolve)=>{
+    const initWidget = ()=>{
+      if(tvWidget){ try{ tvWidget.remove(); } catch(e){} tvWidget=null; }
+      
+      // TradingView widget initialization
+      tvWidget = new TradingView.widget({
+        width:"100%", height:520, 
+        symbol:`NASDAQ:${symbol}`, // Explicitly use NASDAQ prefix for US stocks
+        interval:"D", 
+        timezone:"America/New_York",
+        theme:"light", 
+        style:"1", 
+        locale:"en", 
+        toolbar_bg:"#f1f3f6",
+        enable_publishing:false, 
+        hide_top_toolbar:false, 
+        withdateranges:true,
+        container_id:"tradingview_main", 
+        autosize:true
+      });
+      resolve(tvWidget);
+    };
+    
+    if(!window.TradingView){
+      // Load TradingView script only once
+      const s=document.createElement('script'); 
+      s.src='https://s3.tradingview.com/tv.js'; 
+      s.onload=initWidget; 
+      document.head.appendChild(s);
+    } else {
+      initWidget();
+    }
+  });
+}
+
+// --- INITIALIZATION ---
+window.onload = function() {
+    render(); 
+    loadTradingView(currentSymbol); 
+    pollPrices();
+};
+
+document.getElementById('pollInterval').addEventListener('change',()=>{ 
+    clearTimeout(pollTimer); 
+    pollPrices(); 
+});
+</script>
+<script type="module" src="script.js"></script>
+</body>
+</html>

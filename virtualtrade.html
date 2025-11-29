@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Practice risk-free trading with the Trading Ek Mission Virtual Simulator. Test strategies on real-time NIFTY50 data with live P&L tracking, designed for the Indian market.">
+  <meta name="keywords" content="virtual trading, paper trading, NIFTY50 simulator, stock market practice, risk-free trading, technical analysis demo, Indian stock market, Trading Ek Mission">
+  <meta name="author" content="Trading Ek Mission Team" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+
+  <!-- Canonical URL for the suggested structure -->
+  <link rel="canonical" href="https://tradingekmission.online/course/virtualtrade.html" />
+
+  <!-- Open Graph (for social media sharing) -->
+  <meta property="og:title" content="Virtual Trading Simulator - Trading Ek Mission" />
+  <meta property="og:description" content="Test your strategies on NIFTY50 stocks with real-time data, risk-free. Build the confidence to trade live." />
+  <meta property="og:image" content="https://tradingekmission.online/virtual-trade-og-image.jpg" />
+  <meta property="og:url" content="https://tradingekmission.online/course/virtualtrade.html" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Practice Trading Risk-Free with TEM Simulator" />
+  <meta name="twitter:description" content="Master technical analysis and trade execution using our advanced virtual trading platform." />
+  <meta name="twitter:image" content="https://tradingekmission.online/virtual-trade-twitter-image.jpg" />
+
+  <title>Virtual Trading Simulator: Practice Risk-Free on NIFTY50 - Trading Ek Mission</title>
+
+  <!-- Schema Markup for a Web Application/Service -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Virtual Trading Platform",
+      "description": "Risk-free virtual trading simulator for practicing stock market strategies with real-time NIFTY50 data.",
+      "url": "https://tradingekmission.online/course/virtualtrade.html",
+      "mainEntityOfPage": {
+        "@type": "SoftwareApplication",
+        "name": "Virtual Trading Simulator",
+        "applicationCategory": "EducationalSoftware",
+        "operatingSystem": "Web Browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "INR",
+          "availability": "https://schema.org/InStock"
+        }
+      }
+    }
+  </script>
+
+  <!-- Favicons and Theme Settings (copied from course.html) -->
+  <link rel="apple-touch-icon" sizes="57x57" href="apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="apple-icon-60x60.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Stylesheets & Fonts (copied from course.html) -->
+  <link rel="preload" href="style.css" as="style" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+  <!-- Google Translate Script (copied from course.html) -->
+  <script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+</head>
+
+<body>
+  <!-- HEADER from course.html -->
+  <header class="main-header" role="banner">
+    <button id="dark-toggle" class="dark-toggle" aria-label="Toggle dark mode" tabindex="0" type="button">🌙</button>
+    <a class="logo" href="index.html" aria-label="Trading Ek Mission Homepage">Trading Ek Mission</a>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Open main menu" aria-expanded="false" aria-controls="menu" tabindex="0" type="button"><span>Menu</span></button>
+
+    <nav class="menu" id="menu" role="navigation" aria-label="Main navigation">
+      <button class="close-btn" id="close-menu-btn" aria-label="Close menu" tabindex="0" type="button">&times;</button>
+      <ul tabindex="-1">
+         <li><a href="index.html">🏠 Home</a></li>
+         <li><a href="course.html">📘 Courses</a></li>
+         <li><a href="blog.html">📝 Blog</a></li>
+         <li><a href="contact.html">📞 Contact Us</a></li>
+         <li><a href="about.html">ℹ️ About Us</a></li>
+         <li><a href="community.html">👥️ Community</a></li>
+         <li><a href="magic.html">🍭 Book-summary</a></li>
+         <li><a href="https://zerodha.com/open-account?c=JJR916" target="_blank" rel="nofollow noopener noreferrer"><strong>💸 Refer & Earn</strong></a></li>
+         <li><div id="google_translate_element"></div></li>
+         <li><a href="https://www.instagram.com/cre_ative_art00" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram" aria-hidden="true"></i> Instagram</a></li>
+         <li><a href="https://youtube.com/@tradingekmission.online" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube" aria-hidden="true"></i> YouTube</a></li>
+         <li><a href="https://whatsapp.com/channel/0029Va9GrLEEwEjuAt29a83b" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp</a></li>
+         <li><button id="logout-btn" class="logout-btn" style="display: none;">Logout</button></li>
+      </ul>
+    </nav>
+  </header>
+<!-- TTS Controls (copied from course.html) -->
+<div class="tts-controls">
+    <a>🎧 Listen this Page</a>
+    <div class="tts-buttons">
+        <button id="playBtn" class="tts-btn">Play</button>
+        <button id="pauseBtn" class="tts-btn">Pause</button>
+        <button id="resumeBtn" class="tts-btn">Resume</button>
+        <button id="stopBtn" class="tts-btn">Stop</button>
+        <button id="resetBtn" class="tts-btn">Reset Settings</button>
+    </div>
+    <div class="tts-sliders">
+        <div class="slider-group">
+            <label for="voiceTypeSelect">Voice Type:</label>
+            <select id="voiceTypeSelect">
+                <option value="default">Default</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="child">Child</option>
+                <option value="american-english">American English</option>
+                <option value="british-english">British English</option>
+                <option value="indian-english">Indian English</option>
+                <option value="french">French</option>
+                <option value="german">German</option>
+                <option value="spanish">Spanish</option>
+                <option value="hindi">Hindi</option>
+            </select>
+        </div>
+        <div class="slider-group">
+            <label for="voiceSelect">Voice:</label>
+            <select id="voiceSelect"></select>
+        </div>
+        <div class="slider-group">
+            <label for="rateRange">Rate:</label>
+            <input type="range" id="rateRange" min="0.5" max="2" value="1" step="0.1">
+            <span id="rateValue">1</span>
+        </div>
+        <div class="slider-group">
+            <label for="pitchRange">Pitch:</label>
+            <input type="range" id="pitchRange" min="0" max="2" value="1" step="0.1">
+            <span id="pitchValue">1</span>
+        </div>
+    </div>
+</div>
+  <main class="content-area" role="main">
+
+    <section class="course-intro-section" data-aos="fade-up" aria-label="Introduction to Virtual Trading Simulator">
+      <h1 class="main-title">Paper Trading: Master the Market Without Risking a Single Rupee</h1>
+      <p class="tagline">The <em>Virtual Trading Simulator</em> is your flight school for the stock market. Practice risk-free with <em>real-time NIFTY50 data</em> and turn theory into profitable, disciplined action.</p>
+      <a href="tradechart.html" class="cta-button" role="button">Start Your Risk-Free Trading Practice Now</a>
+    </section>
+    <hr>
+
+    <section class="real-world-application" data-aos="fade-in" aria-label="Why Virtual Trading is Essential">
+        <h2>From Classroom to Control Room: Why Practice Matters</h2>
+        <p class="intro-text">Virtual trading is the bridge between learning a strategy and executing it under pressure. This platform is designed to build your <em>muscle memory</em> for market success:</p>
+
+        <dl class="example-list">
+            <dt>🚀 <strong>Test New Strategies Safely</strong></dt>
+            <dd>Have you just learned about the RSI Divergence or a new breakout pattern? Test it 100 times here before you put actual capital on the line. It's the essential <em>Backtesting</em> environment.</dd>
+            <dt>🧠 <strong>Master Trading Psychology</strong></dt>
+            <dd>Experience the emotional highs and lows of seeing your P&L fluctuate without the stress of losing money. Practice sticking to your stop-loss and taking profits at your target, which is the core of <em>Discipline</em>.</dd>
+            <dt>📝 <strong>Perfect Execution Speed</strong></dt>
+            <dd>Learn the fastest way to place market orders, limit orders, and trail your stop-loss. Develop the <em>speed and precision</em> required for high-frequency intraday trading.</dd>
+        </dl>
+    </section>
+    <hr>
+
+    <div class="courses-grid" id="courses-grid">
+      <section class="course-container" data-aos="fade-right" tabindex="0">
+        <div class="course-card">
+          <h3>
+            <a href="tradechart.html">
+              <span class="course-level-tag advanced-tag">Feature 1</span>
+              Live NIFTY50 Charts & Indicators
+            </a>
+          </h3>
+          <p>Practice trading with <em>real-time candlestick simulations</em> for all NIFTY50 stocks. Access and utilize essential technical tools like Moving Averages, RSI, and MACD to hone your analysis skills.</p>
+        </div>
+        <div class="course-details">
+          <h4>Your Analytical Toolkit:</h4>
+          <ul class="course-features">
+            <li><i class="fa-solid fa-chart-line"></i> <em>Real-Time Data Feed:</em> Trade based on current market prices.</li>
+            <li><i class="fa-solid fa-compass"></i> <em>Indicator Suite:</em> Apply volume, momentum, and volatility indicators.</li>
+            <li><i class="fa-solid fa-clock"></i> <em>Multi-Timeframe Analysis:</em> Switch between 5-min, 15-min, and Daily charts.</li>
+          </ul>
+          <a href="tradechart.html" class="course-link">Practice Chart Analysis →</a>
+        </div>
+      </section>
+
+      <section class="course-container" data-aos="fade-left" tabindex="0">
+        <div class="course-card">
+          <h3>
+            <a href="tradechart.html">
+              <span class="course-level-tag intermediate-tag">Feature 2</span>
+              Advanced Portfolio Tracking
+            </a>
+          </h3>
+          <p>Manage your virtual capital like a professional fund manager. Track your P&L instantly, manage virtual margin, and analyze the effectiveness of your <em>position sizing</em> and risk-reward ratio.</p>
+        </div>
+        <div class="course-details">
+          <h4>Key Performance Metrics:</h4>
+          <ul class="course-features">
+            <li><i class="fa-solid fa-money-bill-trend-up"></i> <em>Instant P&L:</em> See profits and losses update live.</li>
+            <li><i class="fa-solid fa-book-open-reader"></i> <em>Detailed Trade Log:</em> Review history to identify your winning and losing patterns.</li>
+            <li><i class="fa-solid fa-hand-holding-dollar"></i> <em>Virtual Margin:</em> Understand capital utilization and leverage risk.</li>
+          </ul>
+          <a href="tradechart.html" class="course-link">Track Your Performance →</a>
+        </div>
+      </section>
+    </div>
+    <hr>
+
+    <section class="course-format-section" data-aos="fade-up" aria-label="How Virtual Trading Works">
+      <h2>Your 4-Step Action Plan to Virtual Mastery</h2>
+      <p class="intro-text">The simulator is designed to enforce the disciplined process of a professional trader:</p>
+      <ul class="course-features-list">
+        <li><i class="fa-solid fa-magnifying-glass-chart"></i> Step 1: Market Analysis: Pick a <em>NIFTY50 stock</em>, analyze its chart, and identify key Support/Resistance levels using indicators.</li>
+        <li><i class="fa-solid fa-pen-ruler"></i> Step 2: Strategy Definition: Determine your risk-reward ratio and set up your <em>virtual entry, stop-loss, and target prices</em> before you execute.</li>
+        <li><i class="fa-solid fa-bolt"></i> Step 3: Precise Execution: Place your virtual Buy or Sell order. Practice using different order types (Market vs. Limit) to get the best entry price.</li>
+        <li><i class="fa-solid fa-clipboard-check"></i> Step 4: Review and Refine: Monitor your portfolio's P&L. After closing, meticulously review your trade to constantly refine your edge and eliminate errors.</li>
+      </ul>
+    </section>
+    <hr>
+
+    <section class="faq-section" data-aos="fade-up" aria-label="Frequently Asked Questions about Virtual Trading">
+        <h2>Frequently Asked Questions (FAQ) about the Simulator</h2>
+        <dl>
+            <dt>Is the data truly real-time?</dt>
+            <dd>Yes, our simulator uses a <em>live feed of NIFTY50 data</em> to provide the most realistic practice environment possible, mirroring the volatility and price action of the live market.</dd>
+
+            <dt>How much does the Virtual Trading Simulator cost?</dt>
+            <dd>The Trading Ek Mission Virtual Trading Simulator is currently <em>free</em> for all our students and visitors. We believe risk-free practice is fundamental to trading success.</dd>
+
+            <dt>Can I trade Options (Nifty/Bank Nifty F&O) on the simulator?</dt>
+            <dd>Currently, the simulator focuses on <em>Cash Equity trading</em> in the NIFTY50 segment to help beginners master chart analysis and trade execution fundamentals first. Advanced Options simulation will be introduced soon.</dd>
+
+            <dt>Do I need to download any software?</dt>
+            <dd>No. Our simulator is a <em>web-based platform</em> accessible directly through your browser on any device (desktop, tablet, or mobile).</dd>
+        </dl>
+        <p><a href="contact.html">Need help with the platform? Contact our support team →</a></p>
+    </section>
+    <hr>
+
+    <section class="cta-section" data-aos="zoom-in" aria-label="Final Call to Action to Start Trading">
+      <div class="cta-content">
+        <h2>Stop Theorizing. Start Doing. <strong>Your Mastery Starts Now.</strong></h2>
+        <p>The market waits for no one. Launch the simulator and begin converting your knowledge into hands-on trading experience today.</p>
+        <a href="tradechart.html" class="cta-button primary-cta" role="button">Launch Virtual Trading Simulator →</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER from course.html -->
+  <footer class="main-footer" role="contentinfo">
+    <div class="footer-content">
+      <nav aria-label="Footer navigation">
+        <a href="index.html" aria-label="Home">Home</a> |
+        <a href="about.html" aria-label="About Us">About</a> |
+        <a href="course.html" aria-label="Courses">Courses</a> |
+        <a href="blog.html" aria-label="Blog">Blog</a> |
+        <a href="contact.html" aria-label="Contact Us">Contact</a> |
+        <a href="community.html" aria-label="Community">Community</a> |
+        <a href="virtualtrade.html" aria-label="Virtual Trade">Virtual Trade</a> |
+        <a href="privacy.html" aria-label="Privacy Policy">Privacy</a> |
+        <a href="terms.html" aria-label="Terms and Conditions">Terms & Conditions</a>
+      </nav>
+      <p>&copy; 2025 Trading Ek Mission. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <noscript>
+    <div style="padding: 1em; background-color: #ffdddd; color: #900;">
+      JavaScript is disabled in your browser. Some features on this site may not work properly.
+    </div>
+  </noscript>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script type="module" src="script.js"></script>
+</body>
+</html>
