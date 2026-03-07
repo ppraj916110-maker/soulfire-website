@@ -146,7 +146,7 @@ margin-top:10px;
 <input type="text" id="studentName" placeholder="Your Name"
 style="padding:10px;width:100%;max-width:300px;border-radius:6px;border:none;margin-bottom:20px;">
 
-<form id="quizForm" class="quiz-container">
+<form id="quizForm">
 
 <!-- QUESTIONS -->
 
@@ -405,26 +405,7 @@ style="padding:10px;width:100%;max-width:300px;border-radius:6px;border:none;mar
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 <script>
-// RANDOM QUESTION ORDER
-
-window.onload = function(){
-
-const quizContainer = document.getElementById("quizForm");
-
-const questions = Array.from(quizContainer.getElementsByClassName("question-box"));
-
-for(let i = questions.length - 1; i > 0; i--){
-
-const j = Math.floor(Math.random() * (i + 1));
-
-[questions[i], questions[j]] = [questions[j], questions[i]];
-
-}
-
-questions.forEach(q => quizContainer.appendChild(q));
-
-};
-let timeLeft=600;
+let timeLeft=300;
 
 let timer=setInterval(function(){
 
