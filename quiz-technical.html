@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Technical Quiz | Trading Ek Mission</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#0f172a;
+color:white;
+margin:0;
+padding:0;
+}
+
+header{
+background:#020617;
+padding:15px;
+text-align:center;
+font-size:22px;
+font-weight:bold;
+}
+
+#timerBox{
+background:#1e293b;
+padding:10px;
+text-align:center;
+font-size:20px;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+.question-box{
+background:#1e293b;
+padding:20px;
+margin-bottom:20px;
+border-radius:10px;
+}
+
+.question{
+font-size:18px;
+margin-bottom:10px;
+}
+
+label{
+display:block;
+background:#334155;
+padding:10px;
+margin:6px 0;
+border-radius:6px;
+cursor:pointer;
+}
+
+label:hover{
+background:#475569;
+}
+
+button{
+background:#22c55e;
+border:none;
+padding:12px 20px;
+font-size:16px;
+border-radius:6px;
+cursor:pointer;
+margin-top:20px;
+margin-right:10px;
+}
+
+button:hover{
+background:#16a34a;
+}
+
+.next-btn{
+background:#3b82f6;
+}
+
+.result{
+background:#1e293b;
+padding:20px;
+margin-top:20px;
+border-radius:10px;
+text-align:center;
+display:none;
+}
+
+.correct{
+background:#15803d !important;
+}
+
+.wrong{
+background:#b91c1c !important;
+}
+
+#certificate{
+display:none;
+margin-top:40px;
+}
+
+#certificateDesign{
+background:white;
+color:black;
+padding:40px;
+text-align:center;
+border:8px solid gold;
+border-radius:10px;
+}
+
+#certificateDesign img{
+width:120px;
+margin-bottom:20px;
+}
+
+.cert-id{
+font-size:14px;
+color:#555;
+margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+📈 Technical Analysis Quiz
+</header>
+
+<div id="timerBox">
+⏳ Time Remaining: <span id="timer">10:00</span>
+</div>
+
+<div class="container">
+
+<h3>Enter Your Name</h3>
+
+<input type="text" id="studentName" placeholder="Your Name"
+style="padding:10px;width:100%;max-width:300px;border-radius:6px;border:none;margin-bottom:20px;">
+
+<form id="quizForm" class="quiz-container">
+
+<!-- QUESTIONS -->
+
+<div class="question-box">
+<div class="question">1. What does a candlestick show?</div>
+<label><input type="radio" name="q1" value="a"> Company profit</label>
+<label><input type="radio" name="q1" value="b"> Price movement in a time period</label>
+<label><input type="radio" name="q1" value="c"> Market holiday</label>
+<label><input type="radio" name="q1" value="d"> Tax rate</label>
+</div>
+
+<div class="question-box">
+<div class="question">2. Support level means?</div>
+<label><input type="radio" name="q2" value="a"> Price floor where buyers appear</label>
+<label><input type="radio" name="q2" value="b"> Highest stock price</label>
+<label><input type="radio" name="q2" value="c"> Dividend payment</label>
+<label><input type="radio" name="q2" value="d"> Loan amount</label>
+</div>
+
+<div class="question-box">
+<div class="question">3. Resistance level means?</div>
+<label><input type="radio" name="q3" value="a"> Price ceiling where sellers appear</label>
+<label><input type="radio" name="q3" value="b"> Market regulator</label>
+<label><input type="radio" name="q3" value="c"> Bank loan</label>
+<label><input type="radio" name="q3" value="d"> Dividend tax</label>
+</div>
+
+<div class="question-box">
+<div class="question">4. RSI indicates?</div>
+<label><input type="radio" name="q4" value="a"> Market holidays</label>
+<label><input type="radio" name="q4" value="b"> Overbought or oversold levels</label>
+<label><input type="radio" name="q4" value="c"> Company profit</label>
+<label><input type="radio" name="q4" value="d"> GDP growth</label>
+</div>
+
+<div class="question-box">
+<div class="question">5. Moving averages are used to?</div>
+<label><input type="radio" name="q5" value="a"> Identify trends</label>
+<label><input type="radio" name="q5" value="b"> Calculate tax</label>
+<label><input type="radio" name="q5" value="c"> Measure salary</label>
+<label><input type="radio" name="q5" value="d"> Store shares</label>
+</div>
+
+<div class="question-box">
+<div class="question">6. Volume means?</div>
+<label><input type="radio" name="q6" value="a"> Company revenue</label>
+<label><input type="radio" name="q6" value="b"> Number of shares traded</label>
+<label><input type="radio" name="q6" value="c"> Dividend payout</label>
+<label><input type="radio" name="q6" value="d"> Loan repayment</label>
+</div>
+
+<div class="question-box">
+<div class="question">7. Bullish market means?</div>
+<label><input type="radio" name="q7" value="a"> Falling prices</label>
+<label><input type="radio" name="q7" value="b"> Rising prices</label>
+<label><input type="radio" name="q7" value="c"> Closed market</label>
+<label><input type="radio" name="q7" value="d"> Stable prices</label>
+</div>
+
+<div class="question-box">
+<div class="question">8. Bearish market means?</div>
+<label><input type="radio" name="q8" value="a"> Rising prices</label>
+<label><input type="radio" name="q8" value="b"> Falling prices</label>
+<label><input type="radio" name="q8" value="c"> Dividend payout</label>
+<label><input type="radio" name="q8" value="d"> Company merger</label>
+</div>
+
+<div class="question-box">
+<div class="question">9. Breakout means?</div>
+<label><input type="radio" name="q9" value="a"> Price crossing resistance/support</label>
+<label><input type="radio" name="q9" value="b"> Dividend issue</label>
+<label><input type="radio" name="q9" value="c"> Loan approval</label>
+<label><input type="radio" name="q9" value="d"> Market closed</label>
+</div>
+
+<div class="question-box">
+<div class="question">10. Doji candle shows?</div>
+<label><input type="radio" name="q10" value="a"> Market indecision</label>
+<label><input type="radio" name="q10" value="b"> Strong uptrend</label>
+<label><input type="radio" name="q10" value="c"> Market crash</label>
+<label><input type="radio" name="q10" value="d"> Dividend payout</label>
+</div>
+
+<div class="question-box">
+<div class="question">11. MACD indicator shows?</div>
+<label><input type="radio" name="q11" value="a"> Trend momentum</label>
+<label><input type="radio" name="q11" value="b"> Dividend tax</label>
+<label><input type="radio" name="q11" value="c"> Company loan</label>
+<label><input type="radio" name="q11" value="d"> Salary growth</label>
+</div>
+
+<div class="question-box">
+<div class="question">12. Trendline connects?</div>
+<label><input type="radio" name="q12" value="a"> Highs or lows</label>
+<label><input type="radio" name="q12" value="b"> Dividend payout</label>
+<label><input type="radio" name="q12" value="c"> Bank balance</label>
+<label><input type="radio" name="q12" value="d"> Tax rate</label>
+</div>
+
+<div class="question-box">
+<div class="question">13. Overbought condition means?</div>
+<label><input type="radio" name="q13" value="a"> Price may fall</label>
+<label><input type="radio" name="q13" value="b"> Price must rise</label>
+<label><input type="radio" name="q13" value="c"> Market closed</label>
+<label><input type="radio" name="q13" value="d"> Dividend issued</label>
+</div>
+
+<div class="question-box">
+<div class="question">14. Oversold condition means?</div>
+<label><input type="radio" name="q14" value="a"> Price may rise</label>
+<label><input type="radio" name="q14" value="b"> Price crash</label>
+<label><input type="radio" name="q14" value="c"> Dividend payout</label>
+<label><input type="radio" name="q14" value="d"> Company bankruptcy</label>
+</div>
+
+<div class="question-box">
+<div class="question">15. Chart patterns help?</div>
+<label><input type="radio" name="q15" value="a"> Predict price movement</label>
+<label><input type="radio" name="q15" value="b"> Pay tax</label>
+<label><input type="radio" name="q15" value="c"> Store money</label>
+<label><input type="radio" name="q15" value="d"> Issue dividend</label>
+</div>
+
+<div class="question-box">
+<div class="question">16. Double top indicates?</div>
+<label><input type="radio" name="q16" value="a"> Trend reversal</label>
+<label><input type="radio" name="q16" value="b"> Salary increase</label>
+<label><input type="radio" name="q16" value="c"> Loan approval</label>
+<label><input type="radio" name="q16" value="d"> Market holiday</label>
+</div>
+
+<div class="question-box">
+<div class="question">17. Fibonacci retracement used for?</div>
+<label><input type="radio" name="q17" value="a"> Support & resistance</label>
+<label><input type="radio" name="q17" value="b"> Dividend calculation</label>
+<label><input type="radio" name="q17" value="c"> Bank loan</label>
+<label><input type="radio" name="q17" value="d"> Salary growth</label>
+</div>
+
+<div class="question-box">
+<div class="question">18. Hammer candle shows?</div>
+<label><input type="radio" name="q18" value="a"> Bullish reversal</label>
+<label><input type="radio" name="q18" value="b"> Market crash</label>
+<label><input type="radio" name="q18" value="c"> Dividend payout</label>
+<label><input type="radio" name="q18" value="d"> Company loss</label>
+</div>
+
+<div class="question-box">
+<div class="question">19. Gap up means?</div>
+<label><input type="radio" name="q19" value="a"> Opening higher than previous close</label>
+<label><input type="radio" name="q19" value="b"> Dividend paid</label>
+<label><input type="radio" name="q19" value="c"> Market crash</label>
+<label><input type="radio" name="q19" value="d"> Company bankruptcy</label>
+</div>
+
+<div class="question-box">
+<div class="question">20. Technical analysis studies?</div>
+<label><input type="radio" name="q20" value="a"> Price charts</label>
+<label><input type="radio" name="q20" value="b"> Balance sheet</label>
+<label><input type="radio" name="q20" value="c"> Company management</label>
+<label><input type="radio" name="q20" value="d"> GDP</label>
+</div>
+
+<!-- EXTRA QUESTIONS -->
+
+<div class="question-box">
+<div class="question">21. Indicator used for momentum?</div>
+<label><input type="radio" name="q21" value="a"> RSI</label>
+<label><input type="radio" name="q21" value="b"> GST</label>
+<label><input type="radio" name="q21" value="c"> Salary</label>
+<label><input type="radio" name="q21" value="d"> Dividend</label>
+</div>
+
+<div class="question-box">
+<div class="question">22. Candlestick invented in?</div>
+<label><input type="radio" name="q22" value="a"> Japan</label>
+<label><input type="radio" name="q22" value="b"> India</label>
+<label><input type="radio" name="q22" value="c"> USA</label>
+<label><input type="radio" name="q22" value="d"> China</label>
+</div>
+
+<div class="question-box">
+<div class="question">23. A trend is?</div>
+<label><input type="radio" name="q23" value="a"> Direction of market</label>
+<label><input type="radio" name="q23" value="b"> Bank loan</label>
+<label><input type="radio" name="q23" value="c"> Dividend</label>
+<label><input type="radio" name="q23" value="d"> Salary</label>
+</div>
+
+<div class="question-box">
+<div class="question">24. Stop loss helps?</div>
+<label><input type="radio" name="q24" value="a"> Limit loss</label>
+<label><input type="radio" name="q24" value="b"> Increase tax</label>
+<label><input type="radio" name="q24" value="c"> Pay dividend</label>
+<label><input type="radio" name="q24" value="d"> Loan approval</label>
+</div>
+
+<div class="question-box">
+<div class="question">25. Moving average crossover signals?</div>
+<label><input type="radio" name="q25" value="a"> Buy or sell signal</label>
+<label><input type="radio" name="q25" value="b"> Salary payment</label>
+<label><input type="radio" name="q25" value="c"> Dividend payout</label>
+<label><input type="radio" name="q25" value="d"> Bank interest</label>
+</div>
+
+<button type="button" onclick="checkQuiz()">Submit Quiz</button>
+
+</form>
+
+<div class="result" id="resultBox">
+
+<h2>Quiz Result</h2>
+
+<h3 id="scoreText"></h3>
+<h3 id="percentageText"></h3>
+<h3 id="resultMessage"></h3>
+
+<button onclick="location.reload()">Restart Quiz</button>
+
+<button class="next-btn" onclick="goToAdvance()">Go to Advance Course</button>
+
+</div>
+
+<div id="certificate">
+
+<div id="certificateDesign">
+
+<img src="logo.png">
+
+<h2>Certificate of Completion</h2>
+
+<p>This certificate is proudly presented to</p>
+
+<h1 id="certName"></h1>
+
+<p>for successfully completing</p>
+
+<h3>Technical Analysis Course</h3>
+
+<h2>Trading Ek Mission</h2>
+
+<p id="certDate"></p>
+
+<p class="cert-id" id="certID"></p>
+
+</div>
+
+<br>
+
+<button onclick="downloadCertificate()">Download Certificate</button>
+
+</div>
+
+</div>
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<script>
+// RANDOM QUESTION ORDER
+
+window.onload = function(){
+
+const quizContainer = document.getElementById("quizForm");
+
+const questions = Array.from(quizContainer.getElementsByClassName("question-box"));
+
+for(let i = questions.length - 1; i > 0; i--){
+
+const j = Math.floor(Math.random() * (i + 1));
+
+[questions[i], questions[j]] = [questions[j], questions[i]];
+
+}
+
+questions.forEach(q => quizContainer.appendChild(q));
+
+};
+let timeLeft=600;
+
+let timer=setInterval(function(){
+
+let minutes=Math.floor(timeLeft/60);
+let seconds=timeLeft%60;
+
+seconds=seconds<10?"0"+seconds:seconds;
+
+document.getElementById("timer").innerText=minutes+":"+seconds;
+
+if(timeLeft<=60){
+document.getElementById("timer").style.color="red";
+}
+
+if(timeLeft<=0){
+clearInterval(timer);
+alert("⏰ Time is up! Quiz submitted automatically.");
+checkQuiz();
+}
+
+timeLeft--;
+
+},1000);
+
+function generateCertificateID(){
+
+let year=new Date().getFullYear();
+let random=Math.floor(1000+Math.random()*9000);
+
+return "TEM-"+year+"-"+random;
+
+}
+
+function checkQuiz(){
+
+clearInterval(timer);
+
+const answers={
+q1:"b",q2:"a",q3:"a",q4:"b",q5:"a",
+q6:"b",q7:"b",q8:"b",q9:"a",q10:"a",
+q11:"a",q12:"a",q13:"a",q14:"a",q15:"a",
+q16:"a",q17:"a",q18:"a",q19:"a",q20:"a",
+q21:"a",q22:"a",q23:"a",q24:"a",q25:"a"
+};
+
+let score=0;
+
+for(let q in answers){
+
+const selected=document.querySelector(`input[name=${q}]:checked`);
+
+if(selected){
+
+if(selected.value===answers[q]){
+score++;
+selected.parentElement.classList.add("correct");
+}else{
+selected.parentElement.classList.add("wrong");
+}
+
+}
+
+}
+
+document.getElementById("resultBox").style.display="block";
+
+let percentage=(score/25)*100;
+
+document.getElementById("scoreText").innerText="Score: "+score+" / 25";
+document.getElementById("percentageText").innerText="Percentage: "+percentage+"%";
+
+if(percentage>=60){
+
+document.getElementById("resultMessage").innerText="🎉 Congratulations! You Passed.";
+
+let name=document.getElementById("studentName").value;
+
+if(name===""){
+alert("Please enter your name for certificate");
+return;
+}
+
+document.getElementById("certificate").style.display="block";
+
+document.getElementById("certName").innerText=name;
+
+document.getElementById("certDate").innerText="Date: "+new Date().toLocaleDateString();
+
+document.getElementById("certID").innerText="Certificate ID: "+generateCertificateID();
+
+}else{
+
+document.getElementById("resultMessage").innerText="❌ You did not pass. Try again.";
+
+}
+
+}
+
+function goToAdvance(){
+window.location.href="advance.html";
+}
+
+function downloadCertificate(){
+
+const certificate=document.getElementById("certificateDesign");
+
+html2canvas(certificate).then(canvas=>{
+
+let link=document.createElement("a");
+
+link.download="TradingEkMission-Technical-Certificate.png";
+
+link.href=canvas.toDataURL();
+
+link.click();
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
