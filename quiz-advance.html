@@ -1,323 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Advanced Trading Quiz | Trading Ek Mission</title>
+<title>Advance Quiz - Trading Ek Mission</title>
 
 <style>
 
 body{
-font-family:Arial, sans-serif;
+font-family:Arial;
 background:#0f172a;
 color:white;
-margin:0;
-padding:0;
 text-align:center;
+padding:20px;
 }
 
 .container{
-max-width:900px;
+max-width:700px;
 margin:auto;
+background:#1e293b;
 padding:30px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.5);
 }
 
-h1{
-color:#22c55e;
+button{
+padding:12px 20px;
+margin:10px;
+border:none;
+border-radius:6px;
+background:#38bdf8;
+color:black;
+font-weight:bold;
+cursor:pointer;
 }
 
-.timer{
+button:hover{
+background:#0ea5e9;
+}
+
+.option{
+display:block;
+margin:10px;
+padding:10px;
+background:#334155;
+border-radius:5px;
+cursor:pointer;
+}
+
+.option:hover{
+background:#475569;
+}
+
+#timer{
 font-size:20px;
-margin-bottom:20px;
+margin-bottom:15px;
 color:#facc15;
 }
 
-.question{
-font-size:22px;
-margin:20px 0;
-}
-
-.options button{
-display:block;
-width:100%;
-margin:10px 0;
-padding:12px;
-border:none;
-border-radius:8px;
-background:#1e293b;
-color:white;
-cursor:pointer;
-transition:0.3s;
-}
-
-.options button:hover{
-background:#22c55e;
-}
-
-.next-btn{
-margin-top:20px;
-padding:12px 30px;
-font-size:18px;
-background:#22c55e;
-border:none;
-border-radius:8px;
-cursor:pointer;
-}
-
-.result{
+#certificate{
 display:none;
-margin-top:30px;
-}
-
-.certificate{
-display:none;
-margin-top:30px;
-}
-
-canvas{
 background:white;
+color:black;
+padding:30px;
+margin-top:30px;
 border-radius:10px;
 }
 
-.download-btn{
-margin-top:15px;
-padding:10px 20px;
-border:none;
-background:#2563eb;
-color:white;
-border-radius:6px;
-cursor:pointer;
-}
-
-input{
-padding:10px;
-font-size:16px;
-border-radius:6px;
-border:none;
-margin:10px;
-width:250px;
-}
-
-.start-btn{
-padding:10px 20px;
-font-size:18px;
-background:#22c55e;
-border:none;
-border-radius:6px;
-cursor:pointer;
-}
-
 </style>
-
 </head>
-
 
 <body>
 
 <div class="container">
 
-<h1>Advanced Trading Quiz</h1>
+<h1>Advance Trading Quiz</h1>
 
+<input id="username" placeholder="Enter your name for certificate" style="padding:10px;width:80%;margin-bottom:20px">
 
-<!-- NAME SECTION -->
+<div id="timer">Time: 10:00</div>
 
-<div id="nameSection">
+<div id="quiz"></div>
 
-<h2>Enter Your Name</h2>
+<button onclick="nextQuestion()">Next</button>
 
-<input type="text" id="userName" placeholder="Enter your full name">
+<div id="result"></div>
 
-<br>
+<button id="downloadBtn" style="display:none" onclick="downloadCertificate()">Download Certificate</button>
 
-<button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+<div id="certificate">
+<img src="logo.png" width="120"><br><br>
 
-</div>
+<h2>Trading Ek Mission</h2>
 
+<h3>Certificate of Completion</h3>
 
-<!-- TIMER -->
+<p>This certifies that</p>
 
-<div class="timer">
-⏳ Time Left: <span id="time">20:00</span>
-</div>
+<h2 id="certName"></h2>
 
+<p>has successfully completed the</p>
 
-<!-- QUIZ BOX -->
+<h3>Advanced Stock Market Course</h3>
 
-<div id="quizBox" style="display:none;">
+<p id="certScore"></p>
 
-<div class="question" id="question"></div>
-
-<div class="options" id="options"></div>
-
-<button class="next-btn" onclick="nextQuestion()">Next</button>
-
-</div>
-
-
-<!-- RESULT -->
-
-<div class="result" id="result"></div>
-
-
-<!-- CERTIFICATE -->
-
-<div class="certificate" id="certificate">
-
-<h2>🎓 Your Certificate</h2>
-
-<canvas id="certCanvas" width="900" height="600"></canvas>
-
-<br>
-
-<button class="download-btn" onclick="downloadCert()">Download Certificate</button>
+<p>Congratulations on your achievement!</p>
 
 </div>
 
 </div>
-
 
 <script>
 
+let questions = [
 
-/* USER NAME */
-
-let studentName="";
-
-
-function startQuiz(){
-
-let name=document.getElementById("userName").value.trim();
-
-if(name===""){
-
-alert("Please enter your name to start the quiz.");
-
-return;
-
-}
-
-studentName=name;
-
-document.getElementById("nameSection").style.display="none";
-
-document.getElementById("quizBox").style.display="block";
-
-}
-
-
-
-/* QUESTIONS */
-
-let questions=[
-
-{q:"What is liquidity in the market?",o:["Ease of buying/selling","Company profit","Broker fee","Dividend"],a:0},
-
-{q:"What does EMA stand for?",o:["Exponential Moving Average","Equity Market Analysis","Economic Market Average","Extended Market Analysis"],a:0},
-
-{q:"What does RSI measure?",o:["Momentum","Volume","Liquidity","Market Cap"],a:0},
-
-{q:"What is breakout trading?",o:["Price moving above resistance","Price falling","Sideways market","Dividend payout"],a:0},
-
-{q:"What is support level?",o:["Price floor","Price ceiling","Broker level","Tax level"],a:0},
-
-{q:"What is resistance level?",o:["Price ceiling","Price floor","Broker charge","Risk ratio"],a:0},
-
-{q:"What does MACD indicate?",o:["Trend & momentum","Volume","Dividend","Tax"],a:0},
-
-{q:"What is volume in trading?",o:["Number of shares traded","Profit amount","Price level","Broker commission"],a:0},
-
-{q:"What is scalping?",o:["Very short-term trades","Long-term investing","Dividend trading","ETF trading"],a:0},
-
-{q:"What is swing trading?",o:["Holding for days","Holding for seconds","Holding for years","IPO investing"],a:0},
-
-{q:"What does ATR measure?",o:["Volatility","Profit","Dividend","Tax"],a:0},
-
-{q:"What is leverage?",o:["Borrowed capital","Company debt","Dividend payout","Market cap"],a:0},
-
-{q:"What is margin trading?",o:["Borrowed trading funds","Cash trade","IPO trading","ETF trade"],a:0},
-
-{q:"What does candlestick show?",o:["Price action","Dividend","Company news","Tax data"],a:0},
-
-{q:"What is trendline?",o:["Line connecting highs/lows","Volume bar","Dividend line","Tax line"],a:0},
-
-{q:"What is risk-reward ratio?",o:["Risk vs potential profit","Profit tax","Brokerage ratio","Dividend yield"],a:0},
-
-{q:"What is Fibonacci retracement?",o:["Support/resistance tool","Tax calculation","Broker fee","Dividend method"],a:0},
-
-{q:"What does VWAP indicate?",o:["Average traded price","Market cap","Dividend yield","Tax level"],a:0},
-
-{q:"What is a bull trap?",o:["False breakout upward","True breakout","Market crash","Dividend cut"],a:0},
-
-{q:"What is a bear trap?",o:["False breakdown","True breakout","IPO rally","Dividend rise"],a:0},
-
-{q:"What is price action trading?",o:["Trading based on price movement","Dividend investing","ETF trading","Mutual fund trading"],a:0},
-
-{q:"What is gap up?",o:["Opening above previous close","Opening lower","Flat opening","No trade"],a:0},
-
-{q:"What is gap down?",o:["Opening below previous close","Opening higher","Flat opening","Dividend gap"],a:0},
-
-{q:"What is consolidation?",o:["Sideways market","Bull market","Bear market","IPO rally"],a:0},
-
-{q:"What is breakout confirmation?",o:["Volume support","Dividend increase","Tax reduction","Broker fee"],a:0},
-
-{q:"What is trend reversal?",o:["Trend changing direction","Volume spike","Dividend payout","Market halt"],a:0},
-
-{q:"What is fake breakout?",o:["False resistance break","True breakout","IPO rally","Dividend spike"],a:0},
-
-{q:"What is position sizing?",o:["Capital allocation","Dividend amount","Broker fee","Tax"],a:0},
-
-{q:"What is trading psychology?",o:["Trader emotions","Market cap","Dividend yield","Broker margin"],a:0},
-
-{q:"What is risk management?",o:["Controlling losses","Max profit","Dividend strategy","IPO investing"],a:0}
+{question:"What does RSI measure?",a:"Market liquidity",b:"Price volatility",c:"Overbought and oversold conditions",d:"Company earnings",correct:"c"},
+{question:"Which pattern indicates bullish reversal?",a:"Head & Shoulders",b:"Double Bottom",c:"Bear Flag",d:"Descending Triangle",correct:"b"},
+{question:"MACD stands for?",a:"Market Avg Convergence Divergence",b:"Moving Avg Convergence Divergence",c:"Momentum Avg Chart Divergence",d:"Market Analysis Control Data",correct:"b"},
+{question:"Breakout above resistance means?",a:"Possible uptrend",b:"Market crash",c:"Low volume",d:"Dividend payout",correct:"a"},
+{question:"Stop-loss order is used to?",a:"Buy lower",b:"Limit loss",c:"Increase leverage",d:"Cancel trade",correct:"b"},
+{question:"Which moving average reacts faster?",a:"SMA",b:"EMA",c:"WMA",d:"HMA",correct:"b"},
+{question:"Market capitalization represents?",a:"Company profit",b:"Shares traded",c:"Company value",d:"Debt value",correct:"c"},
+{question:"Bear market means?",a:"Rising market",b:"Falling market",c:"Sideways market",d:"Volatile market",correct:"b"},
+{question:"Diversification helps to?",a:"Increase risk",b:"Reduce risk",c:"Increase cost",d:"Focus one stock",correct:"b"},
+{question:"Which indicator measures volatility?",a:"Bollinger Bands",b:"RSI",c:"MACD",d:"EMA",correct:"a"},
+{question:"Support level means?",a:"Selling pressure",b:"Buying pressure",c:"Highest price",d:"Low volume",correct:"b"},
+{question:"Doji candle indicates?",a:"Strong buy",b:"Strong sell",c:"Indecision",d:"Breakout",correct:"c"},
+{question:"Intraday trading means?",a:"Years holding",b:"Same day trading",c:"Monthly trading",d:"IPO buying",correct:"b"},
+{question:"Leverage means?",a:"Borrowed capital",b:"Dividend",c:"Bonus share",d:"Profit ratio",correct:"a"},
+{question:"PE ratio means?",a:"Price Earnings",b:"Profit Estimate",c:"Portfolio Efficiency",d:"Price Equity",correct:"a"},
+{question:"Bearish reversal pattern?",a:"Double Bottom",b:"Cup Handle",c:"Head & Shoulders",d:"Triangle",correct:"c"},
+{question:"Volume means?",a:"Shares traded",b:"Profit",c:"Investors",d:"Volatility",correct:"a"},
+{question:"Breakout means?",a:"Price breaks key level",b:"Market close",c:"Dividend",d:"IPO",correct:"a"},
+{question:"Blue chip stock?",a:"New stock",b:"Reliable large company",c:"Penny stock",d:"Foreign stock",correct:"b"},
+{question:"Short term trading style?",a:"Position",b:"Swing",c:"Intraday",d:"Long term",correct:"c"},
+{question:"Gap up means?",a:"Open higher",b:"Open lower",c:"Flat market",d:"Low liquidity",correct:"a"},
+{question:"Limit order means?",a:"Instant order",b:"Specific price order",c:"Next day order",d:"No price order",correct:"b"},
+{question:"SEBI role?",a:"Print money",b:"Regulate market",c:"Give loans",d:"Run companies",correct:"b"},
+{question:"India main index?",a:"Nifty 50",b:"Dow Jones",c:"Nasdaq",d:"FTSE",correct:"a"},
+{question:"Candlestick shows?",a:"Profit",b:"Price movement",c:"GDP",d:"Economy",correct:"b"},
+{question:"Trailing stop loss?",a:"Fixed stop",b:"Moving stop loss",c:"Manual stop",d:"Broker stop",correct:"b"},
+{question:"Swing trading?",a:"Days to weeks",b:"Minutes",c:"Years",d:"Options only",correct:"a"},
+{question:"IPO stands for?",a:"Initial Public Offering",b:"Investment Profit Option",c:"Index Price Option",d:"Portfolio Order",correct:"a"},
+{question:"Fundamental analysis studies?",a:"Charts",b:"Company financials",c:"Indicators",d:"Psychology",correct:"b"},
+{question:"Risk management means?",a:"Avoid trading",b:"Manage losses",c:"Buy more",d:"Random trade",correct:"b"}
 
 ];
 
+questions.sort(()=>Math.random()-0.5);
 
-/* RANDOMIZE ANSWERS */
-
-questions.forEach(q=>{
-
-let correct=q.o[q.a];
-
-q.o=q.o.sort(()=>Math.random()-0.5);
-
-q.a=q.o.indexOf(correct);
-
-});
-
-
-/* RANDOMIZE QUESTIONS */
-
-questions=questions.sort(()=>Math.random()-0.5);
-
-
-
-let current=0;
-
+let index=0;
 let score=0;
+let selected="";
 
+function loadQuestion(){
 
+let q=questions[index];
 
-/* TIMER */
+document.getElementById("quiz").innerHTML=
+`
+<h3>${q.question}</h3>
+
+<div class="option" onclick="select('a')">A. ${q.a}</div>
+<div class="option" onclick="select('b')">B. ${q.b}</div>
+<div class="option" onclick="select('c')">C. ${q.c}</div>
+<div class="option" onclick="select('d')">D. ${q.d}</div>
+`;
+
+}
+
+function select(opt){
+selected=opt;
+}
+
+function nextQuestion(){
+
+if(selected===questions[index].correct){
+score++;
+}
+
+selected="";
+
+index++;
+
+if(index<questions.length){
+loadQuestion();
+}else{
+finishQuiz();
+}
+
+}
+
+function finishQuiz(){
+
+let percentage=Math.round((score/questions.length)*100);
+
+document.getElementById("result").innerHTML=
+`<h2>Your Score: ${score}/30 (${percentage}%)</h2>`;
+
+if(percentage>=60){
+
+document.getElementById("downloadBtn").style.display="inline";
+
+let name=document.getElementById("username").value;
+
+document.getElementById("certName").innerText=name;
+document.getElementById("certScore").innerText="Score: "+percentage+"%";
+
+document.getElementById("certificate").style.display="block";
+
+}
+
+}
+
+loadQuestion();
+
 
 let time=600;
 
-let timer=setInterval(()=>{
+let timer=setInterval(function(){
+
+let minutes=Math.floor(time/60);
+let seconds=time%60;
+
+if(seconds<10) seconds="0"+seconds;
+
+document.getElementById("timer").innerText="Time: "+minutes+":"+seconds;
 
 time--;
 
-let m=Math.floor(time/60);
-
-let s=time%60;
-
-document.getElementById("time").innerText=
-
-m+":"+(s<10?"0"+s:s);
-
-if(time<=0){
+if(time<0){
 
 clearInterval(timer);
 
@@ -328,154 +240,22 @@ finishQuiz();
 },1000);
 
 
+function downloadCertificate(){
 
-/* LOAD QUESTION */
+let cert=document.getElementById("certificate");
 
-function loadQuestion(){
-
-let q=questions[current];
-
-document.getElementById("question").innerText=(current+1)+". "+q.q;
-
-let optionsHTML="";
-
-q.o.forEach((opt,i)=>{
-
-optionsHTML+=`<button onclick="selectAnswer(${i})">${opt}</button>`;
-
+html2canvas(cert).then(canvas=>{
+let link=document.createElement("a");
+link.download="certificate.png";
+link.href=canvas.toDataURL();
+link.click();
 });
 
-document.getElementById("options").innerHTML=optionsHTML;
-
 }
-
-let selected=null;
-
-function selectAnswer(i){
-
-selected=i;
-
-}
-
-
-
-function nextQuestion(){
-
-if(selected===questions[current].a){
-
-score++;
-
-}
-
-selected=null;
-
-current++;
-
-if(current<questions.length){
-
-loadQuestion();
-
-}else{
-
-finishQuiz();
-
-}
-
-}
-
-
-
-/* FINISH QUIZ */
-
-function finishQuiz(){
-
-document.getElementById("quizBox").style.display="none";
-
-let percent=Math.round((score/questions.length)*100);
-
-document.getElementById("result").style.display="block";
-
-document.getElementById("result").innerHTML=
-
-`<h2>Your Score: ${score}/30</h2>
-
-<h3>${percent}%</h3>`;
-
-if(percent>=60){
-
-generateCertificate(percent);
-
-}
-
-}
-
-
-
-/* CERTIFICATE */
-
-function generateCertificate(percent){
-
-document.getElementById("certificate").style.display="block";
-
-let canvas=document.getElementById("certCanvas");
-
-let ctx=canvas.getContext("2d");
-
-ctx.fillStyle="#fff";
-
-ctx.fillRect(0,0,900,600);
-
-let logo=new Image();
-
-logo.src="logo.png";
-
-logo.onload=function(){
-
-ctx.drawImage(logo,380,40,140,140);
-
-ctx.fillStyle="#000";
-
-ctx.font="40px serif";
-
-ctx.fillText("Certificate of Completion",240,220);
-
-ctx.font="30px serif";
-
-ctx.fillText(studentName,350,300);
-
-ctx.font="22px serif";
-
-ctx.fillText("Successfully Completed Advanced Trading Quiz",170,360);
-
-ctx.fillText("Score: "+percent+"%",380,410);
-
-ctx.fillText("Trading Ek Mission",350,480);
-
-}
-
-}
-
-
-
-/* DOWNLOAD */
-
-function downloadCert(){
-
-let link=document.createElement("a");
-
-link.download="TradingEkMission-Certificate.png";
-
-link.href=document.getElementById("certCanvas").toDataURL();
-
-link.click();
-
-}
-
-
-
-loadQuestion();
 
 </script>
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 </body>
 </html>
