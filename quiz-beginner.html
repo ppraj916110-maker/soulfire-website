@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Beginner Quiz | Trading Ek Mission</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#0f172a;
+color:white;
+margin:0;
+padding:0;
+}
+
+header{
+background:#020617;
+padding:15px;
+text-align:center;
+font-size:22px;
+font-weight:bold;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+.question-box{
+background:#1e293b;
+padding:20px;
+margin-bottom:20px;
+border-radius:10px;
+}
+
+.question{
+font-size:18px;
+margin-bottom:10px;
+}
+
+label{
+display:block;
+background:#334155;
+padding:10px;
+margin:6px 0;
+border-radius:6px;
+cursor:pointer;
+}
+
+label:hover{
+background:#475569;
+}
+
+button{
+background:#22c55e;
+border:none;
+padding:12px 20px;
+font-size:16px;
+border-radius:6px;
+cursor:pointer;
+margin-top:20px;
+margin-right:10px;
+}
+
+button:hover{
+background:#16a34a;
+}
+
+.next-btn{
+background:#3b82f6;
+}
+
+.result{
+background:#1e293b;
+padding:20px;
+margin-top:20px;
+border-radius:10px;
+text-align:center;
+display:none;
+}
+
+.correct{
+background:#15803d !important;
+}
+
+.wrong{
+background:#b91c1c !important;
+}
+
+/* CERTIFICATE */
+
+#certificate{
+display:none;
+margin-top:40px;
+}
+
+#certificateDesign{
+background:white;
+color:black;
+padding:40px;
+text-align:center;
+border:8px solid gold;
+border-radius:10px;
+}
+
+#certificateDesign img{
+width:120px;
+margin-bottom:20px;
+}
+
+.cert-id{
+font-size:14px;
+color:#555;
+margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+📊 Beginner Level Quiz
+</header>
+
+<div class="container">
+
+<h3>Enter Your Name</h3>
+
+<input type="text" id="studentName" placeholder="Your Name"
+style="padding:10px;width:100%;max-width:300px;border-radius:6px;border:none;margin-bottom:20px;">
+
+<form id="quizForm">
+
+<!-- QUESTIONS -->
+
+<div class="question-box">
+<div class="question">1. What is the Stock Market?</div>
+<label><input type="radio" name="q1" value="a"> Grocery market</label>
+<label><input type="radio" name="q1" value="b"> Place where company shares are traded</label>
+<label><input type="radio" name="q1" value="c"> Bank</label>
+<label><input type="radio" name="q1" value="d"> Loan office</label>
+</div>
+
+<div class="question-box">
+<div class="question">2. What does IPO stand for?</div>
+<label><input type="radio" name="q2" value="a"> Initial Public Offering</label>
+<label><input type="radio" name="q2" value="b"> Indian Price Option</label>
+<label><input type="radio" name="q2" value="c"> Internal Profit Order</label>
+<label><input type="radio" name="q2" value="d"> Investment Public Order</label>
+</div>
+
+<div class="question-box">
+<div class="question">3. Which exchange is in India?</div>
+<label><input type="radio" name="q3" value="a"> NASDAQ</label>
+<label><input type="radio" name="q3" value="b"> NYSE</label>
+<label><input type="radio" name="q3" value="c"> NSE</label>
+<label><input type="radio" name="q3" value="d"> LSE</label>
+</div>
+
+<div class="question-box">
+<div class="question">4. Bull market means?</div>
+<label><input type="radio" name="q4" value="a"> Falling prices</label>
+<label><input type="radio" name="q4" value="b"> Rising prices</label>
+<label><input type="radio" name="q4" value="c"> Closed market</label>
+<label><input type="radio" name="q4" value="d"> No trading</label>
+</div>
+
+<div class="question-box">
+<div class="question">5. Bear market means?</div>
+<label><input type="radio" name="q5" value="a"> Market going down</label>
+<label><input type="radio" name="q5" value="b"> Market going up</label>
+<label><input type="radio" name="q5" value="c"> Stable market</label>
+<label><input type="radio" name="q5" value="d"> Holiday</label>
+</div>
+
+<div class="question-box">
+<div class="question">6. Which document is required for trading?</div>
+<label><input type="radio" name="q6" value="b"> PAN Card</label>
+<label><input type="radio" name="q6" value="a"> Aadhaar</label>
+<label><input type="radio" name="q6" value="c"> Passport</label>
+<label><input type="radio" name="q6" value="d"> License</label>
+</div>
+
+<div class="question-box">
+<div class="question">7. What is a Share?</div>
+<label><input type="radio" name="q7" value="a"> Ownership in company</label>
+<label><input type="radio" name="q7" value="b"> Loan</label>
+<label><input type="radio" name="q7" value="c"> Tax</label>
+<label><input type="radio" name="q7" value="d"> Currency</label>
+</div>
+
+<div class="question-box">
+<div class="question">8. SEBI regulates?</div>
+<label><input type="radio" name="q8" value="b"> Stock Market</label>
+<label><input type="radio" name="q8" value="a"> Hospitals</label>
+<label><input type="radio" name="q8" value="c"> Schools</label>
+<label><input type="radio" name="q8" value="d"> Agriculture</label>
+</div>
+
+<div class="question-box">
+<div class="question">9. Trading means?</div>
+<label><input type="radio" name="q9" value="a"> Buying & selling shares</label>
+<label><input type="radio" name="q9" value="b"> Cooking</label>
+<label><input type="radio" name="q9" value="c"> Blogging</label>
+<label><input type="radio" name="q9" value="d"> Gaming</label>
+</div>
+
+<div class="question-box">
+<div class="question">10. Portfolio means?</div>
+<label><input type="radio" name="q10" value="a"> List of investments</label>
+<label><input type="radio" name="q10" value="b"> Bank locker</label>
+<label><input type="radio" name="q10" value="c"> Credit card</label>
+<label><input type="radio" name="q10" value="d"> Holiday</label>
+</div>
+
+<!-- QUESTIONS 11–20 -->
+
+<div class="question-box">
+<div class="question">11. Dividend means?</div>
+<label><input type="radio" name="q11" value="a"> Profit shared with shareholders</label>
+<label><input type="radio" name="q11" value="b"> Tax</label>
+<label><input type="radio" name="q11" value="c"> Loan</label>
+<label><input type="radio" name="q11" value="d"> Fee</label>
+</div>
+
+<div class="question-box">
+<div class="question">12. Demat account stores?</div>
+<label><input type="radio" name="q12" value="a"> Shares electronically</label>
+<label><input type="radio" name="q12" value="b"> Cash</label>
+<label><input type="radio" name="q12" value="c"> Gold</label>
+<label><input type="radio" name="q12" value="d"> Loans</label>
+</div>
+
+<div class="question-box">
+<div class="question">13. NIFTY represents?</div>
+<label><input type="radio" name="q13" value="a"> Top 50 companies</label>
+<label><input type="radio" name="q13" value="b"> Gold price</label>
+<label><input type="radio" name="q13" value="c"> Crypto</label>
+<label><input type="radio" name="q13" value="d"> Bank rate</label>
+</div>
+
+<div class="question-box">
+<div class="question">14. Sensex belongs to?</div>
+<label><input type="radio" name="q14" value="a"> BSE</label>
+<label><input type="radio" name="q14" value="b"> NSE</label>
+<label><input type="radio" name="q14" value="c"> RBI</label>
+<label><input type="radio" name="q14" value="d"> SEBI</label>
+</div>
+
+<div class="question-box">
+<div class="question">15. Intraday trading means?</div>
+<label><input type="radio" name="q15" value="a"> Buy & sell same day</label>
+<label><input type="radio" name="q15" value="b"> Hold years</label>
+<label><input type="radio" name="q15" value="c"> Loan</label>
+<label><input type="radio" name="q15" value="d"> Insurance</label>
+</div>
+
+<div class="question-box">
+<div class="question">16. Long-term investing?</div>
+<label><input type="radio" name="q16" value="a"> Hold stocks for years</label>
+<label><input type="radio" name="q16" value="b"> 5 minute trade</label>
+<label><input type="radio" name="q16" value="c"> Gambling</label>
+<label><input type="radio" name="q16" value="d"> Crypto mining</label>
+</div>
+
+<div class="question-box">
+<div class="question">17. Market regulator?</div>
+<label><input type="radio" name="q17" value="a"> SEBI</label>
+<label><input type="radio" name="q17" value="b"> RBI</label>
+<label><input type="radio" name="q17" value="c"> SBI</label>
+<label><input type="radio" name="q17" value="d"> LIC</label>
+</div>
+
+<div class="question-box">
+<div class="question">18. Trading risk?</div>
+<label><input type="radio" name="q18" value="a"> Chance of losing money</label>
+<label><input type="radio" name="q18" value="b"> Guaranteed profit</label>
+<label><input type="radio" name="q18" value="c"> Salary</label>
+<label><input type="radio" name="q18" value="d"> Bonus</label>
+</div>
+
+<div class="question-box">
+<div class="question">19. Brokerage means?</div>
+<label><input type="radio" name="q19" value="a"> Broker fee</label>
+<label><input type="radio" name="q19" value="b"> Tax</label>
+<label><input type="radio" name="q19" value="c"> Dividend</label>
+<label><input type="radio" name="q19" value="d"> Interest</label>
+</div>
+
+<div class="question-box">
+<div class="question">20. Market capitalization?</div>
+<label><input type="radio" name="q20" value="a"> Total value of company shares</label>
+<label><input type="radio" name="q20" value="b"> Bank balance</label>
+<label><input type="radio" name="q20" value="c"> Loan</label>
+<label><input type="radio" name="q20" value="d"> Budget</label>
+</div>
+
+<button type="button" onclick="checkQuiz()">Submit Quiz</button>
+
+</form>
+
+<div class="result" id="resultBox">
+
+<h2>Quiz Result</h2>
+
+<h3 id="scoreText"></h3>
+
+<h3 id="percentageText"></h3>
+
+<h3 id="resultMessage"></h3>
+
+<button onclick="location.reload()">Restart Quiz</button>
+
+<button class="next-btn" onclick="goToIntermediate()">Go to Intermediate Course</button>
+
+</div>
+
+<div id="certificate">
+
+<div id="certificateDesign">
+
+<img src="logo.png">
+
+<h2>Certificate of Completion</h2>
+
+<p>This certificate is proudly presented to</p>
+
+<h1 id="certName"></h1>
+
+<p>for successfully completing</p>
+
+<h3>Beginner Stock Market Course</h3>
+
+<h2>Trading Ek Mission</h2>
+
+<p id="certDate"></p>
+
+<p class="cert-id" id="certID"></p>
+
+</div>
+
+<br>
+
+<button onclick="downloadCertificate()">Download Certificate</button>
+
+</div>
+
+</div>
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<script>
+
+function generateCertificateID(){
+
+let year=new Date().getFullYear();
+
+let random=Math.floor(1000+Math.random()*9000);
+
+return "TEM-"+year+"-"+random;
+
+}
+
+function checkQuiz(){
+
+const answers={
+q1:"b",q2:"a",q3:"c",q4:"b",q5:"a",
+q6:"b",q7:"a",q8:"b",q9:"a",q10:"a",
+q11:"a",q12:"a",q13:"a",q14:"a",q15:"a",
+q16:"a",q17:"a",q18:"a",q19:"a",q20:"a"
+};
+
+let score=0;
+
+for(let q in answers){
+
+const selected=document.querySelector(`input[name=${q}]:checked`);
+
+if(selected){
+
+if(selected.value===answers[q]){
+score++;
+selected.parentElement.classList.add("correct");
+}else{
+selected.parentElement.classList.add("wrong");
+}
+
+}
+
+}
+
+document.getElementById("resultBox").style.display="block";
+
+let percentage=(score/20)*100;
+
+document.getElementById("scoreText").innerText="Score: "+score+" / 20";
+
+document.getElementById("percentageText").innerText="Percentage: "+percentage+"%";
+
+if(percentage>=60){
+
+document.getElementById("resultMessage").innerText="🎉 Congratulations! You Passed.";
+
+let name=document.getElementById("studentName").value;
+
+if(name===""){
+alert("Please enter your name for certificate");
+return;
+}
+
+document.getElementById("certificate").style.display="block";
+
+document.getElementById("certName").innerText=name;
+
+document.getElementById("certDate").innerText="Date: "+new Date().toLocaleDateString();
+
+document.getElementById("certID").innerText="Certificate ID: "+generateCertificateID();
+
+}else{
+
+document.getElementById("resultMessage").innerText="❌ You did not pass. Try again.";
+
+}
+
+}
+
+function goToIntermediate(){
+window.location.href="technical.html";
+}
+
+function downloadCertificate(){
+
+const certificate=document.getElementById("certificateDesign");
+
+html2canvas(certificate).then(canvas=>{
+
+let link=document.createElement("a");
+
+link.download="TradingEkMission-Certificate.png";
+
+link.href=canvas.toDataURL();
+
+link.click();
+
+});
+
+}
+
+</script>
+
+</body>
+</html>

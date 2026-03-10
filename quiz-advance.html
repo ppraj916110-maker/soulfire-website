@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Trading Quiz | Trading Ek Mission</title>
+
+    <style>
+        body { font-family: 'Poppins', Arial, sans-serif; background: #0f172a; color: white; margin: 0; padding: 0; }
+        header { background: #020617; padding: 15px; text-align: center; font-size: 22px; font-weight: bold; border-bottom: 2px solid #3b82f6; }
+        #timerBox { background: #1e293b; padding: 10px; text-align: center; font-size: 20px; position: sticky; top: 0; z-index: 100; }
+        .container { max-width: 900px; margin: auto; padding: 20px; }
+        .question-box { background: #1e293b; padding: 20px; margin-bottom: 20px; border-radius: 10px; border-left: 5px solid #3b82f6; }
+        .question { font-size: 18px; margin-bottom: 12px; font-weight: 600; }
+        label { display: block; background: #334155; padding: 12px; margin: 8px 0; border-radius: 6px; cursor: pointer; transition: 0.3s; }
+        label:hover { background: #475569; }
+        button { background: #22c55e; border: none; padding: 12px 25px; font-size: 16px; border-radius: 6px; cursor: pointer; margin-top: 20px; margin-right: 10px; font-weight: bold; }
+        button:hover { background: #16a34a; }
+        .next-btn { background: #3b82f6; }
+        .result { background: #1e293b; padding: 30px; margin-top: 20px; border-radius: 10px; text-align: center; display: none; border: 2px solid #22c55e; }
+        .correct { background: #15803d !important; border: 1px solid #ffffff; }
+        .wrong { background: #b91c1c !important; }
+        #certificate { display: none; margin-top: 40px; }
+        #certificateDesign { background: white; color: black; padding: 50px; text-align: center; border: 10px double #b8860b; border-radius: 10px; position: relative; }
+        #certificateDesign::after { content: ''; position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px; border: 2px solid #b8860b; pointer-events: none; }
+        #certificateDesign img { width: 140px; margin-bottom: 10px; }
+        .cert-id { font-size: 12px; color: #777; margin-top: 20px; }
+        input[type="text"] { padding: 12px; width: 100%; max-width: 400px; border-radius: 6px; border: 2px solid #3b82f6; background: #1e293b; color: white; margin-bottom: 20px; }
+    </style>
+</head>
+
+<body>
+
+<header>🚀 Level 3: Advanced Trading & Derivatives Quiz</header>
+
+<div id="timerBox">⏳ Time Remaining: <span id="timer">10:00</span></div>
+
+<div class="container">
+    <h3>Enter Full Name</h3>
+    <input type="text" id="studentName" placeholder="Enter your name here...">
+
+    <form id="quizForm">
+        <div class="question-box">
+            <div class="question">1. In Elliot Wave Theory, how many waves are in a basic bullish sequence?</div>
+            <label><input type="radio" name="q1" value="a"> 3 Impulse, 2 Corrective</label>
+            <label><input type="radio" name="q1" value="b"> 5 Impulse, 3 Corrective</label>
+            <label><input type="radio" name="q1" value="c"> 5 Total waves only</label>
+            <label><input type="radio" name="q1" value="d"> 8 Impulse waves</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">2. Which Fibonacci level is often considered the "Golden Ratio" for retracements?</div>
+            <label><input type="radio" name="q2" value="a"> 23.6%</label>
+            <label><input type="radio" name="q2" value="b"> 38.2%</label>
+            <label><input type="radio" name="q2" value="c"> 61.8%</label>
+            <label><input type="radio" name="q2" value="d"> 78.6%</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">3. In the Ichimoku Cloud, what does it signify when the price is above the "Kumo" (Cloud)?</div>
+            <label><input type="radio" name="q3" value="a"> Bearish Trend</label>
+            <label><input type="radio" name="q3" value="b"> Sideways Market</label>
+            <label><input type="radio" name="q3" value="c"> Bullish Trend</label>
+            <label><input type="radio" name="q3" value="d"> High Volatility only</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">4. An ADX value above 25 generally indicates:</div>
+            <label><input type="radio" name="q4" value="a"> A weak trend</label>
+            <label><input type="radio" name="q4" value="b"> A strong trending market</label>
+            <label><input type="radio" name="q4" value="c"> An oversold market</label>
+            <label><input type="radio" name="q4" value="d"> Market holiday</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">5. What is a "Liquidity Sweep"?</div>
+            <label><input type="radio" name="q5" value="a"> Market closing for the day</label>
+            <label><input type="radio" name="q5" value="b"> Price hitting stop-loss clusters before reversing</label>
+            <label><input type="radio" name="q5" value="c"> A company paying dividends</label>
+            <label><input type="radio" name="q5" value="d"> Adding more funds to a broker account</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">6. What does the Discounted Cash Flow (DCF) model primarily calculate?</div>
+            <label><input type="radio" name="q6" value="a"> Last year's profit</label>
+            <label><input type="radio" name="q6" value="b"> Future dividend tax</label>
+            <label><input type="radio" name="q6" value="c"> Intrinsic value of a company</label>
+            <label><input type="radio" name="q6" value="d"> CEO salary</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">7. The "Margin of Safety" concept suggests buying a stock:</div>
+            <label><input type="radio" name="q7" value="a"> At its 52-week high</label>
+            <label><input type="radio" name="q7" value="b"> Well below its calculated intrinsic value</label>
+            <label><input type="radio" name="q7" value="c"> Only if it pays high dividends</label>
+            <label><input type="radio" name="q7" value="d"> During a market crash without analysis</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">8. Which financial statement shows a company's assets and liabilities?</div>
+            <label><input type="radio" name="q8" value="a"> Profit & Loss Statement</label>
+            <label><input type="radio" name="q8" value="b"> Cash Flow Statement</label>
+            <label><input type="radio" name="q8" value="c"> Balance Sheet</label>
+            <label><input type="radio" name="q8" value="d"> Shareholder pattern</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">9. "Operating Cash Flow" is found in which document?</div>
+            <label><input type="radio" name="q9" value="a"> Balance Sheet</label>
+            <label><input type="radio" name="q9" value="b"> Cash Flow Statement</label>
+            <label><input type="radio" name="q9" value="c"> Income Statement</label>
+            <label><input type="radio" name="q9" value="d"> Audit Report</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">10. A high "Debt-to-Equity" ratio usually implies:</div>
+            <label><input type="radio" name="q10" value="a"> Zero risk</label>
+            <label><input type="radio" name="q10" value="b"> High financial leverage and potential risk</label>
+            <label><input type="radio" name="q10" value="c"> Excellent dividend growth</label>
+            <label><input type="radio" name="q10" value="d"> The company has no loans</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">11. In Options, 'Theta' measures:</div>
+            <label><input type="radio" name="q11" value="a"> Sensitivity to price movement</label>
+            <label><input type="radio" name="q11" value="b"> Sensitivity to time decay</label>
+            <label><input type="radio" name="q11" value="c"> Impact of volatility</label>
+            <label><input type="radio" name="q11" value="d"> Interest rates</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">12. Which Option Greek measures the rate of change of Delta?</div>
+            <label><input type="radio" name="q12" value="a"> Vega</label>
+            <label><input type="radio" name="q12" value="b"> Theta</label>
+            <label><input type="radio" name="q12" value="c"> Gamma</label>
+            <label><input type="radio" name="q12" value="d"> Rho</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">13. A 'Short Straddle' strategy involves:</div>
+            <label><input type="radio" name="q13" value="a"> Selling a Call and a Put at the same strike</label>
+            <label><input type="radio" name="q13" value="b"> Buying a Call and selling a stock</label>
+            <label><input type="radio" name="q13" value="c"> Selling only Out-of-the-money Calls</label>
+            <label><input type="radio" name="q13" value="d"> Trading in Equity only</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">14. What is 'Implied Volatility' (IV)?</div>
+            <label><input type="radio" name="q14" value="a"> The historical movement of the stock</label>
+            <label><input type="radio" name="q14" value="b"> The market's expectation of future volatility</label>
+            <label><input type="radio" name="q14" value="c"> The profit made by a trader</label>
+            <label><input type="radio" name="q14" value="d"> The dividend yield</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">15. If you are 'Bullish' but expect low volatility, which strategy is better?</div>
+            <label><input type="radio" name="q15" value="a"> Long Straddle</label>
+            <label><input type="radio" name="q15" value="b"> Bull Call Spread</label>
+            <label><input type="radio" name="q15" value="c"> Buying deep OTM Puts</label>
+            <label><input type="radio" name="q15" value="d"> Selling all shares</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">16. What is the maximum loss for an Option Buyer?</div>
+            <label><input type="radio" name="q16" value="a"> Unlimited</label>
+            <label><input type="radio" name="q16" value="b"> Limited to the premium paid</label>
+            <label><input type="radio" name="q16" value="c"> Equal to the strike price</label>
+            <label><input type="radio" name="q16" value="d"> Zero</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">17. In Futures trading, 'MTM' stands for:</div>
+            <label><input type="radio" name="q17" value="a"> Market To Money</label>
+            <label><input type="radio" name="q17" value="b"> Mark To Market</label>
+            <label><input type="radio" name="q17" value="c"> Monthly Trade Margin</label>
+            <label><input type="radio" name="q17" value="d"> Money Timing Model</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">18. What happens to the value of a Put Option if the stock price rises?</div>
+            <label><input type="radio" name="q18" value="a"> It increases</label>
+            <label><input type="radio" name="q18" value="b"> It decreases</label>
+            <label><input type="radio" name="q18" value="c"> It stays the same</label>
+            <label><input type="radio" name="q18" value="d"> It becomes a Call option</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">19. 'Vega' is most sensitive to:</div>
+            <label><input type="radio" name="q19" value="a"> Changes in time</label>
+            <label><input type="radio" name="q19" value="b"> Changes in volatility</label>
+            <label><input type="radio" name="q19" value="c"> Changes in interest rates</label>
+            <label><input type="radio" name="q19" value="d"> Changes in volume</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">20. An 'Iron Condor' is a:</div>
+            <label><input type="radio" name="q20" value="a"> High-risk directional strategy</label>
+            <label><input type="radio" name="q20" value="b"> Non-directional strategy aiming for range-bound markets</label>
+            <label><input type="radio" name="q20" value="c"> Strategy to buy gold</label>
+            <label><input type="radio" name="q20" value="d"> Way to analyze balance sheets</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">21. Professional risk management suggests risking no more than ____ per trade.</div>
+            <label><input type="radio" name="q21" value="a"> 1-2% of total capital</label>
+            <label><input type="radio" name="q21" value="b"> 10-20% of total capital</label>
+            <label><input type="radio" name="q21" value="c"> 50% of total capital</label>
+            <label><input type="radio" name="q21" value="d"> Whatever you feel like</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">22. What is 'Backtesting'?</div>
+            <label><input type="radio" name="q22" value="a"> Predicting the future with a crystal ball</label>
+            <label><input type="radio" name="q22" value="b"> Testing a strategy on historical data</label>
+            <label><input type="radio" name="q22" value="c"> Borrowing money from a bank</label>
+            <label><input type="radio" name="q22" value="d"> Buying stocks that are falling</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">23. A 'Break of Structure' (BOS) in an uptrend occurs when:</div>
+            <label><input type="radio" name="q23" value="a"> Price breaks below a previous significant Higher Low</label>
+            <label><input type="radio" name="q23" value="b"> Price moves sideways</label>
+            <label><input type="radio" name="q23" value="c"> Volume decreases</label>
+            <label><input type="radio" name="q23" value="d"> Dividends are announced</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">24. What is 'Revenge Trading'?</div>
+            <label><input type="radio" name="q24" value="a"> Trading with a plan</label>
+            <label><input type="radio" name="q24" value="b"> Attempting to recover losses by taking bigger, impulsive risks</label>
+            <label><input type="radio" name="q24" value="c"> Suing a broker</label>
+            <label><input type="radio" name="q24" value="d"> Successful institutional trading</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">25. Which indicator helps identify institutional 'Accumulation' or 'Distribution'?</div>
+            <label><input type="radio" name="q25" value="a"> Volume Profile / OBV</label>
+            <label><input type="radio" name="q25" value="b"> Simple Moving Average 5</label>
+            <label><input type="radio" name="q25" value="c"> GST Calculator</label>
+            <label><input type="radio" name="q25" value="d"> PE Ratio only</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">26. A 'Drawdown' in trading refers to:</div>
+            <label><input type="radio" name="q26" value="a"> A profit withdrawal</label>
+            <label><input type="radio" name="q26" value="b"> The peak-to-trough decline in account value</label>
+            <label><input type="radio" name="q26" value="c"> Depositing money</label>
+            <label><input type="radio" name="q26" value="d"> Technical glitch in charts</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">27. What does 'R:R Ratio' stand for?</div>
+            <label><input type="radio" name="q27" value="a"> Rate of Return</label>
+            <label><input type="radio" name="q27" value="b"> Risk to Reward Ratio</label>
+            <label><input type="radio" name="q27" value="c"> Revenue to Risk</label>
+            <label><input type="radio" name="q27" value="d"> Real-time Recovery</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">28. 'Open Interest' (OI) in derivatives tells us:</div>
+            <label><input type="radio" name="q28" value="a"> The price of the stock</label>
+            <label><input type="radio" name="q28" value="b"> Total number of outstanding active contracts</label>
+            <label><input type="radio" name="q28" value="c"> Number of people interested in buying the company</label>
+            <label><input type="radio" name="q28" value="d"> Bank interest rates</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">29. Which of these is a component of a 'Trading System'?</div>
+            <label><input type="radio" name="q29" value="a"> Entry Rules</label>
+            <label><input type="radio" name="q29" value="b"> Exit Rules</label>
+            <label><input type="radio" name="q29" value="c"> Risk Management</label>
+            <label><input type="radio" name="q29" value="d"> All of the above</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question">30. Successful trading is 10% Strategy, 20% Risk Management, and 70%:</div>
+            <label><input type="radio" name="q30" value="a"> Luck</label>
+            <label><input type="radio" name="q30" value="b"> Psychology & Discipline</label>
+            <label><input type="radio" name="q30" value="c"> Fast Internet</label>
+            <label><input type="radio" name="q30" value="d"> Expensive Software</label>
+        </div>
+
+        <button type="button" onclick="checkQuiz()">Submit Advanced Quiz</button>
+    </form>
+
+    <div class="result" id="resultBox">
+        <h2>Advanced Course Result</h2>
+        <h3 id="scoreText"></h3>
+        <h3 id="percentageText"></h3>
+        <h3 id="resultMessage"></h3>
+        <button onclick="location.reload()">Retry Quiz</button>
+        <button class="next-btn" onclick="window.location.href='index.html'">Back to Home</button>
+    </div>
+
+    <div id="certificate">
+        <div id="certificateDesign">
+            <img src="logo.png" alt="TEM Logo">
+            <h2 style="color:#b8860b; font-size: 32px; margin: 10px 0;">Certificate of Excellence</h2>
+            <p style="font-style: italic; font-size: 18px;">This is to certify that</p>
+            <h1 id="certName" style="font-size: 40px; border-bottom: 2px solid #333; display: inline-block; padding-bottom: 5px;"></h1>
+            <p style="font-size: 18px;">has successfully mastered the complexities of</p>
+            <h3 style="font-size: 24px; color: #1e293b;">Advanced Trading & Derivatives (Level 3)</h3>
+            <p>Demonstrating proficiency in Technical Analysis, Valuation, and F&O Strategies.</p>
+            <h2 style="font-family: 'Times New Roman'; margin-top: 30px;">Trading Ek Mission</h2>
+            <p id="certDate"></p>
+            <p class="cert-id" id="certID"></p>
+        </div>
+        <br>
+        <button onclick="downloadCertificate()">Download Certificate</button>
+    </div>
+</div>
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script>
+    let timeLeft = 600; // 15 minutes
+    let timer = setInterval(function() {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        document.getElementById("timer").innerText = minutes + ":" + seconds;
+        if (timeLeft <= 60) document.getElementById("timer").style.color = "red";
+        if (timeLeft <= 0) { clearInterval(timer); checkQuiz(); }
+        timeLeft--;
+    }, 1000);
+
+    function generateCertificateID() {
+        return "TEM-ADV-" + new Date().getFullYear() + "-" + Math.floor(100000 + Math.random() * 900000);
+    }
+
+    function checkQuiz() {
+        clearInterval(timer);
+        const answers = {
+            q1:"b", q2:"c", q3:"c", q4:"b", q5:"b",
+            q6:"c", q7:"b", q8:"c", q9:"b", q10:"b",
+            q11:"b", q12:"c", q13:"a", q14:"b", q15:"b",
+            q16:"b", q17:"b", q18:"b", q19:"b", q20:"b",
+            q21:"a", q22:"b", q23:"a", q24:"b", q25:"a",
+            q26:"b", q27:"b", q28:"b", q29:"d", q30:"b"
+        };
+
+        let score = 0;
+        let total = 30;
+
+        for (let q in answers) {
+            const selected = document.querySelector(`input[name=${q}]:checked`);
+            if (selected) {
+                if (selected.value === answers[q]) {
+                    score++;
+                    selected.parentElement.classList.add("correct");
+                } else {
+                    selected.parentElement.classList.add("wrong");
+                }
+            }
+        }
+
+        const percentage = Math.round((score / total) * 100);
+        document.getElementById("resultBox").style.display = "block";
+        document.getElementById("scoreText").innerText = `Score: ${score} / ${total}`;
+        document.getElementById("percentageText").innerText = `Percentage: ${percentage}%`;
+
+        if (percentage >= 70) {
+            document.getElementById("resultMessage").innerText = "🏆 outstanding! You are now an Advanced Trader.";
+            let name = document.getElementById("studentName").value;
+            if (name === "") {
+                alert("Please enter your name to generate the certificate.");
+            } else {
+                document.getElementById("certificate").style.display = "block";
+                document.getElementById("certName").innerText = name;
+                document.getElementById("certDate").innerText = "Date: " + new Date().toLocaleDateString();
+                document.getElementById("certID").innerText = "ID: " + generateCertificateID();
+            }
+        } else {
+            document.getElementById("resultMessage").innerText = "❌ Keep studying. You need 70% to pass the Advanced Level.";
+        }
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function downloadCertificate() {
+        const certificate = document.getElementById("certificateDesign");
+        html2canvas(certificate).then(canvas => {
+            let link = document.createElement("a");
+            link.download = "TEM-Advanced-Trader-Certificate.png";
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+    }
+</script>
+</body>
+</html>
