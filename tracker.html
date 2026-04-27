@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Tracker</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f0f0f;
+  color: #fff;
+}
+
+.container {
+  padding: 20px;
+  max-width: 500px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  color: #FFD700;
+}
+
+.card {
+  background: #1c1c1c;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+input[type="checkbox"] {
+  transform: scale(1.3);
+}
+
+.button {
+  width: 100%;
+  padding: 12px;
+  background: #FFD700;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.streak {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.date {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #ccc;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🔥 Daily Tracker</h1>
+<div class="date" id="date"></div>
+
+<div class="card">
+  <h3>🎬 YouTube Tasks</h3>
+  <div class="task">Learn Concept <input type="checkbox"></div>
+  <div class="task">Write Script <input type="checkbox"></div>
+  <div class="task">Record Video <input type="checkbox"></div>
+  <div class="task">Edit Video <input type="checkbox"></div>
+  <div class="task">Upload Video <input type="checkbox"></div>
+</div>
+
+<div class="card">
+  <h3>⚡ Minimum Rule</h3>
+  <div class="task">Posted something today <input type="checkbox"></div>
+</div>
+
+<div class="card">
+  <h3>🧠 Focus</h3>
+  <div class="task">1 Hour No Distraction <input type="checkbox"></div>
+</div>
+
+<button class="button" onclick="saveData()">Save Progress</button>
+
+<div class="streak">
+  🔁 Streak: <span id="streak">0</span> days
+</div>
+
+</div>
+
+<script>
+
+// Show today's date
+const today = new Date();
+document.getElementById("date").innerText = today.toDateString();
+
+const todayStr = today.toDateString();
+let lastDate = localStorage.getItem("lastDate");
+
+// If new day → reset tasks
+if (lastDate !== todayStr) {
+  localStorage.setItem("lastDate", todayStr);
+
+  document.querySelectorAll("input[type='checkbox']").forEach((cb, index) => {
+    cb.checked = false;
+    localStorage.removeItem("task_" + index);
+  });
+}
+
+// Load saved checkbox states
+document.querySelectorAll("input[type='checkbox']").forEach((cb, index) => {
+  let saved = localStorage.getItem("task_" + index);
+  cb.checked = saved === "true";
+
+  cb.addEventListener("change", () => {
+    localStorage.setItem("task_" + index, cb.checked);
+  });
+});
+
+// Load streak
+let streak = parseInt(localStorage.getItem("streak")) || 0;
+document.getElementById("streak").innerText = streak;
+
+// Smart streak logic
+function saveData() {
+  const checkboxes = document.querySelectorAll("input[type='checkbox']");
+  
+  // Upload Video = index 4
+  // Minimum Rule = index 5
+  if (checkboxes[4].checked || checkboxes[5].checked) {
+    streak++;
+    localStorage.setItem("streak", streak);
+    document.getElementById("streak").innerText = streak;
+    alert("🔥 Streak Updated! Keep Going!");
+  } else {
+    alert("⚠️ Complete at least Upload or Minimum Task!");
+  }
+}
+
+</script>
+
+</body>
+</html>
